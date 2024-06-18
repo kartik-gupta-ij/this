@@ -48,7 +48,7 @@ export default function Events() {
                 <div className="w-8/10 mx-10 bg-gradient-to-b from-[#FFF5E3] via-[#FFF5E3] to-[#FFEDCC]">
                     <div className="text-left p-4 flex relative ">
                         <div className="w-4/5 z-10">
-                        <p className='text-xl font-bold'>~JANMASHTAMI~ </p>
+                            <p className='text-xl font-bold'>~JANMASHTAMI~ </p>
                             <p className='text-xl leading-14 tracking-tight'>
                                 Join us for a divine celebration of this sacred event will immerse you in the timeless teachings and joyous festivities associated with the divine appearance of Lord Krishna.<br /><br /> Date: 26 Aug <br />Time: 11 PM <br />Venue: ISCON Temple, Noida
                             </p>
@@ -62,7 +62,7 @@ export default function Events() {
                 <div className="w-8/10 mx-10 bg-gradient-to-b from-[#FFF5E3] via-[#FFF5E3] to-[#FFEDCC] mt-6">
                     <div className="text-left p-4 flex relative ">
                         <div className="w-4/5 z-10">
-                        <p className='text-xl font-bold'>~Ratha Yatra Festival~ </p>
+                            <p className='text-xl font-bold'>~Ratha Yatra Festival~ </p>
                             <p className='text-xl leading-14 tracking-tight'>
                                 Join us for a divine celebration of this sacred event will immerse you in the timeless teachings and joyous festivities associated with the divine appearance of Lord Krishna.<br /><br /> Date: 26 Aug <br />Time: 11 PM <br />Venue: ISCON Temple, Noida
                             </p>
@@ -72,8 +72,31 @@ export default function Events() {
                         </div>
                     </div>
                 </div>
-                
+
             </div>
+            <div
+                class="bg-orange-500 p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4"
+            >
+                <div class="flex flex-col items-center space-y-2">
+                    <div class="bg-white p-4 rounded-lg flex items-center justify-center">
+                        <img src="https://placehold.co/50x50" alt="Add Image" class="h-12 w-12" />
+                    </div>
+                    <span class="text-white">Add Image</span>
+                </div>
+                <div class="flex flex-col space-y-4 flex-grow">
+                    <input
+                        type="text"
+                        placeholder="Name of event"
+                        class="p-2 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
+                    />
+                    <textarea
+                        placeholder="Content of the event like venue, time, date, etc."
+                        class="p-2 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
+                    ></textarea>
+                    <button class="bg-teal-600 text-white p-2 rounded-lg">Upload blog</button>
+                </div>
+            </div>
+
         </div>
     )
 }

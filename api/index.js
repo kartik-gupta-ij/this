@@ -9,15 +9,15 @@ import path from 'path';
 import cors from 'cors'
 dotenv.config();
 
-// mongoose
-//   .connect(process.env.MONGO)
-//   .then(() => {
-//     console.log('Connected to MongoDB');
-//     console.log(process.env.MONGO);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
+mongoose
+  .connect(process.env.MONGO)
+  .then(() => {
+    console.log('Connected to MongoDB');
+    console.log(process.env.MONGO);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const __dirname = path.resolve();
 
