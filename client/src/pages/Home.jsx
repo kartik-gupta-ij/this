@@ -16,9 +16,9 @@ export default function Home() {
                     <div>
                         <img src={image} width="600px" />
                     </div>
-                    <div className="bg-gradient-to-r from-white via-[#FFFFFF] to-[#FFEDCC] rounded-2xl">
-                        <p className="text-gray-600 font-normal md:text-4xl leading-14 tracking-tight md:mt-[130px] text-[14px] ">"Discover the profound <br />teachings and timeless <br />wisdom of ISKCON. Explore <br /> our offerings and deepen your <br />spiritual journey."</p>
-                        <button className="rounded-lg px-5 py-3 bg-[#008080] text-white font-bold mt-5 text-2xl">
+                    <div className="md:bg-gradient-to-r from-white via-[#FFFFFF] to-[#FFEDCC] rounded-2xl">
+                        <p className="text-[#6A6A6A] font-normal md:text-4xl leading-14 tracking-tight md:mt-[130px] text-[14px] mt-6">"Discover the profound <br />teachings and timeless <br />wisdom of ISKCON. Explore <br /> our offerings and deepen your <br />spiritual journey."</p>
+                        <button className="rounded-lg md:px-5 md:py-3 px-3 py-2 bg-[#008080] text-white font-bold mt-5 md:text-2xl text-[16px]">
                             <Link to="login">Join Us</Link>
                         </button>
                     </div>
@@ -34,10 +34,10 @@ export default function Home() {
                 </div>
                 <div className="flex gap-4 mt-6">
                     <div >
-                        <img src={scheduler} className="w-[900px] pl-20 " />
+                        <img src={scheduler} className="w-[900px] md:pl-20 pl-10 " />
                     </div>
                     <div className='relative'>
-                        <img src={diya} className="w-[800px] absolute  bottom-0 -left-20" />
+                        <img src={diya} className="w-[800px] absolute  bottom-0 md:-left-20 -left-10" />
                         <img src={bgDiya} className="w-[500px] h-full overflow-x-hidden" />
                     </div>
                 </div>

@@ -11,11 +11,11 @@ function Header() {
 
   return (
     <div className='relative'>
-      <div className=" md:flex justify-between mt-5 mx-8 px-3 py-2 items-center border-2 border-[#FFEDCC] rounded-2xl">
+      <div className=" md:flex justify-between md:mt-5 mt-3 md:mx-8 mx-4 px-3 py-2 items-center md:border-2 border-[#FFEDCC] rounded-2xl">
         <div className="flex items-center ">
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="Logo" loading="lazy" className="mr-2" />
-            <img src={sadhna} alt="sadhana" loading="lazy" />
+            <img src={logo} alt="Logo" loading="lazy" className="mr-2 hidden md:flex" />
+            <img src={sadhna} alt="sadhana" loading="lazy" className='w-[74px]     h-[22px]'/>
           </Link>
         </div>
 

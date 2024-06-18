@@ -46,7 +46,7 @@ function Signup() {
 
   return (
     <div className='flex justify-center items-center'>
-      <div className='flex justify-center items-center flex-col w-[600px]'>
+      <div className='flex justify-center items-center flex-col md:w-[600px] w-[400px]'>
         <Herosection
           heading="Begin your journey"
           subheading="Open your heart to the divine presence. Sign up today and experience the transformative power of bhakti yoga."

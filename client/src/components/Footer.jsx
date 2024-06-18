@@ -89,7 +89,7 @@ export default function Footer() {
                 </div>
             </div>
             {/* Mobile View */}
-            <div className="md:hidden w-full fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300">
+            <div className="md:hidden w-auto fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300">
                 <div className="flex space-x-6 justify-center items-center py-4">
                     <div className="flex flex-col items-center">
                         <img src={home} alt="home" className="mb-1" />
