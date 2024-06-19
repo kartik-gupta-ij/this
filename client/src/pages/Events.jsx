@@ -6,37 +6,37 @@ export default function Events() {
         <div className='w-full'>
             <p className='text-3xl  leading-6 tracking-tight  font-bold mt-10 ml-10' >Birthday & Anniversary</p>
             <div className='w-8/10 mx-auto'>
-                <div className='flex flex-row m-10 justify-around bg-[#FFEDCC] p-6'>
-                    <div className='mr-6 mb-6'>
-                        <p className='text-xl text-[#FFA500]  leading-6 tracking-tight   '>"Celebrating 35 years"</p>
-                        <p className='text-xl  leading-6 tracking-tight  '>Wishing you a joyous birthday filled with love, laughter, and blessings. May this year be your best one yet!</p>
-                        <p className='text-xl  leading-6 tracking-tight   '>Anurag Anant</p>
-                        <p className='text-lg  leading-6 tracking-tight text-[#008080]  '>Birthday (15 April)</p>
-                        <p className='text-lg  leading-6 tracking-tight  '>Chairman of the management community of ISCON
+                <div className='flex flex-row m-10 justify-around bg-[#FFEDCC] md:p-6 p-2'>
+                    <div className='md:mr-6 md:mb-6'>
+                        <p className='md:text-xl text-[12px] text-[#FFA500]  leading-6 tracking-tight   '>"Celebrating 35 years"</p>
+                        <p className='md:text-xl text-[12px] md:leading-6 tracking-tight  '>Wishing you a joyous birthday filled with love, laughter, and blessings. May this year be your best one yet!</p>
+                        <p className='md:text-xl text-[12px]  md:leading-6 tracking-tight   '>Anurag Anant</p>
+                        <p className='md:text-lg text-[12px]  md:leading-6 tracking-tight text-[#008080]  '>Birthday (15 April)</p>
+                        <p className='md:text-lg text-[12px]  md:leading-6 tracking-tight  '>Chairman of the management community of ISCON
                         </p>
                     </div>
-                    <div className='ml-10 flex flex-col justify-center items-center'>
-                        <div className='w-[60px] h-[60px] bg-red-400 rounded-full'></div>
+                    <div className='md:ml-10 ml-2 flex flex-col justify-center items-center'>
+                        <div className='md:w-[60px] md:h-[60px] w-[50px] h-[50px] bg-red-400 rounded-full'></div>
                         <div>
-                            <button className="rounded-lg px-5 py-3 bg-[#008080] text-white font-bold mt-5 text-xl">
+                            <button className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
                                 <Link to="login">Wish&nbsp;Now</Link>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-row m-10 justify-around bg-[#FFEDCC] p-6'>
-                    <div className='mr-6 mb-6'>
-                        <p className='text-xl text-[#FFA500]  leading-6 tracking-tight   '>"Divine Union: Happy Anniversary, Dear Devotees!" </p>
-                        <p className='text-xl  leading-6 tracking-tight  '>"Wishing a blissful anniversary to two souls united in devotion! May your love continue to shine bright, guided by the divine light of Lord Krishna. Here's to many more years of happiness, love, and spiritual growth together. Jai Radha-Krishna!"</p>
-                        <p className='text-xl  leading-6 tracking-tight   '>Shiv Kumar Singh</p>
-                        <p className='text-lg  leading-6 tracking-tight text-[#008080]  '>Marriage Anniversary (15 April)</p>
-                        <p className='text-lg  leading-6 tracking-tight  '>Devotee of community of ISCON
+                <div className='flex flex-row m-10 justify-around bg-[#FFEDCC] md:p-6 p-2'>
+                    <div className='md:mr-6 md:mb-6'>
+                        <p className='md:text-xl text-[12px] text-[#FFA500]  leading-6 tracking-tight   '>"Celebrating 35 years"</p>
+                        <p className='md:text-xl text-[12px] md:leading-6 tracking-tight  '>Wishing you a joyous birthday filled with love, laughter, and blessings. May this year be your best one yet!</p>
+                        <p className='md:text-xl text-[12px]  md:leading-6 tracking-tight   '>Anurag Anant</p>
+                        <p className='md:text-lg text-[12px]  md:leading-6 tracking-tight text-[#008080]  '>Birthday (15 April)</p>
+                        <p className='md:text-lg text-[12px]  md:leading-6 tracking-tight  '>Chairman of the management community of ISCON
                         </p>
                     </div>
-                    <div className='ml-10 flex flex-col justify-center items-center'>
-                        <div className='w-[60px] h-[60px] bg-red-400 rounded-full'></div>
+                    <div className='md:ml-10 ml-2 flex flex-col justify-center items-center'>
+                        <div className='md:w-[60px] md:h-[60px] w-[50px] h-[50px] bg-red-400 rounded-full'></div>
                         <div>
-                            <button className="rounded-lg px-5 py-3 bg-[#008080] text-white font-bold mt-5 text-xl">
+                            <button className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
                                 <Link to="login">Wish&nbsp;Now</Link>
                             </button>
                         </div>
@@ -75,7 +75,7 @@ export default function Events() {
 
             </div>
             <div
-                class="bg-orange-500 p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4"
+                class="bg-[#FFA500] p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4"
             >
                 <div class="flex flex-col items-center space-y-2">
                     <div class="bg-white p-4 rounded-lg flex items-center justify-center">
@@ -96,7 +96,7 @@ export default function Events() {
                     <button class="bg-teal-600 text-white p-2 rounded-lg">Upload blog</button>
                 </div>
             </div>
-
+            <div className='h-[150px]'></div>
         </div>
     )
 }

@@ -10,7 +10,7 @@ import book8 from '../assets/book8.png'
 import { Link } from 'react-router-dom'
 
 export default function Assets() {
-    return (
+    return (<>
         <div className='mt-5'>
             <div className='flex justify-between items-center px-6 py-4 '>
                 <div>
@@ -47,11 +47,11 @@ export default function Assets() {
                 </div>
             </div>
             <div className='grid md:grid-cols-2 gird-col-1 gap-5 mx-6'>
-                <div className='flex gap-4 bg-[#FFEDCC] p-4'>
-                    <div className='p-4'>
-                        <img src={book5} />
+            <div className='flex gap-4 bg-[#FFEDCC] md:p-4 p-1'>
+                    <div className='md:p-4 p-1'>
+                        <img src={book6} className='w-[150px] h-[101px]'/>
                     </div>
-                    <div className='p-4'>
+                    <div className='md:p-4 p-1'>
                         <p className='md:text-xl text-[11px]'>
                             Why is Bhagwad Geeta should be read by every person to get useful insights?
                         </p>
@@ -105,7 +105,7 @@ export default function Assets() {
                 </div>
             </div>
             <div
-                class="bg-orange-500 p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4"
+                class="bg-[#FFA500] p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4"
             >
                 <div class="flex flex-col items-center space-y-2">
                     <div class="bg-white p-4 rounded-lg flex items-center justify-center">
@@ -128,5 +128,7 @@ export default function Assets() {
             </div>
 
         </div>
+        <div className='w-full h-[150px]'></div>
+        </>
     )
 }

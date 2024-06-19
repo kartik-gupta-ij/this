@@ -39,11 +39,18 @@ function Community() {
                             </button>
                         </div>
                     </div>
-                    <div className='w-full flex flex-row justify-around mt-3 text-xl'>
-                        <div className='bg-[#FFEDCC] py-1 px-3'>All Questions</div>
+                    <div className='w-full hidden md:flex flex-row justify-around mt-3 md:text-xl text-[12px]'>
+                        <div className='bg-[#FFEDCC] py-1 md:px-3 px-1'>All Questions</div>
                         <div className='bg-[#FFEDCC] py-1 px-3'>My Questions</div>
                         <div className='bg-[#FFEDCC] py-1 px-3'>Unanswered Question’s</div>
                         <div className='bg-[#FFEDCC] py-1 px-3'>My Answers</div>
+                    </div>
+                    {/* Mobile view */}
+                    <div className='w-full flex md:hidden flex-row justify-between gap-2 mt-3 md:text-xl text-[12px]'>
+                        <div className='bg-[#FFEDCC] py-1 md:px-3 px-1'>All Q's</div>
+                        <div className='bg-[#FFEDCC] py-1 px-1'>My Q's</div>
+                        <div className='bg-[#FFEDCC] py-1 px-1'>Unanswered Q’s</div>
+                        <div className='bg-[#FFEDCC] py-1 px-1'>My Answers</div>
                     </div>
                     <div className='w-full   border-2 border-[#FFA500] mt-5 p-5 rounded-xl'>
                         <div className='flex m-2'>
