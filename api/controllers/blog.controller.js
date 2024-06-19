@@ -1,6 +1,5 @@
-const blogModel = require("../models/blog.model")
-
-const getAllBlog = async (req, res) => {
+import blogModel from "../models/blog.model.js"
+export const getAllBlog = async (req, res) => {
     try {
         const blog = await blogModel.find({});
         res.status(200).json({data: blog, status: "Success"});
@@ -9,7 +8,7 @@ const getAllBlog = async (req, res) => {
     }
 }
 
-const createBlog = async (req, res) => {
+export const createBlog = async (req, res) => {
     const {headline, image, content} = req.body;
     try {
         
@@ -24,4 +23,4 @@ const createBlog = async (req, res) => {
     }
 }
 
-module.exports = {getAllBlog, createBlog};
+// module.exports = {getAllBlog, createBlog};

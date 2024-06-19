@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const BlogSchema = new mongoose.Schema({
     headline: {
@@ -14,6 +14,8 @@ const BlogSchema = new mongoose.Schema({
         required: true,
         trim: true
     }
-}, {timestamps})
-
-module.exports = mongoose.model("Blog", BlogSchema);
+},
+{ timestamps: true }
+);
+const Blog = mongoose.model("Blog", BlogSchema);
+export default Blog;

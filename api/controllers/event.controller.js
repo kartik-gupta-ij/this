@@ -1,6 +1,6 @@
-const eventModel = require("../models/event.model");
+import  eventModel from "../models/event.model.js";
 
-const getAllEvent = async (req, res) => {
+export const getAllEvent = async (req, res) => {
     try {
         const event = await eventModel.find({});
         res.status(200).json({data: event, status: "Success"});
@@ -9,7 +9,7 @@ const getAllEvent = async (req, res) => {
     }
 }
 
-const createEvent = async (req, res) => {
+export const createEvent = async (req, res) => {
     const {title, image, content} = req.body;
     try {
         
@@ -23,5 +23,3 @@ const createEvent = async (req, res) => {
         
     }
 }
-
-module.exports = {getAllEvent, createEvent};

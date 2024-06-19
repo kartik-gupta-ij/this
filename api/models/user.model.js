@@ -53,6 +53,9 @@ const userSchema = new mongoose.Schema(
     dateOfBirth: {
       type: Date, // Assuming date of birth is a date
     },
+    points: {
+      type: Number,
+    },
     profilePicture: {
       type: String,
       default:
