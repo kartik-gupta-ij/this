@@ -44,7 +44,7 @@ export default function SignIn() {
   return (
     <>
       <div className='flex justify-center items-center mb-3'>
-        <div className='flex justify-center items-center flex-col w-[600px]'>
+        <div className='flex justify-center items-center flex-col md:w-[600px] w-[300px]'>
           <Herosection heading="Welcome back devoted soul" subheading="Return to the path of divine love. Sign in and walk hand-in-hand with lord Krishna" />
           <div className='mt-5'>
             <form onSubmit={handleSubmit}>
@@ -79,9 +79,9 @@ export default function SignIn() {
               </div>
               <br />
 
-              <div className='flex flex-row'>
+              <div className='hidden md:flex flex-row'>
                 <div><input type="checkbox" /></div>
-                <div>
+                <div className=''>
                   <p className='text-xl tracking-tight pl-2 text-center'>
                     I agree to the <span className='text-[#008080]'>Terms of Service</span> and <span className='text-[#008080]'>Privacy Policy</span>
                   </p>
@@ -97,14 +97,16 @@ export default function SignIn() {
               <br />
             </form>
            <OAuth/>
-            <div className='mt-3'>
-              <p className='text-xl tracking-tight pl-2 text-center'>
+            <div className='mt-3 '>
+              <p className=' text-xl tracking-tight pl-2 text-center'>
                 Don't have an account? <Link to="/signup"><span className='text-[#008080]'>Sign Up</span></Link>
               </p>
             </div>
           </div>
         </div>
+        
       </div>
+      <div className='w-full h-[100px] md:hidden'></div>
     </>
   );
 }

@@ -44,9 +44,9 @@ function Signup() {
     }
   };
 
-  return (
+  return (<>
     <div className='flex justify-center items-center'>
-      <div className='flex justify-center items-center flex-col md:w-[600px] w-[400px]'>
+      <div className='flex justify-center items-center flex-col md:w-[600px] w-[300px]'>
         <Herosection
           heading="Begin your journey"
           subheading="Open your heart to the divine presence. Sign up today and experience the transformative power of bhakti yoga."
@@ -171,7 +171,10 @@ function Signup() {
           </div>
         </div>
       </div>
+     
     </div>
+    <div className='w-full h-[100px] md:hidden'></div>
+    </>
   );
 }
 

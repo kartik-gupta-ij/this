@@ -17,20 +17,17 @@ export default function Home() {
                         <img src={image} width="600px" />
                     </div>
                     <div className="md:bg-gradient-to-r from-white via-[#FFFFFF] to-[#FFEDCC] rounded-2xl">
-                        <p className="text-[#6A6A6A] font-normal md:text-4xl leading-14 tracking-tight md:mt-[130px] text-[14px] mt-6">"Discover the profound <br />teachings and timeless <br />wisdom of ISKCON. Explore <br /> our offerings and deepen your <br />spiritual journey."</p>
+                        <p className="text-[#6A6A6A] -ml-3 font-normal md:text-4xl leading-14  md:mt-[130px] text-[14px] mt-6 leading-6 tracking-wide text-left">"Discover the profound teachings and timeless wisdom of ISKCON. Explore our offerings and deepen your spiritual journey."</p>
                         <button className="rounded-lg md:px-5 md:py-3 px-3 py-2 bg-[#008080] text-white font-bold mt-5 md:text-2xl text-[16px]">
                             <Link to="login">Join Us</Link>
                         </button>
                     </div>
-
                 </div>
             </div>
-
-
             <div className='bg-[#FFF5E3] m-4 rounded-2xl pb-8'>
                 <div className=''>
-                    <p className="md:pl-20 pl-10 pt-10 md:text-5xl text-[16px] leading-6 tracking-tight">Daily prayers time at ISKCON temple</p>
-                    <p className="md:pl-20 pl-10 pr-20 md:text-2xl text-[10px] tracking-wider md:mt-10 mt-4">The daily fixed aarti times are typically based on traditional Vedic practices and are designed to align with specific periods of the day that are considered auspicious for offering worship to the Deities.</p>
+                    <p className="md:pl-20 pl-8 pt-10 md:text-5xl text-[16px] leading-6 tracking-tight  font-bold">Daily prayers time at ISKCON temple</p>
+                    <p className="md:pl-20 pl-8 md:pr-20 pr-8 md:text-2xl text-[10px]  md:mt-10 mt-4 text-[#6A6A6A] leading-4 tracking-tight text-left">The daily fixed aarti times are typically based on traditional Vedic practices and are designed to align with specific periods of the day that are considered auspicious for offering worship to the Deities.</p>
                 </div>
                 <div className="flex gap-4 mt-6">
                     <div >
@@ -57,8 +54,6 @@ export default function Home() {
                         <img src={resources} className='w-[24px] h-[24px]' />
                         <p className='md:text-3xl text-[12px]  leading-6 tracking-tight text-white font-bold '>Resources</p>
                     </div>
-
-
                 </div>
             </div>
             

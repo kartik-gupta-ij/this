@@ -46,13 +46,13 @@ export default function Assets() {
                     </p>
                 </div>
             </div>
-            <div className='grid grid-cols-2 gap-5 mx-6'>
+            <div className='grid md:grid-cols-2 gird-col-1 gap-5 mx-6'>
                 <div className='flex gap-4 bg-[#FFEDCC] p-4'>
                     <div className='p-4'>
                         <img src={book5} />
                     </div>
                     <div className='p-4'>
-                        <p className='text-xl'>
+                        <p className='md:text-xl text-[11px]'>
                             Why is Bhagwad Geeta should be read by every person to get useful insights?
                         </p>
                         <button className="rounded-lg px-2 py-1 bg-[#008080] text-white  mt-2 text-md">
@@ -61,12 +61,12 @@ export default function Assets() {
                     </div>
 
                 </div>
-                <div className='flex gap-4 bg-[#FFEDCC] p-4'>
-                    <div className='p-4'>
-                        <img src={book6} />
+                <div className='flex gap-4 bg-[#FFEDCC] md:p-4 p-1'>
+                    <div className='md:p-4 p-1'>
+                        <img src={book6} className='w-[150px] h-[101px]'/>
                     </div>
-                    <div className='p-4'>
-                        <p className='text-xl'>
+                    <div className='md:p-4 p-1'>
+                        <p className='md:text-xl text-[11px]'>
                             Why is Bhagwad Geeta should be read by every person to get useful insights?
                         </p>
                         <button className="rounded-lg px-2 py-1 bg-[#008080] text-white  mt-2 text-md">
@@ -80,7 +80,7 @@ export default function Assets() {
                         <img src={book7} />
                     </div>
                     <div className='p-4'>
-                        <p className='text-xl'>
+                        <p className='md:text-xl text-[11px]'>
                             Why is Bhagwad Geeta should be read by every person to get useful insights?
                         </p>
                         <button className="rounded-lg px-2 py-1 bg-[#008080] text-white  mt-2 text-md">
@@ -94,7 +94,7 @@ export default function Assets() {
                         <img src={book8} />
                     </div>
                     <div className='p-4'>
-                        <p className='text-xl'>
+                        <p className='md:text-xl text-[11px]'>
                             Why is Bhagwad Geeta should be read by every person to get useful insights?
                         </p>
                         <button className="rounded-lg px-2 py-1 bg-[#008080] text-white  mt-2 text-md">
