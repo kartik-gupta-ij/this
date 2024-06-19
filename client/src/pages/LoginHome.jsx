@@ -7,9 +7,7 @@ import events1 from '../assets/events1.png';
 import flat from '../assets/flat.png';
 
 
-function LoginHome() {
-
-    
+function LoginHome() {  
 
     return (
         <>
@@ -17,10 +15,10 @@ function LoginHome() {
                 <div className="bg-gradient-to-b from-white via-[#FFFFFF] to-[#FFEDCC] rounded-2xl">
                     <div className="grid grid-cols-2 mr-4 mt-4">
                         <div>
-                            <img src={home} width="600px" alt="Home" />
+                            <img src={home} className='md:w-[600px] w-[186px]' alt="Home" />
                         </div>
-                        <div>
-                            <p className="text-gray-600 font-normal text-4xl leading-14 tracking-tight mt-[130px] ">Namaskar Kavita! <br />"Begin your Sadhana journey here"</p>
+                        <div className='-m-[60px]'>
+                            <p className="text-gray-600 font-normal text-4xl leading-14 tracking-tight mt-[130px] text-[14px] ">Namaskar Kavita! <br />"Begin your Sadhana journey here"</p>
                             <div className='flex mt-5'>
                                 <div className="relative mb-2  flex items-center ">
                                     <input type="text" id="email-address-icon" className="bg-gray-50 border border-gray-300 text-[#FFA500] text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fill Sadhana"></input>
@@ -57,7 +55,7 @@ function LoginHome() {
                             </div>
                         </div>
                         <div>
-                            <p className='bg-[#FFA500] w-full py-2 px-1 text-white text-center'>|| Hare Krishna Hare Krishna Krishna Krishna Hare Hare ||</p>
+                            <p className='bg-[#FFA500] text-[12px] w-full py-2 px-1 text-white text-center'>|| Hare Krishna Hare Krishna Krishna Krishna Hare Hare ||</p>
                         </div>
                     </div>
                     <div className="text-center p-4">

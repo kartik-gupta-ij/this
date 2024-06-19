@@ -12,11 +12,22 @@ function Header() {
   return (
     <div className='relative'>
       <div className=" md:flex justify-between md:mt-5 mt-3 md:mx-8 mx-4 px-3 py-2 items-center md:border-2 border-[#FFEDCC] rounded-2xl">
-        <div className="flex items-center ">
+        <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img src={logo} alt="Logo" loading="lazy" className="mr-2 hidden md:flex" />
-            <img src={sadhna} alt="sadhana" loading="lazy" className='w-[74px]     h-[22px]'/>
+            <img src={sadhna} alt="sadhana" loading="lazy" className='w-[74px] h-[22px]' />
           </Link>
+          <div className='flex space-x-3'>
+            {!currentUser && <li className=" block rounded-lg px-4 py-2  text-[#FFA500] font-bold">
+              <Link to="/signin">Login</Link>
+            </li>}
+            {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
+            {!currentUser && <li  className=" block rounded-lg px-4 py-2 bg-[#FFA500] text-white font-bold">
+                <Link to="/signin">Join Us</Link>
+              </li>}
+              {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
+           
+          </div>
         </div>
 
         <div>
@@ -68,14 +79,14 @@ function Header() {
               <li>
                 <Link to="/sadhna" className={`${location.pathname === '/sadhna' ? 'text-[#008080]' : ''}`}>Sadhana</Link>
               </li>
-              {!currentUser && <li  className=" block rounded-lg px-4 py-2 bg-[#FFA500] text-white font-bold">
+              {!currentUser && <li className=" block rounded-lg px-4 py-2 bg-[#FFA500] text-white font-bold">
                 <Link to="/signin">Login</Link>
               </li>}
               {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
             </ul>
           </nav>
         </div>
-      </div>     
+      </div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ export default function Home() {
     return (
         <>
             <div>
-                <div className="grid grid-cols-2 mr-4 mt-4">
+                <div className="grid grid-cols-2 mr-4 mt-4 font-inria">
                     <div>
                         <img src={image} width="600px" />
                     </div>
@@ -28,7 +28,7 @@ export default function Home() {
 
 
             <div className='bg-[#FFF5E3] m-4 rounded-2xl pb-8'>
-                <div >
+                <div className=''>
                     <p className="md:pl-20 pl-10 pt-10 md:text-5xl text-[16px] leading-6 tracking-tight">Daily prayers time at ISKCON temple</p>
                     <p className="md:pl-20 pl-10 pr-20 md:text-2xl text-[10px] tracking-wider md:mt-10 mt-4">The daily fixed aarti times are typically based on traditional Vedic practices and are designed to align with specific periods of the day that are considered auspicious for offering worship to the Deities.</p>
                 </div>
