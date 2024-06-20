@@ -77,7 +77,7 @@ function Header() {
                 <Link to="/assets" className={`${location.pathname === '/assets' ? 'text-[#008080]' : ''}`}>Assets</Link>
               </li>
               <li>
-                <Link to="/sadhna" className={`${location.pathname === '/sadhna' ? 'text-[#008080]' : ''}`}>Sadhana</Link>
+                <Link to="/sadhana/form" className={`${location.pathname === '/sadhana/forms' ? 'text-[#008080]' : ''}`}>Sadhana</Link>
               </li>
               {!currentUser && <li className=" block rounded-lg px-4 py-2 bg-[#FFA500] text-white font-bold">
                 <Link to="/signin">Login</Link>

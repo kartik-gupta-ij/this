@@ -7,7 +7,18 @@ import { FaReplyAll } from "react-icons/fa";
 function Community() {
     return (
         <>
+            <div className='w-full flex justify-center items-center'>
+                <div className='md:hidden w-[300px] h-[46px]  flex justify-between border-2 border-[#008080]'>
+                    <div className='w-1/2 text-center'>
+                        ChatRoom
+                    </div>
+                        <div className='w-1/2 text-center bg-[#008080] align-middle'>
+                        Q & A
+                    </div>
+                </div>
+            </div>
             <div className='w-full flex justify-center items-center mt-15 rounded-sm'>
+
                 <div className='w-4/5 '>
                     <div >
                         <div className='bg-[#FFEDCC] m-6 text-center flex flex-row justify-around items-center rounded-xl'>

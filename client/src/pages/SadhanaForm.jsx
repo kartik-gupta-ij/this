@@ -45,7 +45,7 @@ export default function SadhanaForm() {
 
     return (
         <div>
-            <div className="grid grid-cols-2 mr-4 mt-4">
+            <div className="hidden md:grid grid-cols-2 mr-4 mt-4">
                 <div>
                     <img src={sadhanaForm} width="600px" alt="Home" />
                 </div>
@@ -56,35 +56,38 @@ export default function SadhanaForm() {
                 </div>
             </div>
 
-            <h2>Schedule Sadhana</h2>
+            <h2 className='mx-3'>Schedule Sadhana</h2>
 
             <form onSubmit={handleSubmit}>
                 <div className='flex justify-around'>
                     <input type='date' value={date} onChange={(e) => setDate(e.target.value)} />
                     <input type='text' placeholder='Topic of Sadhana you want to practice...' value={topic} onChange={(e) => setTopic(e.target.value)} />
                 </div>
-                <div>
+                <div className='mx-3'>
                     <p>Select the number of rounds for chanting</p>
-                    <div className='grid grid-cols-7 gap-3 text-center mx-9'>
+                    <div className='grid md:grid-cols-7 grid-cols-3 gap-3 text-center md:mx-9 mx-3 text-[12px]'>
                         {renderOptions(options.rounds, rounds, setRounds)}
                     </div>
                 </div>
                 <div>
-                    <p>Select the time interval for chanting</p>
-                    <div className='grid grid-cols-4 gap-3 text-center mx-9'>
+                    <p className='mx-3'>Select the time interval for chanting</p>
+                    <div className='grid md:grid-cols-7 grid-cols-3 gap-3 text-center md:mx-9 mx-3 text-[12px]'>
                         {renderOptions(options.interval, interval, setInterval)}
                     </div>
                 </div>
                 <div>
-                    <p>Select the number of chanting rounds</p>
-                    <div className='grid grid-cols-5 gap-3 text-center mx-9'>
+                    <p className='mx-3'>Select the number of chanting rounds</p>
+                    <div className='grid md:grid-cols-7 grid-cols-3 gap-3 text-center md:mx-9 mx-3 text-[12px]'>
                         {renderOptions(options.chanting, chanting, setChanting)}
                     </div>
                 </div>
-                <button className="py-2 px-10 rounded-md shadow-lg font-medium text-gray-100 block transition duration-300 bg-[#008080] text-xl" type="submit">
-                    Schedule
-                </button>
+                <div className='w-full flex justify-center mt-5'>
+                    <button className=" py-2 px-10 rounded-md shadow-lg font-medium text-gray-100 block transition duration-300 bg-[#008080] text-xl" type="submit">
+                        Submit
+                    </button>
+                </div>
             </form>
+            <div className='h-[150px]'></div>
         </div>
     );
 }
