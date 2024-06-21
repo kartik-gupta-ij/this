@@ -11,20 +11,20 @@ function Header() {
 
   return (
     <div className='relative'>
-      <div className=" md:flex justify-between md:mt-5 mt-3 md:mx-8 mx-4 px-3 py-2 items-center md:border-2 border-[#FFEDCC] rounded-2xl">
+      <div className=" md:flex justify-between md:mt-5 mt-3 md:mx-8 mx-2 px-3 py-2 items-center md:border-2 border-[#FFEDCC] rounded-2xl">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <img src={logo} alt="Logo" loading="lazy" className="md:mr-2 mr-1 md:flex w-[32px] h-[22px]" />
             <img src={sadhna} alt="sadhana" loading="lazy" className='w-[74px] h-[22px]' />
           </Link>
-          <div className='flex space-x-3'>
-            {!currentUser && <li className=" block rounded-lg px-4 py-2  text-[#FFA500] font-bold">
+          <div className='flex space-x-1 md:hidden'>
+            {!currentUser && <div className=" block rounded-lg px-4 py-2  text-[#FFA500] font-semibold">
               <Link to="/signin">Login</Link>
-            </li>}
-            {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
-            {!currentUser && <li  className=" block rounded-lg px-4 py-2 bg-[#FFA500] text-white font-bold">
+            </div>}
+            {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-semibold" alt="profile" /></Link>}
+            {!currentUser && <div  className=" rounded-lg px-3 py-1 bg-[#FFA500] text-white font-bold">
                 <Link to="/signup">Join Us</Link>
-              </li>}
+              </div>}
               {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
            
           </div>

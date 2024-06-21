@@ -18,6 +18,7 @@ import VerifyByEmail from './components/verify/VerifyByEmail';
 import SadhanaForm from './pages/SadhanaForm';
 import Chatroom from './pages/Chatroom';
 import Privateprofile from './pages/privateuser/Logged.jsx'
+import Test from './pages/Test.jsx';
 export default function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ export default function App() {
       <Header />
       <Routes>
       <Route path='/chatroom' element={<Chatroom/>}/>
+      <Route path='/testpaper' element={<Test />} />
         <Route path='/' element={<Home />} />
         <Route path='/profiledata' element={<Privateprofile />} />
         <Route path='/community' element={<Community />} />
