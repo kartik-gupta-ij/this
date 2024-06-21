@@ -17,6 +17,7 @@ import ResetPassword from './components/verify/ResetPassword';
 import VerifyByEmail from './components/verify/VerifyByEmail';
 import SadhanaForm from './pages/SadhanaForm';
 import Chatroom from './pages/Chatroom';
+import Privateprofile from './pages/privateuser/Logged.jsx'
 export default function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ export default function App() {
       <Routes>
       <Route path='/chatroom' element={<Chatroom/>}/>
         <Route path='/' element={<Home />} />
+        <Route path='/profiledata' element={<Privateprofile />} />
         <Route path='/community' element={<Community />} />
         <Route path='/verify/resetpassword' element={<ResetPassword />} />
         <Route path='/verify/verifybyemail' element={<VerifyByEmail />} />
