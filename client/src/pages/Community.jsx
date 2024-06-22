@@ -63,7 +63,7 @@ function Community() {
                         <div className='bg-[#FFEDCC] py-1 px-1'>Unanswered Q’s</div>
                         <div className='bg-[#FFEDCC] py-1 px-1'>My Answers</div>
                     </div>
-                    <div className='w-full   border-2 border-[#FFA500] mt-5 p-5 rounded-xl'>
+                    <div className='w-full   border-2 border-[#FFA500] md:mt-5 mt-1 md:p-5 p-1 rounded-xl'>
                         <div className='flex m-2'>
                             <div className='w-[45px] h-[45px] rounded-full bg-green-500 mx-3'>
                             </div>
@@ -73,7 +73,7 @@ function Community() {
                             </div>
                         </div>
                         <div className=''>
-                            <p className='text-xl mx-6'> Can you recommend some devotional practices for building a stronger relationship with Lord Krishna?
+                            <p className='text-xl md:mx-6 mx-1'> Can you recommend some devotional practices for building a stronger relationship with Lord Krishna?
                                 Can you recommend some devotional practices for building a stronger relationship with Lord Krishna?
                             </p>
                         </div>

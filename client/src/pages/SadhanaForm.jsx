@@ -1,47 +1,30 @@
 import React, { useState } from 'react';
 import sadhanaForm from '../assets/sadhanaForm.png';
+const options = {
+    "Chanting on beads": ['0', '1-4 Rounds', '5-8 Rounds', '9-12 Rounds', '13-16 Rounds', '17-25 Rounds', '26 Rounds Above'],
+    "Hearing Time": ['0', '1-16 min', '15-19 min', '20-39 min', '30-40 min', '41-60 min', '61 min above'],
+    "Reading Time": ['0', '1-16 min', '15-19 min', '20-39 min', '30-40 min', '41-60 min', '61 min above'],
+    "Sleeping time previous day": ['After 11:30 pm', '11:14 - 11:30 pm', '10:46 - 11:15 pm', '10:15 - 10:45 pm', '10:00 - 10:15 pm', 'Before 9:45 pm'],
+    "Japa completion Time": ['Less than 70 min', '70-89 min', '90-100 min', '100-110 min', '110-120 min'],
+    "Wake up time today": ['After 6 am', '5:15 - 6:00 am', '5:15 - 5:00 am', '4:45 - 5:15 am', '4:30 - 4:45 am', '4:15 - 4:45 am', 'Before 4:15 am'],
+    "Reporting Sadhna daily": ['4 days after', '3 days after', '2 days after', '1 day after', 'Yes on the same day'],
+    "Attendace Morning class": ['Absent', 'Present'],
+    "Attendance Evening class": ['Absent', 'Present'],
+    "Any sewa Given by Sewa Authority": ['Less than 4 min', '5-9 min', '10-19 min', '20-29 min', '30-60 min'],
+    "Book distributed today": ['No book', '1 book', '2-5 books', 'More than 6 books'],
+    "Temple collection": ['No', 'Yes']
+};
 
 export default function SadhanaForm() {
-    const [date, setDate] = useState('');
-    const [topic, setTopic] = useState('');
-    const [rounds, setRounds] = useState('');
-    const [interval, setInterval] = useState('');
-    const [chanting, setChanting] = useState('');
+    const [selectedOptions, setSelectedOptions] = useState({});
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const formData = {
-            date,
-            topic,
-            rounds,
-            interval,
-            chanting,
-        };
-        console.log(formData);
-        setDate('');
-        setTopic('');
-        setRounds('');
-        setInterval('');
-        setChanting('');
+    const handleSelection = (category, option) => {
+        setSelectedOptions((prevSelectedOptions) => ({
+            ...prevSelectedOptions,
+            [category]: option
+        }));
     };
 
-    const options = {
-        rounds: ['Above 60 min', '45 min to 60 min', '45 min to 30 min', '30 min to 15 min', '10 min to 15 min', 'Less than 10 min', 'No reading today'],
-        interval: ['Before 6 AM', '6 AM to 9 AM', '9 AM to 5 PM', 'After 5 PM'],
-        chanting: ['25-20 Rounds', '20-15 Rounds', '15-10 Rounds', '10-5 Rounds', '5-1 Rounds']
-    };
-
-    const renderOptions = (options, selected, setSelected) => (
-        options.map(option => (
-            <div
-                key={option}
-                className={`p-1 cursor-pointer ${selected === option ? 'bg-[#008080]' : 'bg-[#FFEDCC]'}`}
-                onClick={() => setSelected(option)}
-            >
-                {option}
-            </div>
-        ))
-    );
 
     return (
         <div>
@@ -57,36 +40,24 @@ export default function SadhanaForm() {
             </div>
 
             <h2 className='mx-3'>Schedule Sadhana</h2>
-
-            <form onSubmit={handleSubmit}>
-                <div className='flex justify-around'>
-                    <input type='date' value={date} onChange={(e) => setDate(e.target.value)} />
-                    <input type='text' placeholder='Topic of Sadhana you want to practice...' value={topic} onChange={(e) => setTopic(e.target.value)} />
-                </div>
-                <div className='mx-3'>
-                    <p>Select the number of rounds for chanting</p>
-                    <div className='grid md:grid-cols-7 grid-cols-3 gap-3 text-center md:mx-9 mx-3 text-[12px]'>
-                        {renderOptions(options.rounds, rounds, setRounds)}
+            <div className='w-full md:mx-20 mx-10 '>
+                {Object.keys(options).map((category) => (
+                    <div key={category} className="mb-6">
+                        <h3 className="text-lg font-semibold mb-2 w-full mx-auto">{category}</h3>
+                        <div className="flex flex-wrap gap-2">
+                            {options[category].map((option) => (
+                                <button
+                                    key={option}
+                                    onClick={() => handleSelection(category, option)}
+                                    className={`px-2 py-1 border rounded ${selectedOptions[category] === option ? 'bg-[#008080]' : 'bg-[#FFEDCC]'
+                                        }`}
+                                >
+                                    {option}
+                                </button>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <p className='mx-3'>Select the time interval for chanting</p>
-                    <div className='grid md:grid-cols-7 grid-cols-3 gap-3 text-center md:mx-9 mx-3 text-[12px]'>
-                        {renderOptions(options.interval, interval, setInterval)}
-                    </div>
-                </div>
-                <div>
-                    <p className='mx-3'>Select the number of chanting rounds</p>
-                    <div className='grid md:grid-cols-7 grid-cols-3 gap-3 text-center md:mx-9 mx-3 text-[12px]'>
-                        {renderOptions(options.chanting, chanting, setChanting)}
-                    </div>
-                </div>
-                <div className='w-full flex justify-center mt-5'>
-                    <button className=" py-2 px-10 rounded-md shadow-lg font-medium text-gray-100 block transition duration-300 bg-[#008080] text-xl" type="submit">
-                        Submit
-                    </button>
-                </div>
-            </form>
+                ))}</div>
             <div className='h-[150px]'></div>
         </div>
     );

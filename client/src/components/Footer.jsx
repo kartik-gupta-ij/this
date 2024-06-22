@@ -93,23 +93,23 @@ export default function Footer() {
             {/* Mobile View */}
             <div className="md:hidden w-auto fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300">
                 <div className="flex space-x-6 justify-center items-center py-4">
-                    <div className={`flex flex-col items-center ${location.pathname === '/home' ? 'bg-yellow-200' : ''}`}>
+                    <div className={`flex flex-col items-center ${location.pathname === '/home' ? 'bg-yellow-200 border-2 border-[#FFA500] text-[#FFA500] p-1 rounded-xl' : ''}`}>
                         <img src={home} alt="home" className="mb-1" />
                         <Link to="/home" className="text-zinc-600 dark:text-zinc-300">Home</Link>
                     </div>
-                    <div className={`flex flex-col items-center ${location.pathname === '/sadhana/form' ? 'bg-yellow-200' : ''}`}>
+                    <div className={`flex flex-col items-center ${location.pathname === '/sadhana/form' ? 'bg-yellow-200 border-2 border-[#FFA500] text-[#FFA500] p-1 rounded-xl' : ''}`}>
                         <img src={sadhana} alt="sadhna" className="mb-1" />
                         <Link to="/sadhana/form" className="text-zinc-600 dark:text-zinc-300">Sadhna</Link>
                     </div>
-                    <div className={`flex flex-col items-center ${location.pathname === '/community' ? 'bg-yellow-200' : ''}`}>
+                    <div className={`flex flex-col items-center ${location.pathname === '/community' ? 'bg-yellow-200 border-2 border-[#FFA500] text-[#FFA500] p-1 rounded-xl' : ''}`}>
                         <img src={society} alt="society" className="mb-1" />
                         <Link to="/community" className="text-zinc-600 dark:text-zinc-300">Society</Link>
                     </div>
-                    <div className={`flex flex-col items-center ${location.pathname === '/events' ? 'bg-yellow-200' : ''}`}>
+                    <div className={`flex flex-col items-center ${location.pathname === '/events' ? 'bg-yellow-200 border-2 border-[#FFA500] text-[#FFA500] p-1 rounded-xl' : ''}`}>
                         <img src={events} alt="events" className="mb-1" />
                         <Link to="/events" className="text-zinc-600 dark:text-zinc-300">Events</Link>
                     </div>
-                    <div className={`flex flex-col items-center ${location.pathname === '/assets' ? 'bg-yellow-200' : ''}`}>
+                    <div className={`flex flex-col items-center ${location.pathname === '/assets' ? 'bg-yellow-200 border-2 border-[#FFA500] text-[#FFA500] p-1 rounded-xl' : ''}`}>
                         <img src={assets} alt="assets" className="mb-1" />
                         <Link to="/assets" className="text-zinc-600 dark:text-zinc-300">Assets</Link>
                     </div>
