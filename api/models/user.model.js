@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     age: {
-      type: String,
+      type: Number, // Changed to Number for consistency
       required: true,
     },
     mobile: {
@@ -47,19 +47,26 @@ const userSchema = new mongoose.Schema(
       enum: ["married", "unmarried"],
       default: "unmarried" 
     },
-    dateOfAnniversary: { // Corrected property name
-      type: Date, // Assuming anniversary is a date
+    dateOfAnniversary: {
+      type: Date,
     },
     dateOfBirth: {
-      type: Date, // Assuming date of birth is a date
+      type: Date,
     },
     points: {
       type: Number,
+      default: 0, // Added default value for points
     },
     profilePicture: {
       type: String,
-      default:
-        'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg',
+      default: 'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg',
+    },
+    otp: {
+      type: String, // Added otp field for verification
+    },
+    isTestGiven: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true }

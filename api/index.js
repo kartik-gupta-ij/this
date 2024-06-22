@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import blogRoutes from './routes/blog.route.js ';
+import MCQRoutes from './routes/MCQ.route.js';
+import commentRouter from './routes/comment.route.js'
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import cors from 'cors'
@@ -43,7 +45,9 @@ app.listen(3000, () => {
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/comment/', commentRouter);
 app.use('/api', blogRoutes);
+app.use("/api/MCQ", MCQRoutes);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

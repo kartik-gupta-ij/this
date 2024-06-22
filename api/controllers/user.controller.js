@@ -58,6 +58,7 @@ export const deleteUser = async (req, res, next) => {
 }
 
 export const getAllUser = async (req, res) => {
+  console.log("working");
   try {
     const user = await User.find({});
     res.status(200).json({data: user, status: "success"});
@@ -123,13 +124,13 @@ export const forgotPassword = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: 'your-email@gmail.com',
-        pass: 'your-email-password'
+        user: 'rock88334@gmail.com',
+        pass: 'mrwdwgjdguceirfv'
       }
     });
 
     const mailOptions = {
-      from: 'your-email@gmail.com',
+      from: 'rock88334@gmail.com',
       to: user.email,
       subject: 'Password Reset OTP',
       text: `Your OTP for password reset is ${otp}`
@@ -145,40 +146,72 @@ export const forgotPassword = async (req, res) => {
 };
 
 
-export const verifyOTP = async (req, res) => {
-  try {
-    const { email, otp } = req.body;
-    const user = await User.findOne({ email });
 
-    if (!user || user.otp !== otp || user.otpExpires < Date.now()) {
-      return res.status(400).json({ message: 'Invalid or expired OTP' });
+export const verifyOTP = async (req, res) => {
+    const { email, otp } = req.body;
+
+    console.log(`Email: ${email}, OTP: ${otp}`); // Log inputs
+
+    if (!email || !otp) {
+        return res.status(400).json({ message: 'Email and OTP are required' });
     }
 
-    res.status(200).json({ message: 'OTP verified, you can now reset your password' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Something went wrong' });
-  }
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            console.log('User not found'); // Log user not found
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (user.otp !== otp) {
+            console.log('Invalid OTP'); // Log invalid OTP
+            return res.status(400).json({ message: 'Invalid OTP' });
+        }
+
+        // OTP is verified
+        // user.otp = null; // Clear the OTP after successful verification
+        await user.save();
+
+        res.status(200).json({ message: 'OTP verified successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Something went wrong' });
+    }
 };
 
 
 
 export const resetPassword = async (req, res) => {
+  const { email, otp, newPassword } = req.body;
+
+  // Validate input
+  if (!email || !otp || !newPassword) {
+    return res.status(400).json({ message: 'Email, OTP, and new password are required' });
+  }
+
   try {
-    const { email, otp, newPassword } = req.body;
     const user = await User.findOne({ email });
 
-    if (!user || user.otp !== otp || user.otpExpires < Date.now()) {
-      return res.status(400).json({ message: 'Invalid or expired OTP' });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    if (user.otpExpires < Date.now()) {
+      return res.status(400).json({ message: 'OTP has expired' });
     }
 
     // Reset password
-    user.password = await bcrypt.hash(newPassword, 10);
-    user.otp = undefined;
-    user.otpExpires = undefined;
+    user.password = await bcryptjs.hash(newPassword, 10);
+    user.otp = undefined; // Clear the OTP
+    user.otpExpires = undefined; // Clear the OTP expiration
     await user.save();
 
-    res.status(200).json({ message: 'Password has been reset' });
+    res.status(200).json({ message: 'Password has been reset successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Something went wrong' });

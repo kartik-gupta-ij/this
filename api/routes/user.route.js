@@ -5,6 +5,9 @@ import {
   deleteUser,
   getAllUser,
   getRecentBirthdays,
+  forgotPassword,
+  verifyOTP,
+  resetPassword,
 } from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 import { chatroom } from '../controllers/chat.controllers.js';
@@ -16,7 +19,10 @@ router.post('/update/:id', verifyToken, updateUser);
 router.delete('/delete/:id', verifyToken, deleteUser);
 router.post('/api/chatroom/:id',verifyToken,chatroom);
 router.post('/api/sadhana/:id',verifyToken,sadhanafill);
-router.get("/api/getuser", verifyToken, getAllUser);
-router.get("/api/getbirthday", getRecentBirthdays);
+router.get("/getuser", getAllUser);
+router.get("/api/getbirthday", verifyToken, getRecentBirthdays);
+router.post("/forgetpassword", forgotPassword);
+router.post("/verifyotp", verifyOTP);
+router.post("/resetpassword", resetPassword);
 
 export default router;
