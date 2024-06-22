@@ -4,8 +4,8 @@ import User from '../models/user.model.js';
 export const getQuestions = async (req, res) => {
     try {
       const questions = await Comment.find()
-        .populate('userId', 'name email') // Populate user information for the questions
-        .populate('comments.userId', 'name email'); // Populate user information for each nested comment
+        .populate('userId', 'name email image createdAt') // Populate user information for the questions
+        .populate('comments.userId', 'name email image createdAt'); // Populate user information for each nested comment
   
       if (!questions || questions.length === 0) {
         return res.status(404).json({ success: false, message: "No questions found" });

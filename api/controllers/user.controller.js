@@ -13,30 +13,47 @@ export const test = (req, res) => {
 // update user
 
 export const updateUser = async (req, res, next) => {
-  if (req.user.id !== req.params.id) {
+  const { id } = req.params;
+  const { id: userId } = req.user;
+  const {
+    name, email, country, age, gender,
+    dateOfBirth, dateOfAnniversary, image, marital
+  } = req.body;
+
+  if (userId !== id) {
     return next(errorHandler(401, 'You can update only your account!'));
   }
-  try {
-    if (req.body.password) {
-      req.body.password = bcryptjs.hashSync(req.body.password, 10);
-    }
 
+  try {
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
+      id,
       {
         $set: {
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password,
-          profilePicture: req.body.profilePicture,
+          name,
+          email,
+          country,
+          age,
+          gender,
+          dateOfBirth,
+          dateOfAnniversary,
+          image,
+          marital,
         },
       },
-      { new: true }
+      { new: true, runValidators: true }
     );
-    const { password, ...rest } = updatedUser._doc;
-    res.status(200).json(rest);
+
+    if (!updatedUser) {
+      return next(errorHandler(404, 'User not found!'));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'User updated successfully',
+      data: updatedUser,
+    });
   } catch (error) {
-    next(error);
+    next(errorHandler(500, 'Something went wrong', error));
   }
 };
 

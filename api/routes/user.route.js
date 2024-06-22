@@ -20,6 +20,7 @@ router.delete('/delete/:id', verifyToken, deleteUser);
 router.post('/api/chatroom/:id',verifyToken,chatroom);
 router.post('/api/sadhana/:id',verifyToken,sadhanafill);
 router.get("/getuser", getAllUser);
+router.put("/update/:id", verifyToken, updateUser );
 router.get("/api/getbirthday", verifyToken, getRecentBirthdays);
 router.post("/forgetpassword", forgotPassword);
 router.post("/verifyotp", verifyOTP);
