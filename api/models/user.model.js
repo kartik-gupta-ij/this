@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema(
     },
     points: {
       type: Number,
-      default: 0, // Added default value for points
+      default:0,
     },
     profilePicture: {
       type: String,

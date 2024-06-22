@@ -2,7 +2,7 @@ import React from 'react';
 import before from '../assets/beforeLogo.png';
 import sadhna from '../assets/Sadhana.png';
 import navbar from '../assets/navbar.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { IoLogoFacebook } from "react-icons/io";
 import { FaInstagram } from "react-icons/fa";
 import { IoLogoTwitter } from "react-icons/io5";
@@ -14,6 +14,8 @@ import events from '../assets/events.svg'
 import assets from '../assets/assets.svg'
 
 export default function Footer() {
+    const location = useLocation();
+
     return (
         <>
             <div className='relative hidden md:block w-full bg-[#FFA500] mt-5 bg-right-top bg-no-repeat bg-contain rounded-tr-[120px]' style={{ backgroundImage: `url(${navbar})` }}>
@@ -91,25 +93,25 @@ export default function Footer() {
             {/* Mobile View */}
             <div className="md:hidden w-auto fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300">
                 <div className="flex space-x-6 justify-center items-center py-4">
-                    <div className="flex flex-col items-center">
+                    <div className={`flex flex-col items-center ${location.pathname === '/home' ? 'bg-yellow-200' : ''}`}>
                         <img src={home} alt="home" className="mb-1" />
                         <Link to="/home" className="text-zinc-600 dark:text-zinc-300">Home</Link>
                     </div>
-                    <div className="flex flex-col items-center">
+                    <div className={`flex flex-col items-center ${location.pathname === '/sadhana/form' ? 'bg-yellow-200' : ''}`}>
                         <img src={sadhana} alt="sadhna" className="mb-1" />
-                        <Link to="/sadhna" className="text-zinc-600 dark:text-zinc-300">Sadhna</Link>
+                        <Link to="/sadhana/form" className="text-zinc-600 dark:text-zinc-300">Sadhna</Link>
                     </div>
-                    <div className="flex flex-col items-center">
+                    <div className={`flex flex-col items-center ${location.pathname === '/community' ? 'bg-yellow-200' : ''}`}>
                         <img src={society} alt="society" className="mb-1" />
                         <Link to="/community" className="text-zinc-600 dark:text-zinc-300">Society</Link>
                     </div>
-                    <div className="flex flex-col items-center">
+                    <div className={`flex flex-col items-center ${location.pathname === '/events' ? 'bg-yellow-200' : ''}`}>
                         <img src={events} alt="events" className="mb-1" />
                         <Link to="/events" className="text-zinc-600 dark:text-zinc-300">Events</Link>
                     </div>
-                    <div className="flex flex-col items-center bg-yellow-100 dark:bg-zinc-800 p-2 rounded-md">
+                    <div className={`flex flex-col items-center ${location.pathname === '/assets' ? 'bg-yellow-200' : ''}`}>
                         <img src={assets} alt="assets" className="mb-1" />
-                        <Link to="/assets" className="text-yellow-600 dark:text-yellow-400">Assets</Link>
+                        <Link to="/assets" className="text-zinc-600 dark:text-zinc-300">Assets</Link>
                     </div>
                 </div>
             </div>

@@ -166,7 +166,7 @@ function Signup() {
           <OAuth />
           <div className='mt-3'>
             <p className='text-xl tracking-tight pl-2 text-center'>
-              Already have an account? <Link to="/login"><span className='text-[#008080]'>Sign In</span></Link>
+              Already have an account? <Link to="/signin"><span className='text-[#008080]'>Sign In</span></Link>
             </p>
           </div>
         </div>
