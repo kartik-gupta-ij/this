@@ -1,14 +1,25 @@
 import Comment from '../models/comment.model.js'
+import User from '../models/user.model.js';
 
 export const getQuestions = async (req, res) => {
- 
     try {
-        const questions = await Comment.find({});
-        res.status(200).json({data: questions, status: "success"});
+      const questions = await Comment.find()
+        .populate('userId', 'name email') // Populate user information for the questions
+        .populate('comments.userId', 'name email'); // Populate user information for each nested comment
+  
+      if (!questions || questions.length === 0) {
+        return res.status(404).json({ success: false, message: "No questions found" });
+      }
+  
+      return res.status(200).json({ 
+        success: true, 
+        data: questions 
+      });
     } catch (error) {
-        res.status(500).json({message: "Something went wrong"});
+      console.error('Error fetching questions:', error);
+      return res.status(500).json({ success: false, message: "Something went wrong" });
     }
-}
+  };
 
 
 export const createQuestion = async (req, res) => {
