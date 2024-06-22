@@ -3,7 +3,7 @@ import { createComment, createQuestion, getQuestions } from "../controllers/comm
 import { verifyToken } from "../utils/verifyUser.js";
 const router = express.Router();
 
-router.get("/allquestion",verifyToken, getQuestions);
+router.get("/allquestion", getQuestions);
 router.post("/question", verifyToken, createQuestion);
 router.post("/comment/:id", verifyToken, createComment);
 

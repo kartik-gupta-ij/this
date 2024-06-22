@@ -1,6 +1,7 @@
 import Comment from '../models/comment.model.js'
 
 export const getQuestions = async (req, res) => {
+ 
     try {
         const questions = await Comment.find({});
         res.status(200).json({data: questions, status: "success"});
