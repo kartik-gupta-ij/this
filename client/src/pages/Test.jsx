@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Test() {
 
@@ -66,6 +67,11 @@ export default function Test() {
                         </div>
                     ))}
                 </div>
+                <div>
+                            <button className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
+                                Submit
+                            </button>
+                        </div>
             </div>
             <div className='w-full h-[150px]'></div>
         </>

@@ -31,8 +31,7 @@ function Header() {
             {!currentUser && <div className=" rounded-lg px-3 py-1 bg-[#FFA500] text-white font-bold">
               <Link to="/signup">Join Us</Link>
             </div>}
-            {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
-
+            
           </div>
         </div>
 
@@ -57,12 +56,12 @@ function Header() {
                 <div
                   className={`border-2 border-[#FFEDCC] absolute left-0 bg-white rounded-2xl shadow-lg ${open ? 'block' : 'hidden'}`}
                 >
-                  <div className="py-1">
+                  <div className="py-1 text-[20px]">
                     <Link
                       to="/community"
                       className="block px-1 py-1 text-gray-800 hover:bg-gray-100"
                     >
-                      Ask-Questions
+                      Ask&nbsp;Questions
                     </Link>
                   </div>
                   <div className="py-1">

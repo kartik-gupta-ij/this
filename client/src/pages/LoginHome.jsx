@@ -18,7 +18,7 @@ function LoginHome() {
                             <img src={home} className='md:w-[600px] w-[186px]' alt="Home" />
                         </div>
                         <div className='md:-m-[60px]'>
-                            <p className="text-gray-600 font-normal text-4xl leading-6 tracking-tight md:mt-[130px] mt-[20px] text-[14px] ">Namaskar Kavita! "Begin your Sadhana journey here"</p>
+                            <p className="text-gray-600 font-normal md:text-4xl leading-6 tracking-tight md:mt-[130px] mt-[20px] md:mx-20 md:text-[30px]">Namaskar Kavita! "Begin your Sadhana journey here"</p>
                             <div className='flex mt-5'>
                                 <div className="relative mb-2  flex items-center ">
                                     <input type="text" id="email-address-icon" className="bg-gray-50 border border-gray-300 text-[#FFA500] text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full  md:p-2.5  p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fill Sadhana"></input>

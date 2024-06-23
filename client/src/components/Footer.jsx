@@ -44,6 +44,9 @@ export default function Footer() {
                         <p className='text-xl text-[#3C3C3C] mt-2'>
                             <Link to='#'>Ask Questions</Link>
                         </p>
+                        <p className='text-xl text-[#3C3C3C] mt-2'>
+                            <Link to='/testpaper'>Today Test </Link>
+                        </p>
                     </div>
                     <div className="p-4">
                         <p className='text-2xl font-bold'>Navigation</p>
