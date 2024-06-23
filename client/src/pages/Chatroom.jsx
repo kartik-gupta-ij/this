@@ -61,20 +61,20 @@ export default function Chatroom() {
                 </>
             )}
             <form onSubmit={handleSubmit} className="mb-4">
-                <div className="flex items-center">
-                    <input
-                        type="text"
+                <div className="flex items-center bg-yellow-400 dark:bg-zinc-800 p-2 rounded-lg">
+                    
+                       <input
+                            type="text"
                         className="border rounded-lg px-4 py-2 w-full mr-2"
                         placeholder="Type your message..."
                         value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                    />
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                    >
-                        Send
-                    </button>
+                        onChange={(e) => setMessage(e.target.value)}/>
+                        <button type="submit"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+                            <img aria-hidden="true" alt="send" src="https://placehold.co/20?text=%E2%86%92" />
+                        </button>
+                    
+
                 </div>
             </form>
         </div>
