@@ -19,8 +19,14 @@ function Community() {
 
     const [questions, setQuestions] = useState([]);
     const [questionInput, setQuestionInput] = useState("");
+
     const formatTimeAgo = (timestamp) => {
-        return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+        try {
+            return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
+        } catch (error) {
+            console.error('Invalid time value', error);
+            return 'Invalid date';
+        }
     };
 
 
@@ -47,11 +53,14 @@ function Community() {
                     Authorization: currentUser?.token
                 }
             })
+            setQuestions(prevQuestions => [...prevQuestions, res?.data?.data]);
             console.log(res);
         } catch (error) {
             console.log(error);
         }
     }
+
+    console.log(questions);
 
     return (
         <>
@@ -160,32 +169,7 @@ function Community() {
 
 
 
-                    <div className='w-full   border-2 border-[#FFA500] mt-5 p-5 rounded-xl'>
-                        <div className='flex m-2'>
-                            <div className='w-[45px] h-[45px] rounded-full bg-green-500 mx-3'>
-                            </div>
-                            <div>
-                                <p className='text-2xl font-bold -mb-1'>Shivam</p>
-                                <p>2 day ago</p>
-                            </div>
-                        </div>
-                        <div className=''>
-                            <p className='text-xl mx-6'> Can you recommend some devotional practices for building a stronger relationship with Lord Krishna?
-                                Can you recommend some devotional practices for building a stronger relationship with Lord Krishna?
-                            </p>
-                        </div>
-                        <div className='flex mt-3'>
-                            <div className='flex ml-6 bg-[#FFEDCC]'>
-                                <FaArrowCircleUp className='flex w-6 h-6' /> <span className='text-xl ml-1'>12</span>
-                            </div>
-                            <div className='flex ml-6 bg-[#FFEDCC]'>
-                                <FaRegComments className='flex w-6 h-6' /> <span className='text-xl m1-1'>12</span>
-                            </div>
-                            <div className='flex ml-6 bg-[#FFEDCC]'>
-                                <FaReplyAll className='flex w-6 h-6' /> <span className='text-xl ml-1'>12</span>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </>

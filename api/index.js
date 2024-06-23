@@ -47,7 +47,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/comment', commentRouter);
 app.use('/api', blogRoutes);
-app.use("/api/MCQ", MCQRoutes);
+app.use("/api/mcq", MCQRoutes);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
