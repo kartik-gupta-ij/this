@@ -21,7 +21,7 @@ export default function Test() {
     }, [])
 
     const arr = Array(10).fill('');
-    
+
     const [selectedOptions, setSelectedOptions] = useState(arr);
 
     const handleOptionClick = (questionIndex, optionIndex) => {
@@ -70,14 +70,12 @@ export default function Test() {
                                 {q?.options?.map((option, optionIndex) => (
                                     <div
                                         key={optionIndex}
-                                        className={`bg-white px-2 py-1 rounded-lg m-1 flex items-center cursor-pointer ${
-                                            selectedOptions[questionIndex] === optionIndex ? 'bg-green-500 border-2 border-green-500' : ''
-                                        }`}
+                                        className={`bg-white px-2 py-1 rounded-lg m-1 flex items-center cursor-pointer ${selectedOptions[questionIndex] === optionIndex ? 'bg-green-500 border-2 border-green-500' : ''
+                                            }`}
                                         onClick={() => handleOptionClick(questionIndex, optionIndex)}
                                     >
-                                        <div className={`w-[15px] h-[15px] rounded-full flex justify-center items-center mr-2 ${
-                                            selectedOptions[questionIndex] === optionIndex ? 'bg-green-500 border-2 border-green-500' : 'bg-[#FFA500]'
-                                        }`}>
+                                        <div className={`w-[15px] h-[15px] rounded-full flex justify-center items-center mr-2 ${selectedOptions[questionIndex] === optionIndex ? 'bg-green-500 border-2 border-green-500' : 'bg-[#FFA500]'
+                                            }`}>
                                             <div className='w-[9px] h-[9px] bg-white rounded-full'></div>
                                         </div>
                                         <div className='md:text-[16px] text-[14px]'>
@@ -104,6 +102,13 @@ export default function Test() {
          </div>
             }
             <div className='w-full h-[150px]'></div>
+                    <button className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
+                        Submit
+                    </button>
+                </div>
+            </div>
+            <div className='w-full md:hidden h-[150px]'></div>
+
         </>
     );
 }

@@ -39,7 +39,7 @@ export default function SadhanaForm() {
                 </div>
             </div>
 
-            <h2 className='mx-3'>Schedule Sadhana</h2>
+            {/* <h2 className='mx-3 '>Schedule Sadhana</h2> */}
             <div className='w-full md:mx-20 mx-10 '>
                 {Object.keys(options).map((category) => (
                     <div key={category} className="mb-6">
@@ -57,8 +57,14 @@ export default function SadhanaForm() {
                             ))}
                         </div>
                     </div>
-                ))}</div>
-            <div className='h-[150px]'></div>
+                ))}
+                <div className='w-full ml-30'>
+                <button className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
+                    Submit
+                </button>
+            </div></div>
+            
+            <div className='md:hidden h-[150px]'></div>
         </div>
     );
 }

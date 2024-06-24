@@ -116,9 +116,9 @@ export default function Profile() {
       console.log(error);
     }
   };
-  return (
+  return (<>
     <div className='w-full'>
-      <div className='w-4/5 mx-auto'
+      <div className='md:w-4/5 mx-auto'
         style={{
           backgroundImage: `url(${bgprofile})`,
           backgroundSize: 'cover', // or 'contain' depending on your design needs
@@ -127,7 +127,7 @@ export default function Profile() {
         }}>
         <div className='h-20'></div>
 
-        <div className='p-3 w-2/4 mx-auto border-2 border-[#008080] rounded-3xl bg-white'
+        <div className='p-3 md:w-2/4 w-4/5 mx-auto border-2 border-[#008080] rounded-3xl bg-white'
 
 
         >
@@ -256,5 +256,7 @@ export default function Profile() {
         </div>
       </div>
     </div>
+    <div className='md:hidden h-[150px]'></div>
+  </>
   );
 }
