@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 export default function Test() {
     const [questions, setQuestions] = useState([]);
     const { currentUser } = useSelector(state => state.user);
-    const [isTestGiven, setIsTestGiven] = useState(currentUser.rest.isTestGiven);
+    const [isTestGiven, setIsTestGiven] = useState(currentUser.rest.isTestGiven || false);
     const [points, setPoints] = useState(currentUser.rest.points);
     const [selectedOptions, setSelectedOptions] = useState(Array(10).fill(''));
 
