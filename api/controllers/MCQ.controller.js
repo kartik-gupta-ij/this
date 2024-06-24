@@ -1,4 +1,5 @@
 import MCQ from "../models/MCQ.model.js";
+import User from "../models/user.model.js";
 
 
 
@@ -46,6 +47,25 @@ export const getAllMCQ = async (req, res) => {
         res.status(200).json({ data: allmcq, status: "success" });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
+        
+    }
+}
 
+
+export const submitMCQHandler = async (req, res) => {
+    const {points} = req.body;
+    try {
+        const user = await User.findById(req.user.id);
+        if(!user) {
+            return res.status(404).json({message: "User not found"});
+        }
+        // console.log(user);
+        user.points = points;
+        user.isTestGiven = true;
+        await user.save();
+        res.status(200).json({ message: "Points updated successfully", user });
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong" });
+        
     }
 }

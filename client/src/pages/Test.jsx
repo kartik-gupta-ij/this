@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Test() {
 
     const [questions, setQuestions] = useState([]);
+    const {currentUser} = useSelector(state => state.user)
 
     const getAllMcq = async () => {
         try {
             const res = await axios.get("/api/mcq");
-            // console.log(res?.data);
             setQuestions(res?.data?.data);
         } catch (error) {
             console.log(error);
@@ -20,25 +20,47 @@ export default function Test() {
         getAllMcq();
     }, [])
 
-
-
     const arr = Array(10).fill('');
-// console.log(arr);
     
-
     const [selectedOptions, setSelectedOptions] = useState(arr);
 
     const handleOptionClick = (questionIndex, optionIndex) => {
-        console.log(questionIndex, optionIndex, selectedOptions);
         const newSelectedOptions = [...selectedOptions];
         newSelectedOptions[questionIndex] = optionIndex;
         setSelectedOptions(newSelectedOptions);
+        console.log(`Question ${questionIndex + 1}: Option ${optionIndex + 1} selected`);
     };
+    console.log('Updated selected options:', selectedOptions, currentUser?.token);
+
+    var points = 0;
+
+    const submitHandler = async () => {
+        for(let i=0; i<10; i++){
+            if(questions[i].answer === questions[i].options[selectedOptions[i]]) points++;
+        }
+        const pointData = {points: points};
+        try {
+            
+            const res = await axios.post("/api/mcq/submit", pointData, {
+                headers: {
+                    Authorization: currentUser?.token
+                }
+            })
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    console.log(currentUser);
+
 
 
     return (
         <>
             <p className='w-full text-[28px] text-center'>Test Paper</p>
+
+            {!currentUser.rest.isTestGiven ? 
             <div className='w-full flex flex-col items-center'>
                 <div className='mx-3'>
                     {questions.map((q, questionIndex) => (
@@ -68,11 +90,19 @@ export default function Test() {
                     ))}
                 </div>
                 <div>
-                            <button className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
-                                Submit
-                            </button>
-                        </div>
-            </div>
+                    <button  onClick={submitHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
+                        Submit
+                    </button>
+                </div>
+            </div> :
+             <div className="w-full flex flex-col items-center justify-center mt-10">
+             <div className="bg-[#FFEDCC] p-6 rounded-xl shadow-md text-center">
+                 <h2 className="text-2xl font-bold text-[#008080] mb-4">Test Completed!</h2>
+                 <p className="text-xl font-semibold text-gray-800">Your marks are:</p>
+                 <p className="text-3xl font-bold text-[#db701d]">{currentUser.rest.points}</p>
+             </div>
+         </div>
+            }
             <div className='w-full h-[150px]'></div>
         </>
     );
