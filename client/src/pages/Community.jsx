@@ -5,13 +5,15 @@ import { FaArrowCircleUp } from "react-icons/fa";
 import { FaRegComments } from "react-icons/fa";
 import { FaReplyAll } from "react-icons/fa";
 import axios from 'axios'
-// import { FaArrowCircleUp, FaRegComments, FaReplyAll } from 'react-icons/fa';
 import { formatDistanceToNow } from 'date-fns';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-
 function Community() {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleClick = () => {
+        setIsOpen(!isOpen);
+    };
 
     const { currentUser } = useSelector(state => state.user)
     console.log(currentUser);
@@ -20,9 +22,6 @@ function Community() {
     const handleLinkClick = (link) => {
         setActiveLink(link);
     };
-
-
-
     const [questions, setQuestions] = useState([]);
     const [questionInput, setQuestionInput] = useState("");
 
@@ -34,13 +33,13 @@ function Community() {
             return 'Invalid date';
         }
     };
-
-
     const getQuestionsAndComments = async () => {
         try {
             const res = await axios.get("/api/comment/allquestion");
+            
             setQuestions(res?.data?.data);
-            // console.log(res?.data?.data)
+            console.log("questions")
+            console.log(questions);
         } catch (error) {
             console.log(error)
         }
@@ -65,7 +64,6 @@ function Community() {
             console.log(error);
         }
     }
-
     console.log(questions);
 
     return (
@@ -88,7 +86,7 @@ function Community() {
             </div>
             <div className='w-full flex justify-center items-center mt-15 rounded-sm'>
 
-                <div className='w-4/5 '>
+                <div className='w-4/5'>
                     <div >
                         <div className='bg-[#FFEDCC] m-6 text-center flex flex-row justify-around items-center rounded-xl'>
                             <div className='flex w-[120px] h-[120px] bg-white rounded-full justify-center items-center  right-[160px]  border-4 border-[#FFA500]'>
@@ -132,13 +130,12 @@ function Community() {
                         <div className='bg-[#FFEDCC] py-1 px-1'>Unanswered Q’s</div>
                         <div className='bg-[#FFEDCC] py-1 px-1'>My Answers</div>
                     </div>
-
                     {questions?.map((item, key) => (
-                        <div key={key} className='w-full border-2 border-[#FFA500] mt-5 p-5 rounded-xl'>
-                            <div className='flex m-2'>
-                                <div className='w-[45px] h-[45px] rounded-full bg-green-500 mx-3'></div>
+                        <div key={key} className='w-full border-2 border-[#FFA500] md:mt-5 mt-2 md:p-5 p-2 rounded-xl'>
+                            <div className='flex md:m-2 m-0.5 items-center'>
+                                <div className='md:w-[45px] md:h-[45px] w-[38px] h-[38px] rounded-full bg-green-500 mx-3'></div>
                                 <div>
-                                    <p className='text-2xl font-bold -mb-1'>{item?.userId?.name}</p>
+                                    <p className='md:text-2xl text-lg font-bold -mb-1'>{item?.userId?.name}</p>
                                     <p>{formatTimeAgo(item?.createdAt)}</p>
                                 </div>
                             </div>
@@ -149,13 +146,32 @@ function Community() {
                                 <div className='flex ml-6 bg-[#FFEDCC]'>
                                     <FaArrowCircleUp className='flex w-6 h-6' /> <span className='text-xl ml-1'>12</span>
                                 </div>
-                                <div className='flex ml-6 bg-[#db701d]'>
-                                    <FaRegComments className='flex w-6 h-6' /> <span className='text-xl ml-1'>12</span>
+                                <div className='flex flex-col'>
+                                    <div className='flex ml-6 bg-[#db701d] p-2 cursor-pointer' onClick={handleClick}>
+                                        <FaRegComments className='flex w-6 h-6' /> <span className='text-xl ml-1'>12</span>
+                                    </div>
+
                                 </div>
                                 <div className='flex ml-6 bg-[#FFEDCC]'>
                                     <FaReplyAll className='flex w-6 h-6' /> <span className='text-xl ml-1'>12</span>
                                 </div>
                             </div>
+                            {isOpen && (
+                                <form className='ml-6 mt-2' >
+                                    <input
+                                        type='text'
+                                        className='p-2 border rounded w-full'
+
+                                        placeholder='Enter your comment'
+                                    />
+                                    <button
+                                        type='submit'
+                                        className='mt-2 p-2 bg-[#db701d] text-white rounded'
+                                    >
+                                        Submit
+                                    </button>
+                                </form>
+                            )}
                             <div className='bg-[#FFEDCC] h-[1px] w-7/10 mx-auto my-2 '></div>
                             <p className='text-xl font-bold'>Answers</p>
                             {item?.comments?.length === 0 ? (

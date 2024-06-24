@@ -29,13 +29,13 @@ export default function Chatroom() {
     }
   };
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      handleSubmit();
-    }, 10000); // 10000ms = 10s
+//   useEffect(() => {
+//     const intervalId = setInterval(() => {
+//       handleSubmit();
+//     }, 10000); // 10000ms = 10s
 
-    return () => clearInterval(intervalId); // Clean up the interval on component unmount
-  }, []);
+//     return () => clearInterval(intervalId); // Clean up the interval on component unmount
+//   }, []);
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateString).toLocaleDateString(undefined, options);
