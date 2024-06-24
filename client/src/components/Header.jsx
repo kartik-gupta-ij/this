@@ -27,7 +27,7 @@ function Header() {
             {!currentUser && <div className=" block rounded-lg px-4 py-2  text-[#FFA500] font-semibold">
               <Link to="/signin">Login</Link>
             </div>}
-            {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-semibold" alt="profile" /></Link>}
+            {currentUser && <Link to='/profiledata'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-semibold" alt="profile" /></Link>}
             {!currentUser && <div className=" rounded-lg px-3 py-1 bg-[#FFA500] text-white font-bold">
               <Link to="/signup">Join Us</Link>
             </div>}

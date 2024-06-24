@@ -8,12 +8,18 @@ import axios from 'axios'
 // import { FaArrowCircleUp, FaRegComments, FaReplyAll } from 'react-icons/fa';
 import { formatDistanceToNow } from 'date-fns';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 function Community() {
 
-    const {currentUser} = useSelector(state => state.user)
+    const { currentUser } = useSelector(state => state.user)
     console.log(currentUser);
+    const [activeLink, setActiveLink] = useState('community');
+
+    const handleLinkClick = (link) => {
+        setActiveLink(link);
+    };
 
 
 
@@ -45,7 +51,7 @@ function Community() {
     }, [])
 
     const createQuestion = async () => {
-        const formData = {title: questionInput, comments : []}
+        const formData = { title: questionInput, comments: [] }
         console.log(formData);
         try {
             const res = await axios.post("/api/comment/question", formData, {
@@ -65,12 +71,18 @@ function Community() {
     return (
         <>
             <div className='w-full flex justify-center items-center'>
-                <div className='md:hidden w-[300px] h-[46px]  flex justify-between border-2 border-[#008080]'>
-                    <div className='w-1/2 text-center'>
-                        ChatRoom
+                <div className='md:hidden w-[300px] h-[46px] flex justify-between border-2 border-[#008080]'>
+                    <div
+                        className={`w-1/2 text-center ${activeLink === 'chatroom' ? 'bg-[#008080]' : ''}`}
+                        onClick={() => handleLinkClick('chatroom')}
+                    >
+                        <Link to='/chatroom'>ChatRoom</Link>
                     </div>
-                    <div className='w-1/2 text-center bg-[#008080] align-middle'>
-                        Q & A
+                    <div
+                        className={`w-1/2 text-center ${activeLink === 'community' ? 'bg-[#008080]' : ''}`}
+                        onClick={() => handleLinkClick('community')}
+                    >
+                        <Link to='/community'>Q & A</Link>
                     </div>
                 </div>
             </div>
@@ -90,7 +102,7 @@ function Community() {
                                     </div>
                                     <div>
                                         <button className=" px-3 py-1.5 bg-[#008080] text-white font-bold  text-2xl">
-                                            <img src={arrow} width="35px" onClick={createQuestion}/>
+                                            <img src={arrow} width="35px" onClick={createQuestion} />
                                         </button>
                                     </div>
                                 </div>
@@ -166,12 +178,9 @@ function Community() {
                             )}
                         </div>
                     ))}
-
-
-
-                    
                 </div>
             </div>
+            <div className='md:hidden h-[150px]'></div>
         </>
     )
 }
