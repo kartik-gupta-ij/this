@@ -52,20 +52,34 @@ export const getAllMCQ = async (req, res) => {
 }
 
 
+
 export const submitMCQHandler = async (req, res) => {
-    const {points} = req.body;
+    const { points } = req.body;
+    
     try {
+        // Fetch the user by their ID from the request object
         const user = await User.findById(req.user.id);
-        if(!user) {
-            return res.status(404).json({message: "User not found"});
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
         }
-        // console.log(user);
+
+        // Update the user's points and test status
         user.points = points;
         user.isTestGiven = true;
+
+        // Save the updated user document to the database
         await user.save();
-        res.status(200).json({ message: "Points updated successfully", user });
+
+        // Respond with a success message and the updated user data
+        return res.status(200).json({ message: "Points updated successfully", user });
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong" });
-        
+        // Log the error to the console for debugging
+        console.error("Error updating points:", error);
+
+        // Respond with a generic error message
+        return res.status(500).json({ message: "Something went wrong" });
     }
-}
+};
+
