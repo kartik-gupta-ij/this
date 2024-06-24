@@ -36,7 +36,7 @@ function Community() {
     const getQuestionsAndComments = async () => {
         try {
             const res = await axios.get("/api/comment/allquestion");
-            
+
             setQuestions(res?.data?.data);
             console.log("questions")
             console.log(questions);
@@ -69,7 +69,7 @@ function Community() {
     return (
         <>
             <div className='w-full flex justify-center items-center'>
-                <div className='md:hidden w-[300px] h-[46px] flex justify-between border-2 border-[#008080]'>
+                <div className='md:hidden w-[300px] h-[46px] flex justify-between border-2 border-[#008080] mt-2'>
                     <div
                         className={`w-1/2 text-center ${activeLink === 'chatroom' ? 'bg-[#008080]' : ''}`}
                         onClick={() => handleLinkClick('chatroom')}
@@ -88,7 +88,7 @@ function Community() {
 
                 <div className='w-4/5'>
                     <div >
-                        <div className='bg-[#FFEDCC] m-6 text-center flex flex-row justify-around items-center rounded-xl'>
+                        <div className='bg-[#FFEDCC] m-6 text-center hidden md:flex flex-row justify-around items-center rounded-xl'>
                             <div className='flex w-[120px] h-[120px] bg-white rounded-full justify-center items-center  right-[160px]  border-4 border-[#FFA500]'>
                                 <img src={question} width="40px" />
                             </div>
@@ -106,8 +106,28 @@ function Community() {
                                 </div>
                             </div>
                         </div>
+                        <div className='bg-[#FFEDCC] -m-2 mt-[70px] text-center md:hidden flex flex-row justify-around items-center rounded-xl'>
+                            <div className='absolute flex w-[100px] h-[100px] bg-white rounded-full justify-center items-centers top-[120px]  border-4 border-[#FFA500]'>
+                                <div>
+                                    <img src={question} className='mt-6 w-[30px] h-[40px]' />
+                                </div>
+                            </div>
+                            <div>
+                                <p className='text-gray-600 font-normal text-2xl leading-14 tracking-tight pt-10 pb-3'>Ask Any Questionss</p>
+                                <div className='flex justify-center items-center pb-5'>
+                                    <div className="relative   flex items-center ">
+                                        <input type="text" onInput={(e) => setQuestionInput(e.target.value)} id="email-address-icon" class="bg-gray-50 border border-gray-300 text-[#FFA500] text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type Something..."></input>
+                                    </div>
+                                    <div className=''>
+                                        <button className=" px-3 py-1.5 bg-[#008080] text-white font-bold  text-2xl">
+                                            <img src={arrow} width="30px" onClick={createQuestion} />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className='flex justify-center items-center '>
+                    <div className='flex justify-center items-center mt-5 '>
                         <div className="relative  flex items-center w-full ml-6">
                             <input type="text" id="email-address-icon" class="bg-gray-50 border border-gray-300 text-[#FFA500] text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Any Questions..."></input>
                         </div>
