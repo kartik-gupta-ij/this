@@ -5,11 +5,12 @@ import { useSelector } from 'react-redux';
 export default function Test() {
     const [questions, setQuestions] = useState([]);
     const { currentUser } = useSelector(state => state.user);
-    console.log("Test wala page m", currentUser);
     const [isTestGiven, setIsTestGiven] = useState(currentUser.isTestGiven || false);
     const [points, setPoints] = useState(currentUser.points);
     const [selectedOptions, setSelectedOptions] = useState(Array(10).fill(''));
     const [isEditMode, setIsEditMode] = useState(false);
+
+    const optionLetters = ['a', 'b', 'c', 'd'];
 
     const getAllMcq = async () => {
         try {
@@ -43,10 +44,20 @@ export default function Test() {
         setQuestions(newQuestions);
     };
 
+    const handleAnswerChange = (e, questionIndex) => {
+        const answer = e.target.value.toLowerCase();
+        if (optionLetters.includes(answer)) {
+            const newQuestions = [...questions];
+            newQuestions[questionIndex].answer = answer;
+            setQuestions(newQuestions);
+        }
+    };
+
     const submitHandler = async () => {
         let calculatedPoints = 0;
         for (let i = 0; i < questions.length; i++) {
-            if (questions[i].answer === questions[i].options[selectedOptions[i]]) calculatedPoints++;
+            const correctAnswerIndex = optionLetters.indexOf(questions[i].answer);
+            if (correctAnswerIndex === selectedOptions[i]) calculatedPoints++;
         }
         setPoints(calculatedPoints);
         const pointData = { points: calculatedPoints };
@@ -70,6 +81,7 @@ export default function Test() {
     };
 
     const saveHandler = async () => {
+        console.log("Savehandler", questions);
         try {
             const res = await axios.post("/api/mcq/update", { questions }, {
                 headers: {
@@ -83,8 +95,6 @@ export default function Test() {
         }
     };
 
-    console.log(currentUser);
-
     return (
         <>
             <p className='w-full text-[28px] text-center'>Test Paper</p>
@@ -95,24 +105,27 @@ export default function Test() {
                         <h2 className="text-2xl font-bold text-[#008080] mb-4">Test Completed!</h2>
                         <p className="text-xl font-semibold text-gray-800">Your marks are:</p>
                         <p className="text-3xl font-bold text-[#db701d]">{points}</p>
-                        
                     </div>
                 </div>
             ) : (
                 <div className='w-full flex flex-col items-center'>
-                <button onClick={editHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
+                    {!isEditMode && (
+                        <button onClick={editHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
                             Edit
                         </button>
+                    )}
                     <div className='mx-3'>
                         {questions.map((q, questionIndex) => (
-                            <div key={questionIndex} className="bg-[#FFEDCC] md:p-4 p-2 md:m-4 m-2 rounded-2xl">
+                            <div key={questionIndex} className="w-[600px] bg-[#FFEDCC] md:p-4 p-2 md:m-4 m-2 rounded-2xl">
                                 {isEditMode ? (
-                                    <input
-                                        type="text"
-                                        value={q.title}
-                                        onChange={(e) => handleQuestionChange(e, questionIndex)}
-                                        className='bg-white px-5 py-1 rounded-lg m-2 md:text-[20px] text-[16px]'
-                                    />
+                                    <div>
+                                        <input
+                                            type="text"
+                                            value={q.title}
+                                            onChange={(e) => handleQuestionChange(e, questionIndex)}
+                                            className='bg-white px-5 py-1 rounded-lg m-2 md:text-[16px] text-[12px] w-full'
+                                        />
+                                    </div>
                                 ) : (
                                     <h3 className='bg-white px-5 py-1 rounded-lg m-2 md:text-[20px] text-[16px]'>{q.title}</h3>
                                 )}
@@ -133,7 +146,7 @@ export default function Test() {
                                                     type="text"
                                                     value={option}
                                                     onChange={(e) => handleOptionChange(e, questionIndex, optionIndex)}
-                                                    className='md:text-[16px] text-[14px]'
+                                                    className='md:text-[16px] text-[14px] w-full'
                                                 />
                                             ) : (
                                                 <div className='md:text-[16px] text-[14px]'>
@@ -142,12 +155,23 @@ export default function Test() {
                                             )}
                                         </div>
                                     ))}
+                                    {isEditMode && (
+                                        <div className='mt-3'>
+                                            <label className='mr-3'>Your answer:</label>
+                                            <input
+                                                type='text'
+                                                value={q.answer || ''}
+                                                onChange={(e) => handleAnswerChange(e, questionIndex)}
+                                                className='py-1 rounded-sm w-[450px] h-[30px]'
+                                            />
+                                        </div>
+                                    )}
                                 </ul>
                             </div>
                         ))}
                     </div>
                     <div>
-                        <button onClick={submitHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
+                        <button onClick={submitHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl mx-6">
                             Submit
                         </button>
                         {isEditMode && (
