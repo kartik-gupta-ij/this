@@ -1,8 +1,10 @@
 import User from '../models/user.model.js';
 import { errorHandler } from '../utils/error.js';
 import bcryptjs from 'bcryptjs';
+import { error } from 'console';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
+import Master from '../models/master.model.js';
 
 export const test = (req, res) => {
   res.json({
@@ -77,7 +79,7 @@ export const deleteUser = async (req, res, next) => {
 export const getAllUser = async (req, res) => {
   console.log("working");
   try {
-    const user = await User.find({});
+    const user = await User.find({role: 'user'});
     res.status(200).json({data: user, status: "success"});
   } catch (error) {
     res.status(500).json({message: "Something went wrong"})
@@ -231,8 +233,116 @@ export const resetPassword = async (req, res) => {
     res.status(200).json({ message: 'Password has been reset successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Something went wrong' });
   }
 };
+
+export const userToMaster = async (req, res) => {
+  const { userId } = req.params;
+  console.log(userId);
+
+  try {
+    const admin = await User.findById(req.user.id);
+    const user = await User.findById(userId);
+    
+    if (!user && !admin) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (admin.role !== "admin") {
+      return res.status(403).json({ message: "You are not authorized to convert to master" });
+    }
+
+    user.role = "master";
+    await user.save();
+
+    await Master.create({ userId: userId });
+
+    res.status(200).json({ message: "Successfully converted to Master role" });
+
+  } catch (error) {
+    console.error("Error converting user to master:", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+export const addUsersToMaster = async (req, res) => {
+  const { userId } = req.params;
+  const { subuserIds } = req.body;
+
+  try {
+    const admin = await User.findById(req.user.id);
+
+    if (admin.role !== "admin") {
+      return res.status(403).json({ message: "You are not authorized to convert to master" });
+    }
+
+    const user = await Master.findById(userId);
+    // console.log(user);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+
+    const subusers = await User.find({ _id: { $in: subuserIds } });
+    console.log(subusers, subuserIds);
+    if (subusers.length !== subuserIds.length) {
+      return res.status(404).json({ message: "One or more subusers not found" });
+    }
+
+    const master = await Master.findOneAndUpdate(
+      { userId: userId },
+      { $addToSet: { subusers: { $each: subuserIds } } },
+      { new: true, upsert: true }
+    );
+
+    res.status(200).json(master);
+  } catch (error) {
+    console.error("Error adding users to master:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+export const updateRoleToAdmin = async () => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { email: 'rocky@gmail.com' }, // Find the user by email
+      { role: 'admin' }, // Update the role to 'admin'
+      { new: true } // Return the updated document
+    );
+
+    if (!user) {
+      console.log('User not found');
+    } else {
+      console.log('User role updated successfully:', user);
+    }
+  } catch (error) {
+    console.error('Error updating user role:', error);
+  }
+};
+
+
+export const getMasterData = async (req, res) => {
+  const { masterId } = req.params;
+  try {
+    const master = await Master.findById(masterId)
+      // .populate('userId') // Populate userId
+      .populate('subusers'); // Populate subusers
+
+    if (!master) {
+      return res.status(404).json({ message: "Master not found" });
+    }
+
+    res.status(200).json({ data: master, status: "success" });
+  } catch (error) {
+    console.error('Error fetching master data:', error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+
 
 

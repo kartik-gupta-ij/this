@@ -8,6 +8,10 @@ import {
   forgotPassword,
   verifyOTP,
   resetPassword,
+  userToMaster,
+  addUsersToMaster,
+  updateRoleToAdmin,
+  getMasterData,
 } from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 import { chatroom } from '../controllers/chat.controllers.js';
@@ -25,5 +29,9 @@ router.get("/api/getbirthday", verifyToken, getRecentBirthdays);
 router.post("/forgetpassword", forgotPassword);
 router.post("/verifyotp", verifyOTP);
 router.post("/resetpassword", resetPassword);
+router.post("/addmaster/:userId",verifyToken, userToMaster);
+router.post("/addusertomaster/:userId", verifyToken, addUsersToMaster);
+router.post("/createadmin", updateRoleToAdmin);
+router.get("/getmaster/:masterId", getMasterData);
 
 export default router;
