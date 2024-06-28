@@ -20,7 +20,7 @@ export default function VerifyByEmail() {
                             renderInput={(props) => <input {...props} className="px-3 border-2 border-black m-3 w-12 h-12 rounded text-center" />}
                         />
                         <Link to='/verify/resetpassword'>
-                            <button class="w-full py-2 px-6 rounded-md shadow-lg font-medium text-gray-100 block transition duration-300 bg-[#008080] text-xl" type="submit">
+                            <button className="w-full py-2 px-6 rounded-md shadow-lg font-medium text-gray-100 block transition duration-300 bg-[#008080] text-xl" type="submit">
                                 Verify
                             </button>
                         </Link>

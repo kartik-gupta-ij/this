@@ -1,7 +1,82 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import events1 from '../assets/events1.png';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+
+
+
 export default function Events() {
+    const { currentUser } = useSelector(state => state.user);
+    const [eventData, setEventData] = useState([]);
+    const [file, setFile] = useState("");
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+
+
+    const onUpload = async (element) => {
+        if (element.type === "image/jpeg" || element.type === "image/png") {
+            const data = new FormData();
+            data.append("file", element);
+            data.append("upload_preset", import.meta.env.VITE_CLOUDINARY_PRESET);
+            data.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+
+            try {
+                const response = await fetch(import.meta.env.VITE_CLOUDINARY_BASE_URL, {
+                    method: "POST",
+                    body: data,
+                });
+                const result = await response.json();
+                setFile(result.url.toString());
+            } catch (error) {
+                console.error("Error uploading image:", error);
+            }
+        } else {
+            console.log("error");
+            // toast.error("Please select an image in jpeg or png format");
+        }
+    };
+
+    const createEvent = async () => {
+        const formData = {
+            title: title,
+            image: file,
+            content: content
+        }
+        console.log(formData);
+        try {
+            const res = await axios.post("/api/event", formData, {
+                headers: {
+                    Authorization: currentUser?.token
+                }
+            })
+            setEventData([...eventData, res.data?.newEvent]);
+            console.log(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    console.log(import.meta.env.VITE_CLOUDINARY_BASE_URL, "woking", file);
+
+    const getEvent = async () => {
+        try {
+            const { data } = await axios.get("/api/event", {
+                headers: {
+                    Authorization: currentUser?.token
+                }
+            });
+
+            setEventData(data?.data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getEvent()
+    }, [])
     return (
         <div className='w-full'>
             <p className='text-3xl  leading-6 tracking-tight  font-bold mt-10 ml-10' >Birthday & Anniversary</p>
@@ -44,56 +119,60 @@ export default function Events() {
                 </div>
             </div>
             <p className='text-3xl  leading-6 tracking-tight  font-bold ml-6' >Upcoming festivals</p>
-            <div className='full flex justify-center  flex-col mt-8'>
-                <div className="w-8/10 mx-10 bg-gradient-to-b from-[#FFF5E3] via-[#FFF5E3] to-[#FFEDCC]">
-                    <div className="text-left p-4 flex relative ">
-                        <div className="w-4/5 z-10">
-                            <p className='text-xl font-bold'>~JANMASHTAMI~ </p>
-                            <p className='text-xl leading-14 tracking-tight'>
-                                Join us for a divine celebration of this sacred event will immerse you in the timeless teachings and joyous festivities associated with the divine appearance of Lord Krishna.<br /><br /> Date: 26 Aug <br />Time: 11 PM <br />Venue: ISCON Temple, Noida
-                            </p>
-                        </div>
-                        <div className='flex justify-center items-center'>
-                            <img src={events1} className="flex justify-center items-center" width="250px" alt="Event 1" />
+
+            {eventData?.map((item, key) => (
+                <div key={key} className='full flex justify-center  flex-col mt-8'>
+                    <div className="w-8/10 mx-10 bg-gradient-to-b from-[#FFF5E3] via-[#FFF5E3] to-[#FFEDCC]">
+                        <div className="text-left p-4 flex relative ">
+                            <div className="w-4/5 z-10">
+                                <p className='text-xl font-bold'>{item?.title} </p>
+                                <p className='text-xl leading-14 tracking-tight'>
+                                    {item?.content}</p>
+                            </div>
+                            <div className='flex justify-center items-center'>
+                                <img src={item?.image} className="flex justify-center items-center" width="250px" alt="Event 1" />
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="w-8/10 mx-10 bg-gradient-to-b from-[#FFF5E3] via-[#FFF5E3] to-[#FFEDCC] mt-6">
-                    <div className="text-left p-4 flex relative ">
-                        <div className="w-4/5 z-10">
-                            <p className='text-xl font-bold'>~Ratha Yatra Festival~ </p>
-                            <p className='text-xl leading-14 tracking-tight'>
-                                Join us for a divine celebration of this sacred event will immerse you in the timeless teachings and joyous festivities associated with the divine appearance of Lord Krishna.<br /><br /> Date: 26 Aug <br />Time: 11 PM <br />Venue: ISCON Temple, Noida
-                            </p>
-                        </div>
-                        <div className='flex justify-center items-center'>
-                            <img src={events1} className="flex justify-center items-center" width="250px" alt="Event 1" />
-                        </div>
-                    </div>
                 </div>
+            ))}
 
-            </div>
             <div
-                class="bg-[#FFA500] p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4"
+                className="bg-[#FFA500] p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4"
             >
-                <div class="flex flex-col items-center space-y-2">
-                    <div class="bg-white p-4 rounded-lg flex items-center justify-center">
-                        <img src="https://placehold.co/50x50" alt="Add Image" class="h-12 w-12" />
+                <div className="flex flex-col items-center space-y-2">
+                    <div
+                        className="bg-white p-4 rounded-lg flex items-center justify-center cursor-pointer"
+                    // onClick={handleImageClick}
+                    >
+                        <img
+                            src="https://placehold.co/50x50"
+                            alt="Add Image"
+                            className="h-12 w-12"
+                        />
+                        <input
+                            type="file"
+                            onChange={(e) => onUpload(e.target.files[0])}
+                        // ref={fileInputRef}
+                        // style={{ display: 'none' }}
+                        />
                     </div>
-                    <span class="text-white">Add Image</span>
+                    <span className="text-white">Add Image</span>
                 </div>
-                <div class="flex flex-col space-y-4 flex-grow">
+                <div className="flex flex-col space-y-4 flex-grow">
                     <input
+                        onInput={(e) => setTitle(e.target.value)}
                         type="text"
                         placeholder="Name of event"
-                        class="p-2 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
+                        className="p-2 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
                     />
                     <textarea
+                        onInput={(e) => setContent(e.target.value)}
                         placeholder="Content of the event like venue, time, date, etc."
-                        class="p-2 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
+                        className="p-2 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
                     ></textarea>
-                    <button class="bg-teal-600 text-white p-2 rounded-lg">Upload blog</button>
+                    <button className="bg-teal-600 text-white p-2 rounded-lg" onClick={createEvent}>Upload blog</button>
                 </div>
             </div>
             <div className='h-[150px]'></div>
