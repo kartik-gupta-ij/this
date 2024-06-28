@@ -1,13 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export default function Test() {
     const [questions, setQuestions] = useState([]);
     const { currentUser } = useSelector(state => state.user);
-    const [isTestGiven, setIsTestGiven] = useState(currentUser.rest.isTestGiven || false);
-    const [points, setPoints] = useState(currentUser.rest.points);
+    console.log("Test wala page m", currentUser);
+    const [isTestGiven, setIsTestGiven] = useState(currentUser.isTestGiven || false);
+    const [points, setPoints] = useState(currentUser.points);
     const [selectedOptions, setSelectedOptions] = useState(Array(10).fill(''));
+    const [isEditMode, setIsEditMode] = useState(false);
 
     const getAllMcq = async () => {
         try {
@@ -29,12 +31,25 @@ export default function Test() {
         console.log(`Question ${questionIndex + 1}: Option ${optionIndex + 1} selected`);
     };
 
+    const handleQuestionChange = (e, questionIndex) => {
+        const newQuestions = [...questions];
+        newQuestions[questionIndex].title = e.target.value;
+        setQuestions(newQuestions);
+    };
+
+    const handleOptionChange = (e, questionIndex, optionIndex) => {
+        const newQuestions = [...questions];
+        newQuestions[questionIndex].options[optionIndex] = e.target.value;
+        setQuestions(newQuestions);
+    };
+
     const submitHandler = async () => {
-        // let calculatedPoints = 0;
+        let calculatedPoints = 0;
         for (let i = 0; i < questions.length; i++) {
-            if (questions[i].answer === questions[i].options[selectedOptions[i]]) setPoints(prev => prev+1);
+            if (questions[i].answer === questions[i].options[selectedOptions[i]]) calculatedPoints++;
         }
-        const pointData = { points: points };
+        setPoints(calculatedPoints);
+        const pointData = { points: calculatedPoints };
         try {
             const res = await axios.post("/api/mcq/submit", pointData, {
                 headers: {
@@ -43,9 +58,26 @@ export default function Test() {
             });
             console.log(res);
 
-            // Update local state to indicate that the test is given
-            // setPoints(calculatedPoints);
             setIsTestGiven(true);
+            setIsEditMode(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const editHandler = () => {
+        setIsEditMode(true);
+    };
+
+    const saveHandler = async () => {
+        try {
+            const res = await axios.post("/api/mcq/update", { questions }, {
+                headers: {
+                    Authorization: currentUser?.token
+                }
+            });
+            console.log(res);
+            setIsEditMode(false);
         } catch (error) {
             console.log(error);
         }
@@ -57,12 +89,33 @@ export default function Test() {
         <>
             <p className='w-full text-[28px] text-center'>Test Paper</p>
 
-            {!isTestGiven ? (
+            {!isTestGiven && !isEditMode ? (
+                <div className="w-full flex flex-col items-center justify-center mt-10">
+                    <div className="bg-[#FFEDCC] p-6 rounded-xl shadow-md text-center">
+                        <h2 className="text-2xl font-bold text-[#008080] mb-4">Test Completed!</h2>
+                        <p className="text-xl font-semibold text-gray-800">Your marks are:</p>
+                        <p className="text-3xl font-bold text-[#db701d]">{points}</p>
+                        
+                    </div>
+                </div>
+            ) : (
                 <div className='w-full flex flex-col items-center'>
+                <button onClick={editHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
+                            Edit
+                        </button>
                     <div className='mx-3'>
                         {questions.map((q, questionIndex) => (
                             <div key={questionIndex} className="bg-[#FFEDCC] md:p-4 p-2 md:m-4 m-2 rounded-2xl">
-                                <h3 className='bg-white px-5 py-1 rounded-lg m-2 md:text-[20px] text-[16px]'>{q.title}</h3>
+                                {isEditMode ? (
+                                    <input
+                                        type="text"
+                                        value={q.title}
+                                        onChange={(e) => handleQuestionChange(e, questionIndex)}
+                                        className='bg-white px-5 py-1 rounded-lg m-2 md:text-[20px] text-[16px]'
+                                    />
+                                ) : (
+                                    <h3 className='bg-white px-5 py-1 rounded-lg m-2 md:text-[20px] text-[16px]'>{q.title}</h3>
+                                )}
                                 <ul>
                                     {q?.options?.map((option, optionIndex) => (
                                         <div
@@ -75,9 +128,18 @@ export default function Test() {
                                                 }`}>
                                                 <div className='w-[9px] h-[9px] bg-white rounded-full'></div>
                                             </div>
-                                            <div className='md:text-[16px] text-[14px]'>
-                                                {option}
-                                            </div>
+                                            {isEditMode ? (
+                                                <input
+                                                    type="text"
+                                                    value={option}
+                                                    onChange={(e) => handleOptionChange(e, questionIndex, optionIndex)}
+                                                    className='md:text-[16px] text-[14px]'
+                                                />
+                                            ) : (
+                                                <div className='md:text-[16px] text-[14px]'>
+                                                    {option}
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </ul>
@@ -88,14 +150,11 @@ export default function Test() {
                         <button onClick={submitHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
                             Submit
                         </button>
-                    </div>
-                </div>
-            ) : (
-                <div className="w-full flex flex-col items-center justify-center mt-10">
-                    <div className="bg-[#FFEDCC] p-6 rounded-xl shadow-md text-center">
-                        <h2 className="text-2xl font-bold text-[#008080] mb-4">Test Completed!</h2>
-                        <p className="text-xl font-semibold text-gray-800">Your marks are:</p>
-                        <p className="text-3xl font-bold text-[#db701d]">{points}</p>
+                        {isEditMode && (
+                            <button onClick={saveHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#FFA500] text-white font-bold mt-5 text-xl">
+                                Save
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
