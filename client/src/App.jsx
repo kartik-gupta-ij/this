@@ -19,14 +19,15 @@ import SadhanaForm from './pages/SadhanaForm';
 import Chatroom from './pages/Chatroom';
 import Privateprofile from './pages/privateuser/Logged.jsx'
 import Test from './pages/Test.jsx';
+import LeaderBoard from './pages/LeaderBoard.jsx';
 export default function App() {
   return (
     <BrowserRouter>
       {/* header */}
       <Header />
       <Routes>
-      <Route path='/chatroom' element={<Chatroom/>}/>
-      <Route path='/testpaper' element={<Test />} />
+        <Route path='/chatroom' element={<Chatroom />} />
+        <Route path='/testpaper' element={<Test />} />
         <Route path='/' element={<Home />} />
         <Route path='/profiledata' element={<Privateprofile />} />
         <Route path='/community' element={<Community />} />
@@ -40,6 +41,7 @@ export default function App() {
         <Route path='/about' element={<About />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/leaderboard' element={<LeaderBoard />} />
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
         </Route>
