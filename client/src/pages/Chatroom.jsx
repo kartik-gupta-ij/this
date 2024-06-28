@@ -13,6 +13,7 @@ export default function Chatroom() {
     };
 
    const handleSubmit = async () => {
+    
     try {
       const res = await fetch(`/api/user/api/chatroom/${currentUser._id}`, {
         method: 'POST',
@@ -21,6 +22,7 @@ export default function Chatroom() {
         },
         body: JSON.stringify({ message }), // Send message as an object
       });
+      console.log("working");
       const data = await res.json();
       setChatData(data.data);
       console.log(data);
@@ -87,7 +89,7 @@ export default function Chatroom() {
                     </div>
                 </>
             )}
-            <form onSubmit={handleSubmit} className="mb-4">
+            <form  className="mb-4">
                 <div className="flex items-center bg-yellow-400 dark:bg-zinc-800 p-2 rounded-lg">
 
                     <input
@@ -96,7 +98,7 @@ export default function Chatroom() {
                         placeholder="Type your message..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)} />
-                    <button type="submit"
+                    <button type="submit" onClick={handleSubmit}
                         className="bg-blue-500 text-white px-4 py-2 rounded-lg">
                         <img aria-hidden="true" alt="send" src="https://placehold.co/20?text=%E2%86%92" />
                     </button>
