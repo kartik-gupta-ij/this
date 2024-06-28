@@ -7,6 +7,7 @@ import blogRoutes from './routes/blog.route.js';
 import MCQRoutes from './routes/MCQ.route.js';
 import commentRouter from './routes/comment.route.js'
 import eventRouter from './routes/event.route.js'
+import sadhanaFormRouter from './routes/sadhanaform.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import cors from 'cors'
@@ -50,6 +51,7 @@ app.use('/api/comment', commentRouter);
 app.use('/api', blogRoutes);
 app.use("/api/mcq", MCQRoutes);
 app.use("/api/", eventRouter);
+app.use("/api", sadhanaFormRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

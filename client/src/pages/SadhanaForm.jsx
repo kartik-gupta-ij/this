@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import sadhanaForm from '../assets/sadhanaForm.png';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const options = {
     "Chanting on beads": ['0', '1-4 Rounds', '5-8 Rounds', '9-12 Rounds', '13-16 Rounds', '17-25 Rounds', '26 Rounds Above'],
@@ -57,6 +59,9 @@ const pointsMapping = {
 
 export default function SadhanaForm() {
     const [selectedOptions, setSelectedOptions] = useState({});
+    const { currentUser } = useSelector(state => state.user);
+    // const [formData, setFormData] = useState({chooseOption: selectedOptions, points: points});
+    const [points, setPoints] = useState(0);
 
     const handleSelection = (category, option) => {
         setSelectedOptions((prevSelectedOptions) => ({
@@ -65,7 +70,7 @@ export default function SadhanaForm() {
         }));
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let totalPoints = 0;
         console.log("selectedOptions", selectedOptions);
 
@@ -74,8 +79,33 @@ export default function SadhanaForm() {
             totalPoints += pointsMapping[category][option] || 0;
         });
 
-        console.log("Total Points: ", totalPoints);
+        setPoints(totalPoints);
+        const formData = {chooseOption: selectedOptions, points: totalPoints};
+
+        console.log("Total Points: ", totalPoints, formData);
+
+        try {
+            const res = await axios.post("/api/sadhana", formData, {
+                headers: {
+                    Authorization: currentUser?.token
+                }
+            })
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
     };
+
+    console.log(points, selectedOptions);
+    // const formData = 
+
+    const createSadhanaFromData = async () => {
+        try {
+            const res = await axios.post("/api/sadhana", )
+        } catch (error) {
+            
+        }
+    }
 
     return (
         <div>
