@@ -1,6 +1,7 @@
 import React from 'react';
 import menuItems from './Logged';
 import ShowAllUserData from '../../components/ShowAllUserData';
+import LeaderBoard from '../LeaderBoard';
 
 export default function Logged() {
     console.log(menuItems);
@@ -9,6 +10,7 @@ export default function Logged() {
         <div className=' w-full flex justify-around'>
             <div className="flex flex-col items-center">
                 <ShowAllUserData />
+                <LeaderBoard/>
                 <div className='w-[500px] h-[488px] bg-[#FFF5E3] rounded-xl mt-4 flex'>
                     <div className='w-1/2 flex flex-col justify-center items-center'>
                         <div className='w-[94px] h-[94px] bg-[#D9D9D9] rounded-full mb-4'></div>
