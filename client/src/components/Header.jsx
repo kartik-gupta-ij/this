@@ -15,11 +15,11 @@ function Header() {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <div className="md:hidden flex items-center">
-              <img src={logo} alt="Logo" loading="lazy" className="md:mr-2 mr-1 md:flex w-[32px] h-[22px]" />
+              {/* <img src={logo} alt="Logo" loading="lazy" className="md:mr-2 mr-1 md:flex w-[32px] h-[22px]" /> */}
               <img src={sadhna} alt="sadhana" loading="lazy" className='w-[74px] h-[22px]' />
             </div>
             <div className="hidden md:flex items-center">
-            <img src={logo} alt="Logo" loading="lazy" className="md:mr-2 mr-1  " />
+            {/* <img src={logo} alt="Logo" loading="lazy" className="md:mr-2 mr-1  " /> */}
             <img src={sadhna} alt="sadhana" loading="lazy" className='' />
             </div>
           </Link>
