@@ -72,7 +72,7 @@ function Community() {
             });
 
             setQuestions(prevQuestions =>
-                prevQuestions.map(q =>
+                prevQuestions?.map(q =>
                     q._id === questionId ? { ...q, comments: [...q.comments, res.data.comment] } : q
                 )
             );
@@ -152,7 +152,7 @@ function Community() {
                         <div className='bg-[#FFEDCC] py-1 px-1'>Unanswered Q’s</div>
                         <div className='bg-[#FFEDCC] py-1 px-1'>My Answers</div>
                     </div>
-                    {questions.map((item, key) => (
+                    {questions?.map((item, key) => (
                         <div key={key} className='w-full border-2 border-[#FFA500] md:mt-5 mt-2 md:p-5 p-2 rounded-xl'>
                             <div className='flex md:m-2 m-0.5 items-center'>
                                 <div className='md:w-[45px] md:h-[45px] w-[38px] h-[38px] rounded-full bg-green-500 mx-3'></div>
