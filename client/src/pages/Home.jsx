@@ -17,7 +17,7 @@ export default function Home() {
                         <img src={image} width="600px" />
                     </div>
                     <div className="md:bg-gradient-to-r from-white via-[#FFFFFF] to-[#FFEDCC] rounded-2xl">
-                        <p className="text-[#6A6A6A] -ml-3 font-normal md:text-4xl leading-14  md:mt-[130px] text-[14px] mt-6 leading-6 tracking-wide text-left">"Discover the profound teachings and timeless wisdom of ISKCON. Explore our offerings and deepen your spiritual journey."</p>
+                        <p className="text-[#6A6A6A] -ml-3 font-normal md:text-4xl leading-14  md:mt-[130px] text-[14px] mt-6 leading-6 tracking-wide text-left">Discover the profound teachings and timeless wisdom of ISKCON. Explore our offerings and deepen your spiritual journey.</p>
                         <button className="rounded-lg md:px-5 md:py-3 px-3 py-2 bg-[#008080] text-white font-bold mt-5 md:text-2xl text-[16px]">
                             <Link to="login">Join Us</Link>
                         </button>
