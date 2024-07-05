@@ -12,7 +12,7 @@ import sadhana from '../assets/sadhana.svg';
 import society from '../assets/sociaty.svg'
 import events from '../assets/events.svg'
 import assets from '../assets/assets.svg'
-
+import { SiBookstack } from "react-icons/si";
 export default function Footer() {
     const location = useLocation();
 
@@ -94,7 +94,7 @@ export default function Footer() {
                 </div>
             </div>
             {/* Mobile View */}
-            <div className="md:hidden w-auto fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300">
+            <div className="md:hidden w-auto sticky bottom-0 left-0 right-0 bg-white border-t border-gray-300 h-[100px]">
                 <div className="flex space-x-6 justify-center items-center py-4">
                     <div className={`flex flex-col items-center ${location.pathname === '/home' ? 'bg-yellow-200 border-2 border-[#FFA500] text-[#FFA500] p-1 rounded-xl' : ''}`}>
                         <img src={home} alt="home" className="mb-1" />
@@ -113,7 +113,7 @@ export default function Footer() {
                         <Link to="/events" className="text-zinc-600 dark:text-zinc-300">Events</Link>
                     </div>
                     <div className={`flex flex-col items-center ${location.pathname === '/assets' ? 'bg-yellow-200 border-2 border-[#FFA500] text-[#FFA500] p-1 rounded-xl' : ''}`}>
-                        <img src={assets} alt="assets" className="mb-1" />
+                        <SiBookstack className='w-[20px] h-[20px]' />
                         <Link to="/assets" className="text-zinc-600 dark:text-zinc-300">Assets</Link>
                     </div>
                 </div>

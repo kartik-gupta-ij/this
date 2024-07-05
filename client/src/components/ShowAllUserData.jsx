@@ -20,16 +20,18 @@ function App() {
             <table className='min-w-full bg-white border border-gray-300'>
                 <thead>
                     <tr>
-                        <th className='py-2 px-4 border-b'>Devotees list </th>
-                        <th className='py-2 px-4 border-b'>Status</th>
+                        <th className='py-2 px-4 border text-[#9B9B9D] font-semibold '>Devotees list </th>
+                        <th className='py-2 px-4 border  text-[#9B9B9D] font-semibold'>Status</th>
 
                     </tr>
                 </thead>
                 <tbody className='border'>
                     {userData.map((user, index) => (
                         <tr key={index} className='border'>
-                            <td className='py-2 px-4 border'>{user.name}</td>
-                            <td className='py-2 px-4 border'>Active</td>
+                            <td className='py-2 px-4 border text-[18px] text-[#56565b]'>{user.name}</td>
+                                <td className='py-2 px-7 border '>
+                                    <div className='text-[18px] text-white bg-[#008080] text-center rounded-xl'>Active</div>
+                                </td>
                         </tr>
                     ))}
                 </tbody>
