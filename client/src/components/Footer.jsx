@@ -21,7 +21,7 @@ export default function Footer() {
             <div className='relative hidden md:block w-full bg-[#FFA500] mt-5 bg-right-top bg-no-repeat bg-contain rounded-tr-[120px]' style={{ backgroundImage: `url(${navbar})` }}>
                 <div className="flex items-center">
                     <Link to="/" className="flex items-center ml-4 mt-5">
-                        <img src={before} alt="Logo" loading="lazy" width="100px" className='mr-2' />
+                        {/* <img src={before} alt="Logo" loading="lazy" width="100px" className='mr-2' /> */}
                         <img src={sadhna} alt="sadhana" loading="lazy" width="150px" />
                     </Link>
                 </div>
