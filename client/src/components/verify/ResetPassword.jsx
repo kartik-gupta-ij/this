@@ -7,13 +7,13 @@ import Herosection from "../Herosection";
 export default function ResetPassword() {
   return (
     <>
-      <div className="flex justify-center items-center mb-2">
-        <div className="flex justify-center items-center flex-col w-[18.75rem] md:w-[37.5rem]">
+      <div className="flex justify-center items-center mb-[7rem]">
+        <div className="flex justify-center items-center flex-col w-[28.75rem] md:w-[47.5rem]">
           <Herosection
             heading="Reset password"
             subheading="As guardians of your spiritual journey, we invite you to forge a new password that will safeguard your sacred space within our community"
           />
-          <div className="mt-5 w-1/2">
+          <div className="mt-5 ">
             <form>
               <div className="mt-4 sm:mt-2">
                 <div className="relative mb-2 mt-2 flex items-center">
@@ -21,7 +21,7 @@ export default function ResetPassword() {
                   <input
                     type="password"
                     id="password"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5"
                     placeholder="Password"
                   />
                 </div>
@@ -31,7 +31,7 @@ export default function ResetPassword() {
                   <input
                     type="password"
                     id="confirmPassword"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5"
                     placeholder="Confirm Password"
                   />
                 </div>
