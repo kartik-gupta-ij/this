@@ -5,14 +5,15 @@ import { useSelector } from 'react-redux';
 function App() {
     const [userData, setUserData] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [showAddMembers, setShowAddMembers] = useState(false); // State to toggle Add Members section visibility
     const { currentUser } = useSelector((state) => state.user);
-    console.log("Show all data", currentUser);
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/user/getuser')
             .then(response => {
                 const usersWithStatus = response.data.data.map(user => ({
                     ...user,
+                    isSelected: false // Add isSelected property to manage selection
                 }));
                 setUserData(usersWithStatus);
             })
@@ -66,6 +67,18 @@ function App() {
             });
     };
 
+    const toggleAddMembers = () => {
+        setShowAddMembers(!showAddMembers);
+    };
+
+    const handleMemberSelect = (index) => {
+        setUserData(prevUserData => {
+            const updatedUsers = [...prevUserData];
+            updatedUsers[index].isSelected = !updatedUsers[index].isSelected;
+            return updatedUsers;
+        });
+    };
+
     return (
         <div className='container mx-auto p-4'>
             <h1 className='text-2xl mb-4'>User Data</h1>
@@ -114,8 +127,30 @@ function App() {
                         >
                             Master
                         </button>}
-                        <button className='p-2 border-2 ml-2 border-[#008080] text-[#008080]'>+ Add Members</button>
+                        <button
+                            className='p-2 border-2 ml-2 border-[#008080] text-[#008080]'
+                            onClick={toggleAddMembers}
+                        >
+                            + Add Members
+                        </button>
                     </div>
+                    {showAddMembers && (
+                        <div className='mt-4 p-4 border border-gray-300 bg-white rounded-lg max-h-48 overflow-y-auto'>
+                            <h2 className='text-xl font-semibold mb-2'>Add Members</h2>
+                            {userData.map((user, index) => (
+                                <div key={index} className='flex items-center'>
+                                    <input
+                                        type='checkbox'
+                                        checked={user.isSelected}
+                                        onChange={() => handleMemberSelect(index)}
+                                    />
+                                    <label className='ml-2'>{user.name}</label>
+                                </div>
+                                
+                            ))}
+                            <div className='bg-[#008080] text-white w-full text-center p-1 rounded-xl mt-3'> Add Selected user to this master</div>
+                        </div>
+                    )}
                     {/* Add more details as necessary */}
                 </div>
             )}
