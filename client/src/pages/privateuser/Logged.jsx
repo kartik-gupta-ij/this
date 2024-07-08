@@ -3,7 +3,7 @@ import menuItems from './Logged';
 import ShowAllUserData from '../../components/ShowAllUserData';
 import LeaderBoard from '../LeaderBoard';
 import { useSelector } from 'react-redux';
-import * as XLSX from 'xlsx';
+import  XLSX from 'xlsx';
 import Graphofuser from '../../components/Graphofuser';
 
 export default function Logged() {
