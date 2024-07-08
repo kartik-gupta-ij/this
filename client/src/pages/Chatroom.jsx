@@ -14,19 +14,22 @@ export default function Chatroom() {
 
     const fetchChatData = async () => {
         try {
-            const res = await fetch(`/api/user/api/chatroom/${currentUser._id}`);
+            const res = await fetch(`/api/user/api/chatroom/${currentUser?.rest?._id}`);
             const data = await res.json();
+            console.log(data, currentUser);
             setChatData(data.data);
         } catch (error) {
             console.log("Error occurred while fetching chat data:", error);
         }
     };
 
+    console.log(currentUser.rest)
+
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent form from reloading the page
 
         try {
-            const res = await fetch(`/api/user/api/chatroom/${currentUser._id}`, {
+            const res = await fetch(`/api/user/api/chatroom/${currentUser?.rest?._id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,7 +45,11 @@ export default function Chatroom() {
     };
 
     useEffect(() => {
-        fetchChatData(); // Initial fetch when the component mounts
+        fetchChatData();
+    }, [])
+
+    useEffect(() => {
+        // fetchChatData(); // Initial fetch when the component mounts
 
         const intervalId = setInterval(() => {
             fetchChatData();
