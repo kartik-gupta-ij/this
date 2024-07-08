@@ -8,8 +8,10 @@ import book6 from "../assets/book6.png";
 import book7 from "../assets/book7.png";
 import book8 from "../assets/book8.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Assets() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <div className="mt-5">
       <div className="flex justify-between items-center px-6 py-4">
@@ -124,7 +126,7 @@ export default function Assets() {
           </div>
         </div>
       </div>
-      <div className="bg-[#FFA500] p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-10">
+      {currentUser&&currentUser.role==='role'&&<div className="bg-[#FFA500] p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-10">
         <div className="flex flex-col items-center space-y-2">
           <div className="bg-white p-4 rounded-lg flex items-center justify-center">
             <img
@@ -149,7 +151,7 @@ export default function Assets() {
             Upload blog
           </button>
         </div>
-      </div>
+      </div>}
       <div className="w-full h-[80px]"></div>
     </div>
   );

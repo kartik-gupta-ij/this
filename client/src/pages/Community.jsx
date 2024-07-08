@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Community() {
+
   const [openQuestionId, setOpenQuestionId] = useState(null);
   const [activeLink, setActiveLink] = useState("community");
   const [questions, setQuestions] = useState([]);
@@ -91,7 +92,7 @@ function Community() {
   };
 
   return (
-    <>
+    <>{currentUser==null ? <div className="w-full flex justify-center items-center text-[#008080] font-bold h-[300px] text-4xl">Please login first</div>:<div>
       <div className="w-full flex justify-center items-center mt-4">
         <div className="md:hidden w-[300px] h-[46px] flex justify-between border-2 border-[#008080] mt-2">
           <div
@@ -255,7 +256,7 @@ function Community() {
             </div>
           ))}
         </div>
-      </div>
+      </div></div>}
       <div className="md:hidden h-[100px]"></div>
     </>
   );

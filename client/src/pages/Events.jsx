@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 export default function Events() {
   const { currentUser } = useSelector((state) => state.user);
+  console.log("Events wale ",currentUser)
   const [eventData, setEventData] = useState([]);
   const [file, setFile] = useState("");
   const [title, setTitle] = useState("");
@@ -164,7 +165,7 @@ export default function Events() {
           </div>
         ))}
 
-        <div className="bg-[#FFA500] p-6 w-8/10 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+        {currentUser&& currentUser.role==='Admin'&&<div className="bg-[#FFA500] p-6 w-8/10 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
           <div className="flex flex-col items-center space-y-2">
             <div
               className="bg-white p-4 rounded-lg flex items-center justify-center cursor-pointer"
@@ -203,7 +204,7 @@ export default function Events() {
               Upload blog
             </button>
           </div>
-        </div>
+        </div>}
       </div>
       <div className="h-[80px]"></div>
     </div>

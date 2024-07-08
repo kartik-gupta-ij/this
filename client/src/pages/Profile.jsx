@@ -216,7 +216,7 @@ export default function Profile() {
               <div className="relative mb-2 mt-2 flex items-center">
                 <MdOutlineRealEstateAgent className=" absolute left-4 mb-0 mt-auto" />
                 <input
-                  type="text"
+                  type="date"
                   id="email-address-icon"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5"
                   placeholder="Age"

@@ -13,9 +13,11 @@ import society from "../assets/sociaty.svg";
 import events from "../assets/events.svg";
 import assets from "../assets/assets.svg";
 import { SiBookstack } from "react-icons/si";
+import { useSelector } from "react-redux";
 export default function Footer() {
   const location = useLocation();
-
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser)
   return (
     <>
       <div
@@ -42,13 +44,13 @@ export default function Footer() {
           <div className="p-4">
             <p className="text-2xl font-bold">Quick Links</p>
             <p className="text-xl text-[#3C3C3C] mt-2">
-              <Link to="#">Fill Sadhna</Link>
+              <Link to="/sadhana/form">Fill Sadhna</Link>
             </p>
             <p className="text-xl text-[#3C3C3C] mt-2">
-              <Link to="#">My Challenge</Link>
+              <Link to="/events">Events</Link>
             </p>
             <p className="text-xl text-[#3C3C3C] mt-2">
-              <Link to="#">Ask Questions</Link>
+              <Link to="/community">Ask Questions</Link>
             </p>
             <p className="text-xl text-[#3C3C3C] mt-2">
               <Link to="/testpaper">Today Test </Link>
@@ -108,7 +110,7 @@ export default function Footer() {
         </div>
       </div>
       {/* Mobile View */}
-      <div className="md:hidden w-full bottom-0 left-0 right-0 bg-white border-t border-gray-300 z-20 fixed">
+      {currentUser!==null&&<div className="md:hidden w-full bottom-0 left-0 right-0 bg-white border-t border-gray-300 z-20 fixed">
         <div className="flex space-x-6 sm:space-x-8 justify-center items-center py-4">
           <div
             className={`flex flex-col items-center ${
@@ -174,7 +176,7 @@ export default function Footer() {
             </Link>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   );
 }
