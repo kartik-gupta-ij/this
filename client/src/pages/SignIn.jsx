@@ -1,14 +1,18 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
-import OAuth from '../components/OAuth';
-import Herosection from '../components/Herosection';
-import { MdOutlineMail } from 'react-icons/md';
-import { RiLockPasswordLine } from 'react-icons/ri';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
+import Herosection from "../components/Herosection";
+import { MdOutlineMail } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 export default function SignIn() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const { loading, error } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
@@ -22,10 +26,10 @@ export default function SignIn() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch('/api/auth/signin', {
-        method: 'POST',
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -36,7 +40,7 @@ export default function SignIn() {
         return;
       }
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate("/");
     } catch (error) {
       dispatch(signInFailure(error));
     }
@@ -44,17 +48,20 @@ export default function SignIn() {
 
   return (
     <>
-      <div className='flex justify-center items-center mb-3'>
-        <div className='flex justify-center items-center flex-col md:w-[600px] w-[300px]'>
-          <Herosection heading="Welcome back devoted soul" subheading="Return to the path of divine love. Sign in and walk hand-in-hand with lord Krishna" />
-          <div className='mt-5'>
+      <div className="flex justify-center items-center mb-2">
+        <div className="flex justify-center items-center flex-col w-[18.75rem] md:w-[37.5rem]">
+          <Herosection
+            heading="Welcome back devoted soul"
+            subheading="Return to the path of divine love. Sign in and walk hand-in-hand with lord Krishna"
+          />
+          <div className="mt-5">
             <form onSubmit={handleSubmit}>
               <div className="relative mb-2 mt-2 flex items-center">
-                <MdOutlineMail className="absolute left-4 mb-0 mt-auto" />
+                <MdOutlineMail className="absolute left-4 mb-0 mt-auto text-gray-500" />
                 <input
                   type="text"
                   id="email-address-icon"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5"
                   placeholder="Email"
                   name="email"
                   value={formData.email}
@@ -63,51 +70,52 @@ export default function SignIn() {
               </div>
 
               <div className="relative mb-2 mt-2 flex items-center">
-                <RiLockPasswordLine className="absolute left-4 mb-0 mt-auto" />
+                <RiLockPasswordLine className="absolute left-4 mb-0 mt-auto text-gray-500" />
                 <input
                   type="password"
                   id="password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 py-2.5"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Password"
                 />
               </div>
-              <br />
-              <div className='text-right'>
-                <Link to="/verify/verifybyemail"><span className='text-[#008080]'>Forget Password?</span></Link>
+              <div className="text-right mt-2">
+                <Link to="/verify/verifybyemail">
+                  <span className="text-teal-600">Forgot Password?</span>
+                </Link>
               </div>
-              <br />
 
-              <div className='hidden md:flex flex-row'>
-                <div><input type="checkbox" /></div>
-                <div className=''>
-                  <p className='text-xl tracking-tight pl-2 text-center'>
-                    I agree to the <span className='text-[#008080]'>Terms of Service</span> and <span className='text-[#008080]'>Privacy Policy</span>
-                  </p>
-                </div>
+              <div className="hidden md:flex flex-row mt-4">
+                <input type="checkbox" className="mr-2" />
+                <p className="text-base tracking-tight text-center">
+                  I agree to the{" "}
+                  <span className="text-teal-600">Terms of Service</span> and{" "}
+                  <span className="text-teal-600">Privacy Policy</span>
+                </p>
               </div>
-              <br />
+
               <button
                 type="submit"
-                className="w-full py-2 rounded-md shadow-lg font-medium text-gray-100 block transition duration-300 bg-[#008080] text-xl"
+                className="w-full py-2 rounded-md shadow-lg font-medium text-gray-100 transition duration-300 bg-teal-600 text-base mt-4"
               >
                 Log In
               </button>
-              <br />
             </form>
-           <OAuth/>
-            <div className='mt-3 '>
-              <p className=' text-xl tracking-tight pl-2 text-center'>
-                Don't have an account? <Link to="/signup"><span className='text-[#008080]'>Sign Up</span></Link>
+            <OAuth />
+            <div className="mt-4 text-center">
+              <p className="text-base tracking-tight">
+                Don't have an account?{" "}
+                <Link to="/signup">
+                  <span className="text-teal-600">Sign Up</span>
+                </Link>
               </p>
             </div>
           </div>
         </div>
-        
       </div>
-      <div className='w-full h-[100px] md:hidden'></div>
+      <div className="w-full h-[2.25rem] md:hidden"></div>
     </>
   );
 }
