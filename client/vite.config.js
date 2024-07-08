@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react-swc';
 
 export default defineConfig({
   build: {
-        rollupOptions: {
-            external: ['xlsx'],
-        },
+    rollupOptions: {
+      external: ['xlsx', 'react-chartjs-2'],
     },
+  },
   server: {
     proxy: {
       '/api': {
