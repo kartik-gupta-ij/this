@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
   build: {
     rollupOptions: {
-      external: ['xlsx', 'react-chartjs-2'],
+      external: ['xlsx', 'react-chartjs-2', 'chart.js'],
     },
   },
   server: {
