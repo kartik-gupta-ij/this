@@ -46,25 +46,29 @@ export const createQuestion = async (req, res) => {
 
 export const createComment = async (req, res) => {
   const { id } = req.params;
-  const { text } = req.body;
+  const { text } = req.body; // Corrected to use `text` from req.body
 
   try {
-      const question = await Comment.findById(id);
+    // Find the question by its ID
+    const question = await Comment.findById(id);
 
-      console.log(id, text, question, req.user.id);
-      
-      if (!question) {
-        return res.status(404).json({ message: "Question not found" });
-      }
-      
-      const newComment = { text: ans, userId: req.user.id };
-      // console.log(newComment)
-      question.comments.push(newComment);
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
 
-      await question.save();
+    // Create a new comment object
+    const newComment = { text };
 
-      res.status(200).json({ message: "Comment successfully added", comment: newComment });
+    // Push the new comment object into the comments array of the question
+    question.comments.push(newComment);
+
+    // Save the updated question document with the new comment
+    await question.save();
+
+    // Respond with a success message and the new comment object
+    res.status(200).json({ message: "Comment successfully added", comment: newComment });
   } catch (error) {
-      return res.status(500).json({ success: false, message: "Something went wrong" });
+    console.error("Error adding comment:", error);
+    return res.status(500).json({ success: false, message: "Something went wrong" });
   }
-}
+};

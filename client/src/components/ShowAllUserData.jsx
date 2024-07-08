@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function App() {
     const [userData, setUserData] = useState([]);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const { currentUser } = useSelector((state) => state.user);
+    console.log("Show all data", currentUser);
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/user/getuser')
             .then(response => {
-                // Initialize the active status for each user
                 const usersWithStatus = response.data.data.map(user => ({
                     ...user,
-                    isActive: true
                 }));
                 setUserData(usersWithStatus);
             })
@@ -19,12 +21,49 @@ function App() {
             });
     }, []);
 
-    const toggleStatus = (index) => {
-        setUserData(prevUserData => {
-            const newUserData = [...prevUserData];
-            newUserData[index].isActive = !newUserData[index].isActive;
-            return newUserData;
-        });
+    const toggleStatus = (userId) => {
+        axios.post(`http://localhost:3000/api/user/userStatus/${userId}`, {
+            userId: userId,
+            adminId: currentUser.rest._id
+        })
+            .then(response => {
+                setUserData(prevUserData => {
+                    return prevUserData.map(user => {
+                        if (user._id === userId) {
+                            return { ...user, isActive: !user.isActive };
+                        }
+                        return user;
+                    });
+                });
+                console.log('User status updated:', response.data);
+            })
+            .catch(error => {
+                console.error('There was an error updating the user status!', error);
+            });
+    };
+
+    const selectUser = (index) => {
+        setSelectedUser(userData[index]);
+    };
+
+    const makeMaster = (userId) => {
+        axios.post(`http://localhost:3000/api/user/addmaster/${userId}`, {
+            adminId: currentUser.rest._id
+        })
+            .then(response => {
+                setUserData(prevUserData => {
+                    return prevUserData.map(user => {
+                        if (user._id === userId) {
+                            return { ...user, role: 'master' };
+                        }
+                        return user;
+                    });
+                });
+                console.log('User promoted to master:', response.data);
+            })
+            .catch(error => {
+                console.error('There was an error promoting the user to master!', error);
+            });
     };
 
     return (
@@ -39,12 +78,15 @@ function App() {
                 </thead>
                 <tbody className='border'>
                     {userData.map((user, index) => (
-                        <tr key={index} className='border'>
+                        <tr key={index} className='border cursor-pointer' onClick={() => selectUser(index)}>
                             <td className='py-2 px-4 border text-[18px] text-[#56565b]'>{user.name}</td>
                             <td className='py-2 px-7 border'>
                                 <div
-                                    onClick={() => toggleStatus(index)}
-                                    className={`text-[18px] text-white text-center rounded-xl cursor-pointer ${user.isActive ? 'bg-[#008080]' : 'bg-red-500'}`}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        toggleStatus(user._id);
+                                    }}
+                                    className={`text-[18px] text-white text-center rounded-xl ${user.isActive ? 'bg-[#008080]' : 'bg-red-500'}`}
                                 >
                                     {user.isActive ? 'Active' : 'Deactive'}
                                 </div>
@@ -53,6 +95,30 @@ function App() {
                     ))}
                 </tbody>
             </table>
+
+            {selectedUser && (
+                <div className='mt-4 p-4 border border-gray-300 bg-white rounded-lg'>
+                    <h2 className='text-xl font-semibold mb-2'>User Details</h2>
+                    <p className='mb-2'><strong>Name:</strong> {selectedUser.name}</p>
+                    <p className='mb-2'><strong>Image:</strong> <img src={selectedUser.profilePicture} alt={`${selectedUser.profilePicture}`} /></p>
+                    <p className='mb-2'><strong>Points:</strong> {selectedUser.points}</p>
+                    <div>
+                        {selectedUser.role === 'user' ? <button
+                            className='p-2 bg-[#008080] text-white'
+                            onClick={() => makeMaster(selectedUser._id)}
+                        >
+                            Make master
+                        </button> : <button
+                            className='p-2 bg-[#008080] text-white'
+                            onClick={() => makeMaster(selectedUser._id)}
+                        >
+                            Master
+                        </button>}
+                        <button className='p-2 border-2 ml-2 border-[#008080] text-[#008080]'>+ Add Members</button>
+                    </div>
+                    {/* Add more details as necessary */}
+                </div>
+            )}
         </div>
     );
 }

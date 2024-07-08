@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     age: {
-      type: Number, // Changed to Number for consistency
+      type: Number, 
       required: true,
     },
     mobile: {
@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema(
     isTestGiven: {
       type: Boolean,
       default: false
-    }
+    },isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );

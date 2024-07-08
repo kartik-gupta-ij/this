@@ -79,7 +79,7 @@ export const deleteUser = async (req, res, next) => {
 export const getAllUser = async (req, res) => {
   console.log("working");
   try {
-    const user = await User.find({role: 'user'});
+    const user = await User.find({ role: { $in: ['user', 'master'] } });
     res.status(200).json({data: user, status: "success"});
   } catch (error) {
     res.status(500).json({message: "Something went wrong"})
@@ -235,17 +235,52 @@ export const resetPassword = async (req, res) => {
     console.error(error);
   }
 };
-
-export const userToMaster = async (req, res) => {
+export const userStatus = async(req,res)=>{
   const { userId } = req.params;
-  console.log(userId);
+  const { adminId } = req.body;
+  console.log("UserStatus");
+  // console.log(userId, adminId);
 
   try {
-    const admin = await User.findById(req.user.id);
+    // Fetch the admin user based on the adminId from the request body
+    const admin = await User.findById(adminId);
     const user = await User.findById(userId);
-    
-    if (!user && !admin) {
+
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
+    }
+
+    user.isActive = !user.isActive;
+    await user.save();
+
+    res.status(200).json({ message: "Successfully Status into Deactived","userDat":user });
+
+  } catch (error) {
+    console.error("Error converting user to master:", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+}
+export const userToMaster = async (req, res) => {
+  const { userId } = req.params;
+  const { adminId } = req.body;
+  console.log("UserToMaster");
+  console.log(userId, adminId);
+
+  try {
+    // Fetch the admin user based on the adminId from the request body
+    const admin = await User.findById(adminId);
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!admin) {
+      return res.status(404).json({ message: "Admin not found" });
     }
 
     if (admin.role !== "admin") {
@@ -264,6 +299,8 @@ export const userToMaster = async (req, res) => {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+
 
 export const addUsersToMaster = async (req, res) => {
   const { userId } = req.params;

@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get("/allquestion", getQuestions);
 router.post("/question", verifyToken, createQuestion);
-router.post("/comment/:id", verifyToken, createComment);
+router.post("/comment/:id",  createComment);
 
 export default router;
