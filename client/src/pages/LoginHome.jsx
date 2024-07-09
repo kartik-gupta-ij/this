@@ -141,7 +141,7 @@ function LoginHome() {
                 <div className="w-full md:w-2/5 relative flex justify-end">
                   <img
                     src={flat}
-                    className="md:w-[250px] sm:w-[200px] w-[160px] absolute bottom-2 right-2 md:static md:relative md:bottom-auto md:right-auto"
+                    className="md:w-[250px] sm:w-[200px] w-[160px] absolute bottom-2 right-2  md:relative md:bottom-auto md:right-auto"
                     alt="Flat"
                   />
                 </div>

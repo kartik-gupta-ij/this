@@ -1,13 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-
+import * as XLSX from 'xlsx';
 function App() {
     const [userData, setUserData] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [showAddMembers, setShowAddMembers] = useState(false); // State to toggle Add Members section visibility
+    const [showAddMembers, setShowAddMembers] = useState(false);
     const { currentUser } = useSelector((state) => state.user);
-
+    const flattenJSON = (data) => {
+        const result = [];
+    
+        data.forEach((item) => {
+            const flatItem = {};
+    
+            const flatten = (obj, parentKey = '') => {
+                for (const key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        const newKey = parentKey ? `${parentKey}.${key}` : key;
+                        if (typeof obj[key] === 'object' && obj[key] !== null) {
+                            flatten(obj[key], newKey);
+                        } else {
+                            flatItem[newKey] = obj[key];
+                        }
+                    }
+                }
+            };
+    
+            flatten(item);
+            result.push(flatItem);
+        });
+    
+        return result;
+    };
+    
+    const excelDataDownload = async (userId) => {
+        try {
+            const response = await axios.get(`http://localhost:3000/api/getdata/${userId}`);
+            const jsondata = response.data.data; // Assuming the response data is already JSON
+    
+            if (jsondata && Array.isArray(jsondata)) {
+                const flattenedData = flattenJSON(jsondata);
+                const worksheet = XLSX.utils.json_to_sheet(flattenedData);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "jsondata");
+                XLSX.writeFile(workbook, "jsondata.xlsx");
+            } else {
+                console.error("No jsondata array to export");
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    
+    
+    
     useEffect(() => {
         axios.get('http://localhost:3000/api/user/getuser')
             .then(response => {
@@ -113,7 +159,7 @@ function App() {
                 <div className='mt-4 p-4 border border-gray-300 bg-white rounded-lg'>
                     <h2 className='text-xl font-semibold mb-2'>User Details</h2>
                     <p className='mb-2'><strong>Name:</strong> {selectedUser.name}</p>
-                    <p className='mb-2'><strong>Image:</strong> <img src={selectedUser.profilePicture} alt={`${selectedUser.profilePicture}`} /></p>
+                    <p className='mb-2'><strong>Image:</strong> <img src={selectedUser.profilePicture} alt={`${selectedUser.profilePicture}`} className='w-[200px] h-[200px] rounded-full' /></p>
                     <p className='mb-2'><strong>Points:</strong> {selectedUser.points}</p>
                     <div>
                         {selectedUser.role === 'user' ? <button
@@ -133,6 +179,7 @@ function App() {
                         >
                             + Add Members
                         </button>
+                        <button onClick={() => excelDataDownload(selectedUser._id)} className='p-2 bg-[#008080] text-white ml-2'>Download</button>
                     </div>
                     {showAddMembers && (
                         <div className='mt-4 p-4 border border-gray-300 bg-white rounded-lg max-h-48 overflow-y-auto'>
@@ -146,7 +193,7 @@ function App() {
                                     />
                                     <label className='ml-2'>{user.name}</label>
                                 </div>
-                                
+
                             ))}
                             <div className='bg-[#008080] text-white w-full text-center p-1 rounded-xl mt-3'> Add Selected user to this master</div>
                         </div>

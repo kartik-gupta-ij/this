@@ -29,3 +29,21 @@ export const createSadhanaForm = async (req, res) => {
   }
 };
 
+export const getdatainExcel = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const data = await SadhanaForm.find({ userId: userId });
+    res.status(201).json({
+      success: true,
+      data: data,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Server Error',
+    });
+  }
+};
+

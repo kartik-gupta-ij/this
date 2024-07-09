@@ -59,19 +59,19 @@ export default function Footer() {
           <div className="p-4">
             <p className="text-2xl font-bold">Navigation</p>
             <p className="text-xl text-[#3C3C3C] mt-2">
-              <Link to="#">Home</Link>
+              <Link to="/home">Home</Link>
             </p>
             <p className="text-xl text-[#3C3C3C] mt-2">
-              <Link to="#">Sadhna</Link>
+              <Link to="/sadhana/form">Sadhna</Link>
             </p>
             <p className="text-xl text-[#3C3C3C] mt-2">
-              <Link to="#">Assets</Link>
+              <Link to="/assets">Assets</Link>
             </p>
             <p className="text-xl text-[#3C3C3C] mt-2">
-              <Link to="#">Events</Link>
+              <Link to="/events">Events</Link>
             </p>
             <p className="text-xl text-[#3C3C3C] mt-2">
-              <Link to="#">Community</Link>
+              <Link to="/community">Community</Link>
             </p>
           </div>
           <div className="p-4">

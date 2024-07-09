@@ -30,7 +30,7 @@ const menuItems = [
     {
         img: star,
         text: "Leaderboard",
-        link:"#"
+        link:"/leaderboard"
     },
     {
         img: logout,

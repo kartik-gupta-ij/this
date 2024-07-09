@@ -106,7 +106,7 @@ function Signup() {
                 <div className="relative w-1/2">
                   <MdOutlineRealEstateAgent className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
                   <input
-                    type="text"
+                    type="date"
                     id="age"
                     name="age"
                     value={formData.age || ""}
