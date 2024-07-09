@@ -33,7 +33,7 @@ router.post("/verifyotp", verifyOTP);
 router.post("/resetpassword", resetPassword);
 router.post("/addmaster/:userId", userToMaster);
 router.post("/userstatus/:userId", userStatus);
-router.post("/addusertomaster/:userId", verifyToken, addUsersToMaster);
+router.post("/addusertomaster/:userId",  addUsersToMaster);
 router.post("/createadmin", updateRoleToAdmin);
 router.get("/getmaster/:masterId", getMasterData);
 

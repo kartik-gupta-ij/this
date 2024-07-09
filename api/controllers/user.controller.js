@@ -80,9 +80,9 @@ export const getAllUser = async (req, res) => {
   console.log("working");
   try {
     const user = await User.find({ role: { $in: ['user', 'master'] } });
-    res.status(200).json({data: user, status: "success"});
+    res.status(200).json({ data: user, status: "success" });
   } catch (error) {
-    res.status(500).json({message: "Something went wrong"})
+    res.status(500).json({ message: "Something went wrong" })
   }
 }
 
@@ -98,7 +98,7 @@ export const getRecentBirthdays = async (req, res) => {
     users.forEach(user => {
       const dob = new Date(user.dob);
       const nextBirthday = new Date(currentYear, dob.getMonth(), dob.getDate());
-      
+
       if (nextBirthday < today) {
         nextBirthday.setFullYear(currentYear + 1);
       }
@@ -167,36 +167,36 @@ export const forgotPassword = async (req, res) => {
 
 
 export const verifyOTP = async (req, res) => {
-    const { email, otp } = req.body;
+  const { email, otp } = req.body;
 
-    console.log(`Email: ${email}, OTP: ${otp}`); // Log inputs
+  console.log(`Email: ${email}, OTP: ${otp}`); // Log inputs
 
-    if (!email || !otp) {
-        return res.status(400).json({ message: 'Email and OTP are required' });
+  if (!email || !otp) {
+    return res.status(400).json({ message: 'Email and OTP are required' });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      console.log('User not found'); // Log user not found
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    try {
-        const user = await User.findOne({ email });
-
-        if (!user) {
-            console.log('User not found'); // Log user not found
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        if (user.otp !== otp) {
-            console.log('Invalid OTP'); // Log invalid OTP
-            return res.status(400).json({ message: 'Invalid OTP' });
-        }
-
-        // OTP is verified
-        // user.otp = null; // Clear the OTP after successful verification
-        await user.save();
-
-        res.status(200).json({ message: 'OTP verified successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Something went wrong' });
+    if (user.otp !== otp) {
+      console.log('Invalid OTP'); // Log invalid OTP
+      return res.status(400).json({ message: 'Invalid OTP' });
     }
+
+    // OTP is verified
+    // user.otp = null; // Clear the OTP after successful verification
+    await user.save();
+
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
 };
 
 
@@ -235,7 +235,7 @@ export const resetPassword = async (req, res) => {
     console.error(error);
   }
 };
-export const userStatus = async(req,res)=>{
+export const userStatus = async (req, res) => {
   const { userId } = req.params;
   const { adminId } = req.body;
   console.log("UserStatus");
@@ -257,7 +257,7 @@ export const userStatus = async(req,res)=>{
     user.isActive = !user.isActive;
     await user.save();
 
-    res.status(200).json({ message: "Successfully Status into Deactived","userDat":user });
+    res.status(200).json({ message: "Successfully Status into Deactived", "userDat": user });
 
   } catch (error) {
     console.error("Error converting user to master:", error);
@@ -304,40 +304,48 @@ export const userToMaster = async (req, res) => {
 
 export const addUsersToMaster = async (req, res) => {
   const { userId } = req.params;
-  const { subuserIds } = req.body;
+  const list = req.body.subuserIds; // Assuming this is an array of subuser IDs
+  const masterId = req.body.selectedIds; // Assuming this is a single master user ID
+  console.log("userId userId", userId, masterId);
 
   try {
-    const admin = await User.findById(req.user.id);
-
-    if (admin.role !== "admin") {
+    const admin = await User.findById(userId);
+    
+    if (!admin || admin.role !== "admin") {
       return res.status(403).json({ message: "You are not authorized to convert to master" });
     }
-
-    const user = await Master.findById(userId);
-    // console.log(user);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
     
+    const user = await User.findById(masterId);
+    console.log("user -->",user);
+    if (user.role !== 'master') {
+      return res.status(404).json({ message: "Only Master user can add members" });
+    }
+    console.log("Aaaya tha");
+    console.log("masterId", masterId);
+    console.log("Aaaya tha");
 
-    const subusers = await User.find({ _id: { $in: subuserIds } });
-    console.log(subusers, subuserIds);
-    if (subusers.length !== subuserIds.length) {
-      return res.status(404).json({ message: "One or more subusers not found" });
+    const masterUser = await Master.findOne({ userId: masterId });
+
+    if (!masterUser) {
+      return res.status(404).json({ message: "Master user not found" });
     }
 
-    const master = await Master.findOneAndUpdate(
-      { userId: userId },
-      { $addToSet: { subusers: { $each: subuserIds } } },
-      { new: true, upsert: true }
-    );
+    console.log("masterUser", masterUser);
 
-    res.status(200).json(master);
+    masterUser.subusers.push(...list);
+
+    // Save the updated document
+    await masterUser.save();
+
+    console.log('Subusers added successfully:', masterUser);
+
+    res.status(200).json(masterUser);
   } catch (error) {
     console.error("Error adding users to master:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 
 

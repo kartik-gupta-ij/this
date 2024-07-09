@@ -7,12 +7,37 @@ function App() {
     const [selectedUser, setSelectedUser] = useState(null);
     const [showAddMembers, setShowAddMembers] = useState(false);
     const { currentUser } = useSelector((state) => state.user);
+    const [selectedUserIds, setSelectedUserIds] = useState([]);
+
+    const handleMemberSelected = (index) => {
+        const userId = userData[index]._id;
+        setSelectedUserIds(prevSelectedUserIds => {
+            if (prevSelectedUserIds.includes(userId)) {
+                return prevSelectedUserIds.filter(id => id !== userId);
+            } else {
+                return [...prevSelectedUserIds, userId];
+            }
+        });
+        console.log("list", selectedUserIds);
+    };
+
+    const addSelectedUsersToMaster = async () => {
+        try {
+            await axios.post(`http://localhost:3000/api/user/addusertomaster/${currentUser.rest._id}`, {
+                subuserIds: selectedUserIds,
+                selectedIds: selectedUser._id
+            });
+            console.log('Selected users added to master successfully');
+        } catch (error) {
+            console.error('Error adding users to master:', error);
+        }
+    };
     const flattenJSON = (data) => {
         const result = [];
-    
+
         data.forEach((item) => {
             const flatItem = {};
-    
+
             const flatten = (obj, parentKey = '') => {
                 for (const key in obj) {
                     if (obj.hasOwnProperty(key)) {
@@ -25,19 +50,19 @@ function App() {
                     }
                 }
             };
-    
+
             flatten(item);
             result.push(flatItem);
         });
-    
+
         return result;
     };
-    
+
     const excelDataDownload = async (userId) => {
         try {
             const response = await axios.get(`http://localhost:3000/api/getdata/${userId}`);
             const jsondata = response.data.data; // Assuming the response data is already JSON
-    
+
             if (jsondata && Array.isArray(jsondata)) {
                 const flattenedData = flattenJSON(jsondata);
                 const worksheet = XLSX.utils.json_to_sheet(flattenedData);
@@ -51,9 +76,9 @@ function App() {
             console.error('Error fetching data:', error);
         }
     };
-    
-    
-    
+
+
+
     useEffect(() => {
         axios.get('http://localhost:3000/api/user/getuser')
             .then(response => {
@@ -124,7 +149,7 @@ function App() {
             return updatedUsers;
         });
     };
-
+console.log("selectedUser",selectedUser)
     return (
         <div className='container mx-auto p-4'>
             <h1 className='text-2xl mb-4'>User Data</h1>
@@ -173,29 +198,33 @@ function App() {
                         >
                             Master
                         </button>}
-                        <button
+                        {selectedUser?.role === 'master'&&  <button
                             className='p-2 border-2 ml-2 border-[#008080] text-[#008080]'
                             onClick={toggleAddMembers}
                         >
                             + Add Members
-                        </button>
+                        </button>}
                         <button onClick={() => excelDataDownload(selectedUser._id)} className='p-2 bg-[#008080] text-white ml-2'>Download</button>
                     </div>
                     {showAddMembers && (
                         <div className='mt-4 p-4 border border-gray-300 bg-white rounded-lg max-h-48 overflow-y-auto'>
                             <h2 className='text-xl font-semibold mb-2'>Add Members</h2>
-                            {userData.map((user, index) => (
-                                <div key={index} className='flex items-center'>
+                            {userData.filter(user => user.role === 'user').map((user, index) => (
+                                <div key={user._id} className='flex items-center'>
                                     <input
                                         type='checkbox'
-                                        checked={user.isSelected}
-                                        onChange={() => handleMemberSelect(index)}
+                                        checked={selectedUserIds.includes(user._id)}
+                                        onChange={() => handleMemberSelected(index)}
                                     />
                                     <label className='ml-2'>{user.name}</label>
                                 </div>
-
                             ))}
-                            <div className='bg-[#008080] text-white w-full text-center p-1 rounded-xl mt-3'> Add Selected user to this master</div>
+                            <div
+                                className='bg-[#008080] text-white w-full text-center p-1 rounded-xl mt-3 cursor-pointer'
+                                onClick={addSelectedUsersToMaster}
+                            >
+                                Add Selected user to this master
+                            </div>
                         </div>
                     )}
                     {/* Add more details as necessary */}

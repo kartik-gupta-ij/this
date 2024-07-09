@@ -89,6 +89,7 @@ export default function Test() {
                 }
             });
             console.log(res);
+            setQuestions(res)
             setIsEditMode(false);
         } catch (error) {
             console.log(error);
@@ -109,13 +110,16 @@ export default function Test() {
                 </div>
             ) : (
                 <div className='w-full flex flex-col items-center'>
-                    {!isEditMode && (
-                        <button onClick={editHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl">
+                    {!isEditMode && currentUser.role === 'admin' && (
+                        <button
+                            onClick={editHandler}
+                            className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl"
+                        >
                             Edit
                         </button>
                     )}
                     <div className='mx-3'>
-                        {questions.map((q, questionIndex) => (
+                        {Array.isArray(questions) && questions.map((q, questionIndex) => (
                             <div key={questionIndex} className="w-[600px] bg-[#FFEDCC] md:p-4 p-2 md:m-4 m-2 rounded-2xl">
                                 {isEditMode ? (
                                     <div>
@@ -133,12 +137,10 @@ export default function Test() {
                                     {q?.options?.map((option, optionIndex) => (
                                         <div
                                             key={optionIndex}
-                                            className={`bg-white px-2 py-1 rounded-lg m-1 flex items-center cursor-pointer ${selectedOptions[questionIndex] === optionIndex ? 'bg-green-500 border-2 border-green-500' : ''
-                                                }`}
+                                            className={`bg-white px-2 py-1 rounded-lg m-1 flex items-center cursor-pointer ${selectedOptions[questionIndex] === optionIndex ? 'bg-green-500 border-2 border-green-500' : ''}`}
                                             onClick={() => handleOptionClick(questionIndex, optionIndex)}
                                         >
-                                            <div className={`w-[15px] h-[15px] rounded-full flex justify-center items-center mr-2 ${selectedOptions[questionIndex] === optionIndex ? 'bg-green-500 border-2 border-green-500' : 'bg-[#FFA500]'
-                                                }`}>
+                                            <div className={`w-[15px] h-[15px] rounded-full flex justify-center items-center mr-2 ${selectedOptions[questionIndex] === optionIndex ? 'bg-green-500 border-2 border-green-500' : 'bg-[#FFA500]'}`}>
                                                 <div className='w-[9px] h-[9px] bg-white rounded-full'></div>
                                             </div>
                                             {isEditMode ? (
@@ -169,6 +171,7 @@ export default function Test() {
                                 </ul>
                             </div>
                         ))}
+
                     </div>
                     <div>
                         <button onClick={submitHandler} className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl mx-6">

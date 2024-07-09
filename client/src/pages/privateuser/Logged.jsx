@@ -29,30 +29,7 @@ export default function Logged() {
             <div className="flex flex-col items-center">
                 <ShowAllUserData />
                 <LeaderBoard />
-                <div className='w-[500px] h-[488px] bg-[#FFF5E3] rounded-xl mt-4 flex'>
-                    <div className='w-1/2 flex flex-col justify-center items-center'>
-                        <div className='w-[94px] h-[94px] bg-[#D9D9D9] rounded-full mb-4'>
-
-                            <img src={currentUser.profilePicture} alt='profile' className='rounded-full' />
-                        </div>
-                        <div className='text-center'>
-                            <p className='text-[14px]'>({currentUser.points} GracePoints)</p>
-                            <p className='text-[14px]'>{currentUser.name}</p>
-                            <p className='text-[12px]'>{currentUser.email}</p>
-                            <p className='text-[12px]'>{currentUser.country}</p>
-                        </div>
-                        <div className=' flex justify-around'>
-                            <button className='bg-[#008080] text-white p-2  rounded-sm'>Make master</button>
-                            <button className='p-2 text-[#008080] border-2 border-[#008080]'> + Add members</button>
-                        </div>
-                    </div>
-                    <div className='w-1/2 flex flex-col justify-between p-4'>
-                        <div className='h-[300px]  mb-4'>
-                            {/* <Graphofuser/> */}
-                        </div>
-                        <button className='bg-blue-500 text-white px-4 py-2 rounded' onClick={downloadExcel}>Download</button>
-                    </div>
-                </div>
+                
             </div>
             <div className='flex flex-col items-center'>
                 <div className='w-[320px] h-[132px] flex justify-around bg-[#FFF5E3] items-center my-4 rounded-xl'>

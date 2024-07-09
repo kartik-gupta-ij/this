@@ -5,18 +5,18 @@ const MCQSchema = new Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     options: [
       {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     ],
     answer: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   { timestamps: true }
 );

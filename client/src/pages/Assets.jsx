@@ -126,33 +126,44 @@ export default function Assets() {
           </div>
         </div>
       </div>
-      {currentUser&&currentUser.role==='role'&&<div className="bg-[#FFA500] p-6 rounded-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-10">
-        <div className="flex flex-col items-center space-y-2">
-          <div className="bg-white p-4 rounded-lg flex items-center justify-center">
-            <img
-              src="https://placehold.co/50x50"
-              alt="Add Image"
-              className="h-12 w-12"
-            />
+      {currentUser && currentUser.rest.role === 'admin' && <div className="bg-[#FFA500] p-8 w-full max-w-3xl rounded-lg flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-6 mx-auto mt-10">
+          <div className="flex flex-col items-center space-y-3">
+            <div className="relative bg-white p-3 flex items-center justify-center shadow-md cursor-pointer">
+              <img
+                // src={file}
+                alt="Add Image"
+                className="h-16 w-16 "
+              />
+              <input
+                type="file"
+                // onChange={(e) => onUpload(e.target.files[0])}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+              />
+            </div>
+            <span className="text-white text-lg font-semibold">Add Image</span>
           </div>
-          <span className="text-white">Add Image</span>
+          <div className="flex flex-col space-y-5 flex-grow">
+            <input
+              // onInput={(e) => setTitle(e.target.value)}
+              type="text"
+              placeholder="Name of event"
+              className="p-3 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
+            />
+            <textarea
+              // onInput={(e) => setContent(e.target.value)}
+              placeholder="Content of the event like venue, time, date, etc."
+              className="p-3 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600 h-32"
+            ></textarea>
+            <button
+              className="bg-teal-600 text-white p-3 rounded-lg hover:bg-teal-700 transition duration-300 ease-in-out"
+              // onClick={createEvent}
+            >
+              Upload Blog
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col space-y-4 flex-grow">
-          <input
-            type="text"
-            placeholder="Name of event"
-            className="p-2 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
-          />
-          <textarea
-            placeholder="Content of the event like venue, time, date, etc."
-            className="p-2 rounded-lg border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-600"
-          ></textarea>
-          <button className="bg-teal-600 text-white p-2 rounded-lg">
-            Upload blog
-          </button>
-        </div>
-      </div>}
+        }
       <div className="w-full h-[80px]"></div>
-    </div>
+    </div >
   );
 }
