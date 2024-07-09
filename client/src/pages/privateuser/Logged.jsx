@@ -5,6 +5,7 @@ import LeaderBoard from '../LeaderBoard';
 import { useSelector } from 'react-redux';
 import * as XLSX from 'xlsx';
 import Graphofuser from '../../components/Graphofuser';
+import { Link } from 'react-router-dom';
 
 export default function Logged() {
     const { currentUser } = useSelector((state) => state.user);
@@ -68,10 +69,12 @@ export default function Logged() {
                 </div>
                 <div className="w-[320px] h-[384px] bg-[#FFF5E3] p-4 rounded-xl">
                     {menuItems.map((item, index) => (
-                        <div key={index} className="w-full h-[64px] flex items-center mb-2">
-                            <img src={item.img} alt={item.text} className="mx-[20px] w-[17px] h-[17px]" />
-                            <p className="text-[#6A6A6A] text-[20px]">{item.text}</p>
-                        </div>
+                        <Link to={item.link}>
+                            <div key={index} className="w-full h-[64px] flex items-center mb-2">
+                                <img src={item.img} alt={item.text} className="mx-[20px] w-[17px] h-[17px]" />
+                                <p className="text-[#6A6A6A] text-[20px]">{item.text}</p>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             </div>

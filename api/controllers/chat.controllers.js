@@ -17,10 +17,23 @@ export const chatroom = async (req, res, next) => {
         }
 
         const { message } = req.body;
-        const newChat = new Chat({ message, photo: user.profilePicture, name: user.name,userId:id });
+        const newChat = new Chat({ message, photo: user.profilePicture, name: user.name, userId: id });
         await newChat.save();
         const data = await Chat.find({});
 
+        res.status(200).json({ message: 'User has been messaged...', data: data });
+
+    } catch (error) {
+        console.log("aaya tha catch m", error);
+        next(error);
+    }
+};
+
+
+export const getAllChat = async (req, res) => {
+
+    try {
+        const data = await Chat.find({});
         res.status(200).json({ message: 'User has been messaged...', data: data });
 
     } catch (error) {

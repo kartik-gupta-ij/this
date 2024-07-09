@@ -9,27 +9,34 @@ import Setting from './Settings.svg'
 const menuItems = [
     {
         img: challenge,
-        text: "Challenges"
+        text: "Challenges",
+        link:'/form/sadhana'
     },
     {
         img: Setting,
-        text: "Privacy settings"
+        text: "Privacy settings",
+        link:'/profile'
     },
     {
         img: manage,
-        text: "Manage your account"
+        text: "Manage your account",
+        link:'/profile'
     },
     {
         img: invite,
-        text: "Invite your friend"
+        text: "Invite your friend",
+        link:'#'
     },
     {
         img: star,
-        text: "Leaderboard"
+        text: "Leaderboard",
+        link:"#"
     },
     {
         img: logout,
-        text: "Logout"
+        text: "Logout",
+        link:"#"
+
     }
 ];
 

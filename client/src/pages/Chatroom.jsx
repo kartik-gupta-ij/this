@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -12,16 +13,20 @@ export default function Chatroom() {
     setActiveLink(link);
   };
 
+  // Function to fetch chat data
   const fetchChatData = async () => {
-    try {
-      const res = await fetch(`/api/user/api/chatroom/${currentUser._id}`);
-      const data = await res.json();
-      setChatData(data.data);
-    } catch (error) {
-      console.log("Error occurred while fetching chat data:", error);
+    if (currentUser) {
+      try {
+        const res = await fetch(`/api/user/api/chatroom/${currentUser._id}`);
+        const data = await res.json();
+        setChatData(data.data);
+      } catch (error) {
+        console.log("Error occurred while fetching chat data:", error);
+      }
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent form from reloading the page
 
@@ -41,15 +46,15 @@ export default function Chatroom() {
     }
   };
 
-  useEffect(() => {
-    fetchChatData(); // Initial fetch when the component mounts
+  // useEffect(() => {
+  //   fetchChatData(); 
 
-    const intervalId = setInterval(() => {
-      fetchChatData();
-    }, 10000); // 10000ms = 10s
+  //   const intervalId = setInterval(() => {
+  //     fetchChatData(); 
+  //   }, 10000); 
 
-    return () => clearInterval(intervalId); // Clean up the interval on component unmount
-  }, []);
+  //   return () => clearInterval(intervalId); 
+  // }, [currentUser]);
 
   const formatDate = (dateString) => {
     const options = {
@@ -61,6 +66,22 @@ export default function Chatroom() {
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+  async function fetchDataAll() {
+    try {
+        const response = await axios.get('/api/user/getallchat');
+        // Process the response data here
+        setChatData(response.data.data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+// Fetch data immediately
+fetchDataAll();
+
+// Set up interval to fetch data every 10 seconds
+setInterval(fetchDataAll, 10000);
 
   return (
     <>

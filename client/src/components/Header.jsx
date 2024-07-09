@@ -87,7 +87,7 @@ function Header() {
               {!currentUser && <li className=" block rounded-lg px-4 py-2 bg-[#FFA500] text-white font-bold">
                 <Link to="/signin">Login</Link>
               </li>}
-              {currentUser && <Link to='/profile'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
+              {currentUser && <Link to='/profiledata'><img src={currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
             </ul>
           </nav>
         </div>
