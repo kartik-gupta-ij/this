@@ -154,6 +154,7 @@ function App() {
         });
     };
 console.log("selectedUser",selectedUser)
+console.log("userData",userData)
     return (
         <div className='container mx-auto p-4'>
             <h1 className='text-2xl mb-4'>User Data</h1>

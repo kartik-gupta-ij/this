@@ -6,7 +6,7 @@ function LeaderBoard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/user/getuser')
+        axios.get('/api/user/getuser')
             .then(response => {
                 setUserData(response.data.data || []); // Ensure userData is an array
                 setLoading(false); // Set loading to false once data is fetched
