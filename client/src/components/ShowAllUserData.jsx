@@ -23,7 +23,7 @@ function App() {
 
     const addSelectedUsersToMaster = async () => {
         try {
-            await axios.post(`http://localhost:3000/api/user/addusertomaster/${currentUser.rest._id}`, {
+            await axios.post(`/api/user/addusertomaster/${currentUser.rest._id}`, {
                 subuserIds: selectedUserIds,
                 selectedIds: selectedUser._id
             });
@@ -80,21 +80,25 @@ function App() {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/user/getuser')
+        axios.get('/api/user/getuser')
             .then(response => {
-                const usersWithStatus = response.data.data.map(user => ({
+                const users = response.data.data || []; 
+                console.log("response.data.data",response.data.data)
+                const usersWithStatus = users.map(user => ({
                     ...user,
                     isSelected: false // Add isSelected property to manage selection
                 }));
                 setUserData(usersWithStatus);
+                // setLoading(false); // Set loading to false once data is fetched
             })
             .catch(error => {
                 console.error('There was an error fetching the user data!', error);
+                // setLoading(false); // Set loading to false in case of an error
             });
     }, []);
 
     const toggleStatus = (userId) => {
-        axios.post(`http://localhost:3000/api/user/userStatus/${userId}`, {
+        axios.post(`/api/user/userStatus/${userId}`, {
             userId: userId,
             adminId: currentUser.rest._id
         })
@@ -119,7 +123,7 @@ function App() {
     };
 
     const makeMaster = (userId) => {
-        axios.post(`http://localhost:3000/api/user/addmaster/${userId}`, {
+        axios.post(`/api/user/addmaster/${userId}`, {
             adminId: currentUser.rest._id
         })
             .then(response => {
