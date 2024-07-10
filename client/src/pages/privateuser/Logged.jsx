@@ -3,7 +3,7 @@ import menuItems from './Logged';
 import ShowAllUserData from '../../components/ShowAllUserData';
 import LeaderBoard from '../LeaderBoard';
 import { useSelector } from 'react-redux';
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 import Graphofuser from '../../components/Graphofuser';
 import { Link } from 'react-router-dom';
 
@@ -12,17 +12,17 @@ export default function Logged() {
 
     console.log("Private user:", currentUser);
 
-    const downloadExcel = () => {
-        if (currentUser) {
-            const worksheetData = [currentUser]; // Wrap currentUser in an array if it's an object
-            const worksheet = XLSX.utils.json_to_sheet(worksheetData);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "currentUser");
-            XLSX.writeFile(workbook, "currentUser.xlsx");
-        } else {
-            console.error("No currentUser data to export");
-        }
-    };
+    // const downloadExcel = () => {
+    //     if (currentUser) {
+    //         const worksheetData = [currentUser]; // Wrap currentUser in an array if it's an object
+    //         const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    //         const workbook = XLSX.utils.book_new();
+    //         XLSX.utils.book_append_sheet(workbook, worksheet, "currentUser");
+    //         XLSX.writeFile(workbook, "currentUser.xlsx");
+    //     } else {
+    //         console.error("No currentUser data to export");
+    //     }
+    // };
 
     return (
         <div className='w-full flex justify-around'>
