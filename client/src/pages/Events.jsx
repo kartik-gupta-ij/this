@@ -165,7 +165,7 @@ export default function Events() {
           </div>
         ))}
 
-        {currentUser && currentUser.rest.role === 'admin' && <div className="bg-[#FFA500] p-8 w-full max-w-3xl rounded-lg flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-6 mx-auto mt-10">
+        {currentUser && currentUser?.rest?.role === 'admin' && <div className="bg-[#FFA500] p-8 w-full max-w-3xl rounded-lg flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-6 mx-auto mt-10">
           <div className="flex flex-col items-center space-y-3">
             <div className="relative bg-white p-3 flex items-center justify-center shadow-md cursor-pointer">
               <img

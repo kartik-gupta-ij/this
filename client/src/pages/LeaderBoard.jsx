@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 function LeaderBoard() {
     const [userData, setUserData] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('/api/user/getuser')
-            .then(response => {
-                setUserData(response.data.data || []); // Ensure userData is an array
-                setLoading(false); // Set loading to false once data is fetched
-            })
-            .catch(error => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/user/getuser', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // You can add more headers if needed
+                    },
+                    // You can add other options like credentials, mode, etc.
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log(response);
+                const data = await response.json();
+                setUserData(data.data || []); // Ensure userData is an array
+            } catch (error) {
                 console.error('There was an error fetching the user data!', error);
-                setLoading(false); // Set loading to false in case of an error
-            });
+            } finally {
+                setLoading(false); // Set loading to false once data is fetched or an error occurs
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (

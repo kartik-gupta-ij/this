@@ -79,7 +79,9 @@ export const deleteUser = async (req, res, next) => {
 export const getAllUser = async (req, res) => {
   console.log("working");
   try {
+    // const user = await User.find({ role: { $in: ['user', 'master'] } });
     const user = await User.find({ role: { $in: ['user', 'master'] } });
+    console.log("call aaya tha")
     res.status(200).json({ data: user, status: "success" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" })

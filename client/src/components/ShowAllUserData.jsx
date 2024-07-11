@@ -80,25 +80,31 @@ function App() {
 
 
     useEffect(() => {
-        axios.get('/api/user/getuser')
+        fetch('http://localhost:3000/api/user/getuser')
             .then(response => {
-                const users = response.data.data || []; 
-                console.log("response.data.data",response.data.data)
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const users = data.data || [];
+                console.log("data.data", data.data);
                 const usersWithStatus = users.map(user => ({
                     ...user,
                     isSelected: false // Add isSelected property to manage selection
                 }));
                 setUserData(usersWithStatus);
-                // setLoading(false); // Set loading to false once data is fetched
+               
             })
             .catch(error => {
                 console.error('There was an error fetching the user data!', error);
-                // setLoading(false); // Set loading to false in case of an error
+               
             });
     }, []);
 
     const toggleStatus = (userId) => {
-        axios.post(`/api/user/userStatus/${userId}`, {
+        axios.post(`http://localhost:3000/api/user/userStatus/${userId}`, {
             userId: userId,
             adminId: currentUser.rest._id
         })
@@ -123,7 +129,7 @@ function App() {
     };
 
     const makeMaster = (userId) => {
-        axios.post(`/api/user/addmaster/${userId}`, {
+        axios.post(`http://localhost:3000/api/user/addmaster/${userId}`, {
             adminId: currentUser.rest._id
         })
             .then(response => {
@@ -175,7 +181,7 @@ console.log("userData",userData)
                                         e.stopPropagation();
                                         toggleStatus(user._id);
                                     }}
-                                    className={`text-[18px] text-white text-center rounded-xl ${user.isActive ? 'bg-[#008080]' : 'bg-red-500'}`}
+                                    className={`text-[14px] text-white text-center rounded-xl ${user.isActive ? 'bg-[#008080]' : 'bg-red-500'}`}
                                 >
                                     {user.isActive ? 'Active' : 'Deactive'}
                                 </div>

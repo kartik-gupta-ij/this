@@ -86,7 +86,7 @@ function Community() {
   };
 
   // Filtered questions based on search input and filter category
-  const filteredQuestions = questions.filter((question) => {
+  const filteredQuestions = questions?.filter((question) => {
     // Filter based on search input
     if (searchInput !== "" && !question.title.toLowerCase().includes(searchInput.toLowerCase())) {
       return false; // If search input is set and title does not match, exclude question
@@ -96,11 +96,11 @@ function Community() {
     if (filterCategory === "all") {
       return true; // Return all questions
     } else if (filterCategory === "myQuestions") {
-      return question.userId._id === currentUser._id; // Replace with your logic to match user's questions
+      return question.userId._id === currentUser?._id || currentUser?.rest?._id; // Replace with your logic to match user's questions
     } else if (filterCategory === "unanswered") {
       return question.comments.length === 0; // Replace with your logic to filter unanswered questions
     } else if (filterCategory === "myAnswers") {
-      return question.comments.some(comment => comment.user._id === currentUser._id); // Replace with your logic to match user's answers
+      return question.comments.some(comment => comment.user._id === currentUser._id || currentUser?.rest?._id); // Replace with your logic to match user's answers
     }
 
     return true; // Default to returning the question
@@ -221,7 +221,7 @@ function Community() {
                 <div className="bg-[#FFEDCC] py-1 px-1">Unanswered Q’s</div>
                 <div className="bg-[#FFEDCC] py-1 px-1">My Answers</div>
               </div>
-              {filteredQuestions.map((item, key) => (
+              {filteredQuestions?.map((item, key) => (
                 <div
                   key={key}
                   className="w-full border-2 border-[#FFA500] mt-2 md:mt-5 p-2 md:p-5 rounded-xl"
