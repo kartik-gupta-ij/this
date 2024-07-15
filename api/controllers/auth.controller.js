@@ -52,6 +52,7 @@ export const google = async (req, res, next) => {
         message: "User is Deactivated"
       });
     }
+  
     
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);

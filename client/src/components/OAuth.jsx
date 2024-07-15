@@ -3,7 +3,9 @@ import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
-
+import {
+  signOut,
+} from "../redux/user/userSlice";
 export default function OAuth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +28,19 @@ export default function OAuth() {
         }),
       });
       const data = await res.json();
-      console.log(data);
+      if (data?.message === "User is Deactivated") {
+console.log("IN")
+        try {
+          await fetch("/api/auth/signout");
+          dispatch(signOut());
+        } catch (error) {
+          console.log(error);
+        }
+        return
+
+      }
+
+      console.log(" yehi data tha kya",data);
       dispatch(signInSuccess(data));
       navigate('/');
     } catch (error) {
