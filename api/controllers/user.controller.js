@@ -4,7 +4,6 @@ import bcryptjs from 'bcryptjs';
 import { error } from 'console';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
-import Master from '../models/master.model.js';
 
 export const test = (req, res) => {
   res.json({

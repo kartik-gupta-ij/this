@@ -17,6 +17,7 @@ import {
 import { verifyToken } from '../utils/verifyUser.js';
 import { chatroom ,getAllChat} from '../controllers/chat.controllers.js';
 import { sadhanafill } from '../controllers/sadhana.controllers.js';
+import { MasterDetails } from '../controllers/master.controller.js';
 const router = express.Router();
 
 router.get('/', test);
@@ -37,5 +38,6 @@ router.post("/userstatus/:userId", userStatus);
 router.post("/addusertomaster/:userId",  addUsersToMaster);
 router.post("/createadmin", updateRoleToAdmin);
 router.get("/getmaster/:masterId", getMasterData);
+router.get("/master/data",MasterDetails);
 
 export default router;

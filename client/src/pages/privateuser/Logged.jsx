@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 // import * as XLSX from 'xlsx';
 import Graphofuser from '../../components/Graphofuser';
 import { Link } from 'react-router-dom';
+import MasterDetails from '../../components/MasterDetails';
 
 export default function Logged() {
     const { currentUser } = useSelector((state) => state.user);
@@ -29,6 +30,7 @@ export default function Logged() {
             <div className="flex flex-col items-center">
                 <ShowAllUserData />
                 <LeaderBoard />
+                <MasterDetails/>
 
             </div>
             <div className='flex flex-col items-center'>

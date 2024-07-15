@@ -6,6 +6,7 @@ import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import PollCreator from "../components/PollCreator";
 
 function Community() {
   const [openQuestionId, setOpenQuestionId] = useState(null);
@@ -117,17 +118,15 @@ function Community() {
           <div className="w-full flex justify-center items-center mt-4">
             <div className="md:hidden w-[300px] h-[46px] flex justify-between border-2 border-[#008080] mt-2">
               <div
-                className={`w-1/2 flex justify-center items-center text-center ${
-                  activeLink === "chatroom" ? "bg-[#008080] text-white" : "text-[#008080]"
-                }`}
+                className={`w-1/2 flex justify-center items-center text-center ${activeLink === "chatroom" ? "bg-[#008080] text-white" : "text-[#008080]"
+                  }`}
                 onClick={() => handleLinkClick("chatroom")}
               >
                 <Link to="/chatroom">ChatRoom</Link>
               </div>
               <div
-                className={`w-1/2 flex justify-center items-center text-center ${
-                  activeLink === "community" ? "bg-[#008080] text-white" : "text-[#008080]"
-                }`}
+                className={`w-1/2 flex justify-center items-center text-center ${activeLink === "community" ? "bg-[#008080] text-white" : "text-[#008080]"
+                  }`}
                 onClick={() => handleLinkClick("community")}
               >
                 <Link to="/community">Q & A</Link>
@@ -168,6 +167,7 @@ function Community() {
                 </div>
               </div>
               <div className="flex justify-center items-center mt-5  md:pr-10 mb-6">
+                <PollCreator />
                 <div className="relative flex items-center w-full ml-6 border rounded-lg border-[#FFA500]">
                   <input
                     type="text"
@@ -183,33 +183,29 @@ function Community() {
               </div>
               <div className="w-full hidden md:flex flex-row justify-around mt-3 md:text-xl text-sm gap-2">
                 <div
-                  className={`rounded-md py-1 md:px-3 px-1 cursor-pointer ${
-                    filterCategory === "all" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
-                  }`}
+                  className={`rounded-md py-1 md:px-3 px-1 cursor-pointer ${filterCategory === "all" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
+                    }`}
                   onClick={() => setFilterCategory("all")}
                 >
                   All Questions
                 </div>
                 <div
-                  className={`rounded-md py-1 px-3 cursor-pointer ${
-                    filterCategory === "myQuestions" ? "bg-[#008080] text-white" : "bg-[#FFEDCC] "
-                  }`}
+                  className={`rounded-md py-1 px-3 cursor-pointer ${filterCategory === "myQuestions" ? "bg-[#008080] text-white" : "bg-[#FFEDCC] "
+                    }`}
                   onClick={() => setFilterCategory("myQuestions")}
                 >
                   My Questions
                 </div>
                 <div
-                  className={`rounded-md py-1 px-3 cursor-pointer ${
-                    filterCategory === "unanswered" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
-                  }`}
+                  className={`rounded-md py-1 px-3 cursor-pointer ${filterCategory === "unanswered" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
+                    }`}
                   onClick={() => setFilterCategory("unanswered")}
                 >
                   Unanswered Questions
                 </div>
                 <div
-                  className={`rounded-md py-1 px-3 cursor-pointer ${
-                    filterCategory === "myAnswers" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
-                  }`}
+                  className={`rounded-md py-1 px-3 cursor-pointer ${filterCategory === "myAnswers" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
+                    }`}
                   onClick={() => setFilterCategory("myAnswers")}
                 >
                   My Answers

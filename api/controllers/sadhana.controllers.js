@@ -1,6 +1,7 @@
 import { errorHandler } from "../utils/error.js";
 import Sadhana from "../models/sadhana.model.js";
 
+import Master from '../models/master.model.js';
 export const sadhanafill = async (req, res, next) => {
     try {
         if (req.user.id !== req.params.id) {
