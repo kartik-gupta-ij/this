@@ -155,7 +155,7 @@ export default function Profile() {
       request.resource.size < 2 * 1024 * 1024 &&
       request.resource.contentType.matches('image/.*') */}
                 <img
-                  src={formData.profilePicture || currentUser.profilePicture}
+                  src={formData.profilePicture || currentUser?.profilePicture || currentUser?.rest?.profilePicture}
                   alt="profile"
                   className="h-32 w-32 self-center cursor-pointer rounded-full object-cover mt-2 border-2 border-[#008080]"
                   onClick={() => fileRef.current.click()}

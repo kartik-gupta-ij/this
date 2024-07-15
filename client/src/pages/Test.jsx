@@ -100,7 +100,7 @@ export default function Test() {
         <>
             <p className='w-full text-[28px] text-center'>Test Paper</p>
 
-            {!isTestGiven && !isEditMode ? (
+            {isTestGiven && !isEditMode ? (
                 <div className="w-full flex flex-col items-center justify-center mt-10">
                     <div className="bg-[#FFEDCC] p-6 rounded-xl shadow-md text-center">
                         <h2 className="text-2xl font-bold text-[#008080] mb-4">Test Completed!</h2>
@@ -110,7 +110,7 @@ export default function Test() {
                 </div>
             ) : (
                 <div className='w-full flex flex-col items-center'>
-                    {!isEditMode && currentUser.role === 'admin' && (
+                    {!isEditMode && currentUser.rest.role === 'admin' && (
                         <button
                             onClick={editHandler}
                             className="rounded-lg md:px-5 md:py-3 px-1 py-1 bg-[#008080] text-white font-bold mt-5 text-xl"

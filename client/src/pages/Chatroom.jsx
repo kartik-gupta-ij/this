@@ -17,7 +17,7 @@ export default function Chatroom() {
   const fetchChatData = async () => {
     if (currentUser) {
       try {
-        const res = await fetch(`/api/user/api/chatroom/${currentUser._id}`);
+        const res = await fetch(`/api/user/api/chatroom/${currentUser?._id || currentUser?.rest?._id}`);
         const data = await res.json();
         setChatData(data.data);
       } catch (error) {
@@ -31,7 +31,7 @@ export default function Chatroom() {
     e.preventDefault(); // Prevent form from reloading the page
 
     try {
-      const res = await fetch(`/api/user/api/chatroom/${currentUser._id}`, {
+      const res = await fetch(`/api/user/api/chatroom/${currentUser?._id || currentUser?.rest?._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,9 +120,9 @@ setInterval(fetchDataAll, 3600000);
                   chatData.map((item, index) => (
                     <div
                       key={index}
-                      className={`my-4 flex ${item.userId === currentUser._id ? "justify-end" : ""}`}
+                      className={`my-4 flex ${item.userId === (currentUser?._id || currentUser?.rest?._id)? "justify-end" : ""}`}
                     >
-                      <div className={`flex items-start ${item.userId === currentUser._id ? "flex-row-reverse" : ""}`}>
+                      <div className={`flex items-start ${item.userId === (currentUser?._id || currentUser?.rest?._id)? "flex-row-reverse" : ""}`}>
                         <div className="flex-shrink-0">
                           {item.photo && (
                             <img
@@ -132,7 +132,7 @@ setInterval(fetchDataAll, 3600000);
                             />
                           )}
                         </div>
-                        <div className={`ml-2 ${item.userId === currentUser._id ? "text-right" : "text-left"}`}>
+                        <div className={`ml-2 ${item.userId === (currentUser?._id || currentUser?.rest?._id) ? "text-right" : "text-left"}`}>
                           <p className="text-lg text-[#FFA500]">{item.name}</p>
                           <p className="text-xs text-gray-500">{formatDate(item.createdAt)}</p>
                           <div className={`mt-1 p-2 bg-[#FFEDCC] rounded-lg ${item.userId === currentUser._id ? "ml-auto" : ""}`}>

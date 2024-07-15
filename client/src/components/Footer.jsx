@@ -39,7 +39,7 @@ export default function Footer() {
               33, Noida, Uttar Pradesh 201301
             </p>
             <p className="text-xl text-[#3C3C3C]">Email -</p>
-            <p className="text-xl text-[#3C3C3C]">connect@isconnoida.org</p>
+            <p className="text-xl text-[#3C3C3C]">connect@sadhana.org</p>
           </div>
           <div className="p-4">
             <p className="text-2xl font-bold">Quick Links</p>

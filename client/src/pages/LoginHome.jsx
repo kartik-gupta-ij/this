@@ -5,8 +5,10 @@ import arrow from "../assets/arrow.png";
 import hand from "../assets/hand-drawn.png";
 import events1 from "../assets/events1.png";
 import flat from "../assets/flat.png";
+import { useSelector } from "react-redux";
 
 function LoginHome() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <>
       <div>
@@ -17,8 +19,9 @@ function LoginHome() {
             </div>
             <div className="flex flex-col justify-center mt-2">
               <p className="text-gray-600 font-normal text-[1rem] sm:text-[1.5rem] md:text-3xl lg:text-4xl leading-6 tracking-tight text-left">
-                Namaskar Kavita!"
+                {`Namaskar ${currentUser?.name || currentUser?.rest?.name || ""}!`}
               </p>
+
               <p className="text-gray-600 font-normal text-[1rem] sm:text-[1.5rem] md:text-3xl lg:text-4xl leading-6 tracking-tight  text-left">
                 "Begin your Sadhana journey here"
               </p>

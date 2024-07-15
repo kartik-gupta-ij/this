@@ -34,6 +34,7 @@ export const getdatainExcel = async (req, res) => {
 
   try {
     const data = await SadhanaForm.find({ userId: userId });
+    console.log("excel data",userId)
     res.status(201).json({
       success: true,
       data: data,

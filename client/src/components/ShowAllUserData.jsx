@@ -8,7 +8,6 @@ function App() {
     const [showAddMembers, setShowAddMembers] = useState(false);
     const { currentUser } = useSelector((state) => state.user);
     const [selectedUserIds, setSelectedUserIds] = useState([]);
-
     const handleMemberSelected = (index) => {
         const userId = userData[index]._id;
         setSelectedUserIds(prevSelectedUserIds => {
@@ -23,7 +22,7 @@ function App() {
 
     const addSelectedUsersToMaster = async () => {
         try {
-            await axios.post(`/api/user/addusertomaster/${currentUser.rest._id}`, {
+            await axios.post(`/api/user/addusertomaster/${currentUser.rest._id ||currentUser._id}`, {
                 subuserIds: selectedUserIds,
                 selectedIds: selectedUser._id
             });
@@ -62,6 +61,7 @@ function App() {
         try {
             const response = await axios.get(`http://localhost:3000/api/getdata/${userId}`);
             const jsondata = response.data.data; // Assuming the response data is already JSON
+            console.log("jsondata jsondata",jsondata)
 
             if (jsondata && Array.isArray(jsondata)) {
                 const flattenedData = flattenJSON(jsondata);
@@ -85,7 +85,7 @@ function App() {
             let url = '';
             let options = {};
     
-            if (currentUser.role || currentUser.rest.role === 'admin') {
+            if ((currentUser.role  || currentUser.rest.role) === 'admin') {
               url = `http://localhost:3000/api/user/getuser`;
               options = {
                 method: 'GET',
@@ -93,7 +93,7 @@ function App() {
                   'Content-Type': 'application/json'
                 }
               };
-            } else if (currentUser.role || currentUser.rest.role === 'master') {
+            } else if ((currentUser.role  || currentUser.rest.role) === 'master') {
               url = `http://localhost:3000/api/user/getMasterUser/${currentUser._id}`;
               options = {
                 method: 'GET',
