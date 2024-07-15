@@ -22,6 +22,11 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
+    if (validUser.isActive === false) {
+      return res.status(403).json({
+        message: "User is Deactivated"
+      });
+    }
     if (!validUser) return next(errorHandler(404, 'User not found'));
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, 'wrong credentials'));
@@ -42,6 +47,11 @@ export const google = async (req, res, next) => {
   console.log(req.body)
   try {
     const user = await User.findOne({ email: req.body.email });
+    if (user.isActive === false) {
+      return res.status(403).json({
+        message: "User is Deactivated"
+      });
+    }
     
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);

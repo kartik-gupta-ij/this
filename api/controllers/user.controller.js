@@ -76,12 +76,38 @@ export const deleteUser = async (req, res, next) => {
 
 }
 
+export const getAllUnderMaster = async (req, res) => {
+  try {
+    const MasterId = req.params.MasterId; 
+    console.log("MasterId:", MasterId);
+    
+    const users = await Master.find({ userId: MasterId }).populate('subusers');
+    console.log("Users with subusers:", users); // Logging the users with subusers
+
+    // Collect all subusers from all users
+    const allSubusers = users.flatMap(user => user.subusers);
+
+    return res.status(200).json({
+      data: allSubusers
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: "An error occurred while fetching users",
+      details: error.message
+    });
+  }
+}
+
+
+
+
 export const getAllUser = async (req, res) => {
-  console.log("working");
+  // console.log("working");
   try {
     // const user = await User.find({ role: { $in: ['user', 'master'] } });
     const user = await User.find({ role: { $in: ['user', 'master'] } });
-    console.log("call aaya tha")
+
+    // console.log("call aaya tha")
     res.status(200).json({ data: user, status: "success" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" })
@@ -312,13 +338,13 @@ export const addUsersToMaster = async (req, res) => {
 
   try {
     const admin = await User.findById(userId);
-    
+
     if (!admin || admin.role !== "admin") {
       return res.status(403).json({ message: "You are not authorized to convert to master" });
     }
-    
+
     const user = await User.findById(masterId);
-    console.log("user -->",user);
+    console.log("user -->", user);
     if (user.role !== 'master') {
       return res.status(404).json({ message: "Only Master user can add members" });
     }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-// import * as XLSX from 'xlsx';
+import * as XLSX from 'xlsx';
 function App() {
     const [userData, setUserData] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -18,7 +18,7 @@ function App() {
                 return [...prevSelectedUserIds, userId];
             }
         });
-        console.log("list", selectedUserIds);
+        // console.log("list", selectedUserIds);
     };
 
     const addSelectedUsersToMaster = async () => {
@@ -58,50 +58,78 @@ function App() {
         return result;
     };
 
-    // const excelDataDownload = async (userId) => {
-    //     try {
-    //         const response = await axios.get(`http://localhost:3000/api/getdata/${userId}`);
-    //         const jsondata = response.data.data; // Assuming the response data is already JSON
+    const excelDataDownload = async (userId) => {
+        try {
+            const response = await axios.get(`http://localhost:3000/api/getdata/${userId}`);
+            const jsondata = response.data.data; // Assuming the response data is already JSON
 
-    //         if (jsondata && Array.isArray(jsondata)) {
-    //             const flattenedData = flattenJSON(jsondata);
-    //             const worksheet = XLSX.utils.json_to_sheet(flattenedData);
-    //             const workbook = XLSX.utils.book_new();
-    //             XLSX.utils.book_append_sheet(workbook, worksheet, "jsondata");
-    //             XLSX.writeFile(workbook, "jsondata.xlsx");
-    //         } else {
-    //             console.error("No jsondata array to export");
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //     }
-    // };
+            if (jsondata && Array.isArray(jsondata)) {
+                const flattenedData = flattenJSON(jsondata);
+                const worksheet = XLSX.utils.json_to_sheet(flattenedData);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, "jsondata");
+                XLSX.writeFile(workbook, "jsondata.xlsx");
+            } else {
+                console.error("No jsondata array to export");
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
 
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/user/getuser')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+        const fetchData = async () => {
+          try {
+            let url = '';
+            let options = {};
+    
+            if (currentUser.role || currentUser.rest.role === 'admin') {
+              url = `http://localhost:3000/api/user/getuser`;
+              options = {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json'
                 }
-                return response.json();
-            })
-            .then(data => {
-                const users = data.data || [];
-                console.log("data.data", data.data);
-                const usersWithStatus = users.map(user => ({
-                    ...user,
-                    isSelected: false // Add isSelected property to manage selection
-                }));
-                setUserData(usersWithStatus);
-               
-            })
-            .catch(error => {
-                console.error('There was an error fetching the user data!', error);
-               
-            });
-    }, []);
+              };
+            } else if (currentUser.role || currentUser.rest.role === 'master') {
+              url = `http://localhost:3000/api/user/getMasterUser/${currentUser._id}`;
+              options = {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              };
+            } else {
+              console.error('Invalid role');
+            //   setLoading(false);
+              return;
+            }
+    
+            const response = await fetch(url, options);
+    
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.json();
+            
+            const users = data.data || [];
+            const usersWithStatus = users.map(user => ({
+              ...user,
+              isSelected: false // Add isSelected property to manage selection
+            }));
+            setUserData(usersWithStatus);
+          } catch (error) {
+            console.error('There was an error fetching the user data!', error);
+          } finally {
+            // setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, [currentUser.role]);
 
     const toggleStatus = (userId) => {
         axios.post(`http://localhost:3000/api/user/userStatus/${userId}`, {
@@ -215,7 +243,7 @@ console.log("userData",userData)
                         >
                             + Add Members
                         </button>}
-                        {/* <button onClick={() => excelDataDownload(selectedUser._id)} className='p-2 bg-[#008080] text-white ml-2'>Download</button> */}
+                        <button onClick={() => excelDataDownload(selectedUser._id)} className='p-2 bg-[#008080] text-white ml-2'>Download</button>
                     </div>
                     {showAddMembers && (
                         <div className='mt-4 p-4 border border-gray-300 bg-white rounded-lg max-h-48 overflow-y-auto'>

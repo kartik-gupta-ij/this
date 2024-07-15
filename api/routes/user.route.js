@@ -12,7 +12,7 @@ import {
   addUsersToMaster,
   updateRoleToAdmin,
   getMasterData,
-  userStatus
+  userStatus,getAllUnderMaster
 } from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 import { chatroom ,getAllChat} from '../controllers/chat.controllers.js';
@@ -26,6 +26,7 @@ router.delete('/delete/:id', verifyToken, deleteUser);
 router.post('/api/chatroom/:id',verifyToken,chatroom);
 router.post('/api/sadhana/:id',verifyToken,sadhanafill);
 router.get("/getuser", getAllUser);
+router.get("/getMasterUser/:MasterId",getAllUnderMaster)
 router.put("/update/:id", verifyToken, updateUser );
 router.get("/api/getbirthday", verifyToken, getRecentBirthdays);
 router.post("/forgetpassword", forgotPassword);
