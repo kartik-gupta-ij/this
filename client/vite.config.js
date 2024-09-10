@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: "https://sadhana-h2ch.onrender.com/api",
+        target: "https://sadhana-h2ch.onrender.com",
         changeOrigin: true,
         secure: false,
       },
