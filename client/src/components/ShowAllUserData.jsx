@@ -84,8 +84,8 @@ function App() {
           try {
             let url = '';
             let options = {};
-    
-            if ((currentUser.role  || currentUser.rest.role) === 'admin') {
+    console.log(currentUser.role||currentUser.rest.role)
+            if ((currentUser.role  || currentUser.rest.role) === 'user') {
               url = `https://sadhana-h2ch.onrender.com/api/user/getuser`;
               options = {
                 method: 'GET',
