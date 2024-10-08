@@ -10,7 +10,8 @@ import OAuth from "../components/OAuth";
 import Herosection from "../components/Herosection";
 import { MdOutlineMail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function SignIn() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { loading, error } = useSelector((state) => state.user);
@@ -36,9 +37,11 @@ export default function SignIn() {
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
+        toast.error(data.message)
         dispatch(signInFailure(data));
         return;
       }
+      toast.success(data.message)
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {
@@ -48,6 +51,17 @@ export default function SignIn() {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="flex justify-center items-center mb-2">
         <div className="flex justify-center items-center flex-col  md:w-[37.5rem]">
           <Herosection
