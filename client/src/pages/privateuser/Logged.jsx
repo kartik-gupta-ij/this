@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import menuItems from './Logged';
 import ShowAllUserData from '../../components/ShowAllUserData';
 import LeaderBoard from '../LeaderBoard';
@@ -7,10 +7,11 @@ import { useSelector } from 'react-redux';
 import Graphofuser from '../../components/Graphofuser';
 import { Link } from 'react-router-dom';
 import MasterDetails from '../../components/MasterDetails';
+import Profile from '../Profile';
 
 export default function Logged() {
     const { currentUser } = useSelector((state) => state.user);
-
+    const [currentComponent, setCurrentComponent] = useState(0)
     console.log("Private user:", currentUser);
 
     // const downloadExcel = () => {
@@ -28,15 +29,17 @@ export default function Logged() {
     return (
         <div className='w-full flex justify-around'>
             <div className="flex flex-col items-center">
-                <ShowAllUserData />
-                <LeaderBoard />
-                <MasterDetails/>
+            {currentComponent === 0 && <ShowAllUserData />}
+            {currentComponent === 4 && <LeaderBoard />}
+            {currentComponent === 2 && <Profile />}
+                
+                <MasterDetails />
 
             </div>
             <div className='flex flex-col items-center'>
                 <div className='w-[320px] h-[132px] flex justify-around bg-[#FFF5E3] items-center my-4 rounded-xl'>
                     <div className='w-[94px] h-[94px]  rounded-full'>
-                        <img src={currentUser?.profilePicture ||currentUser?.rest?.profilePicture} alt='profile' className='rounded-full' />
+                        <img src={currentUser?.profilePicture || currentUser?.rest?.profilePicture} alt='profile' className='rounded-full' />
                     </div>
                     <div className='text-center'>
                         <p className='text-[14px]'>
@@ -46,16 +49,16 @@ export default function Logged() {
                         <p className='text-[12px]'>{currentUser?.email || currentUser?.rest?.email}</p>
                         <p className='text-[12px]'>{currentUser?.country || currentUser?.rest?.country} </p>
                     </div>
-
                 </div>
                 <div className="w-[320px] h-[384px] bg-[#FFF5E3] p-4 rounded-xl">
                     {menuItems.map((item, index) => (
-                        <Link to={item.link} key={index}>
-                            <div className="w-full h-[64px] flex items-center mb-2">
+                        <div to={item.link} key={index} className={`${currentComponent === index ? 'bg-[#008080] text-white rounded-2xl' : 'text-[#6A6A6A]'}`}
+>
+                            <div className="w-full h-[64px] flex items-center mb-2  cursor-pointer" onClick={()=>{setCurrentComponent(index)}} >
                                 <img src={item.img} alt={item.text} className="mx-[20px] w-[17px] h-[17px]" />
-                                <p className="text-[#6A6A6A] text-[20px]">{item.text}</p>
+                                <p className=" text-[20px]">{item.text}</p>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -49,7 +49,7 @@ export default function SignIn() {
   return (
     <>
       <div className="flex justify-center items-center mb-2">
-        <div className="flex justify-center items-center flex-col w-[18.75rem] md:w-[37.5rem]">
+        <div className="flex justify-center items-center flex-col  md:w-[37.5rem]">
           <Herosection
             heading="Welcome back devoted soul"
             subheading="Return to the path of divine love. Sign in and walk hand-in-hand with lord Krishna"

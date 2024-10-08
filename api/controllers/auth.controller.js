@@ -22,8 +22,10 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
+    console.log(validUser)
     if (validUser.isActive === false) {
       return res.status(403).json({
+        success:false,
         message: "User is Deactivated"
       });
     }

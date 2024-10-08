@@ -187,8 +187,6 @@ function App() {
             return updatedUsers;
         });
     };
-console.log("selectedUser",selectedUser)
-console.log("userData",userData)
     return (
         <div className='container mx-auto p-4'>
             <h1 className='text-2xl mb-4'>User Data</h1>
@@ -203,7 +201,7 @@ console.log("userData",userData)
                     {userData.map((user, index) => (
                         <tr key={index} className='border cursor-pointer' onClick={() => selectUser(index)}>
                             <td className='py-2 px-4 border text-[18px] text-[#56565b]'>{user.name}</td>
-                            <td className='py-2 px-7 border'>
+                            <td className='py-3 px-7 border w-[150px]'>
                                 <div
                                     onClick={(e) => {
                                         e.stopPropagation();

@@ -89,7 +89,7 @@ function LoginHome() {
               </p>
             </div>
           </div>
-          <div className="text-center p-2">
+          <div className="text-center sm:p-2">
             <div className="flex justify-between items-center ">
               <p className="text-[2rem] md:text-[3rem]  text-[#383636] font-semibold leading-14 tracking-tight">
                 Events
@@ -101,7 +101,7 @@ function LoginHome() {
               </div>
             </div>
             <div className="bg-gradient-to-b from-white via-[#FFF5E3] to-[#FFEDCC] relative">
-              <div className="text-left mt-4 md:px-6">
+              <div className="text-left mt-4 md:px-6 p-4">
                 <h2 className="text-2xl md:text-3xl text-[#4f4e4e] font-semibold">
                   ~JANMASHTAMI~
                 </h2>

@@ -11,7 +11,7 @@ function Header() {
 
   return (
     <div className=' sticky top-0 bg-white z-50'>
-      <div className=" md:flex justify-between md:mt-5 mt-3 md:mx-8 mx-2 px-3 py-2 items-center md:border-2 border-[#FFEDCC] rounded-2xl">
+      <div className=" md:flex justify-between md:mt-5 mt-3 md:mx-8 mx-2 px-3 py-2 items-center border-2 border-[#FFEDCC] rounded-2xl">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <div className="md:hidden flex items-center">
