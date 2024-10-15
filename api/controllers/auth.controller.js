@@ -49,11 +49,11 @@ export const google = async (req, res, next) => {
   console.log(req.body)
   try {
     const user = await User.findOne({ email: req.body.email });
-    if (user.isActive === false) {
-      return res.status(403).json({
-        message: "User is Deactivated"
-      });
-    }
+    // if (user.isActive === false) {
+    //   return res.status(403).json({
+    //     message: "User is Deactivated"
+    //   });
+    // }
 
 
     if (user) {

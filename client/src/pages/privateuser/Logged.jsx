@@ -1,19 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import menuItems from './Logged';
 import ShowAllUserData from '../../components/ShowAllUserData';
 import LeaderBoard from '../LeaderBoard';
 import { useSelector } from 'react-redux';
 // import * as XLSX from 'xlsx';
 import Graphofuser from '../../components/Graphofuser';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MasterDetails from '../../components/MasterDetails';
 import Profile from '../Profile';
-
+import { useDispatch } from 'react-redux';
+import { signOut } from '../../redux/user/userSlice';
 export default function Logged() {
     const { currentUser } = useSelector((state) => state.user);
     const [currentComponent, setCurrentComponent] = useState(0)
     console.log("Private user:", currentUser);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    useEffect(() => {
+        console.log({currentComponent})
+        const signOutUser = async () => {
+          if (currentComponent === 5) {
+            try {
+              await fetch("/api/auth/signout");
+              dispatch(signOut());
+              navigate('/');
+            } catch (error) {
+              console.log(error);
+            }
+          }
 
+        };
+      signOutUser();
+        
+      }, [currentComponent, dispatch]);
+      
     // const downloadExcel = () => {
     //     if (currentUser) {
     //         const worksheetData = [currentUser]; // Wrap currentUser in an array if it's an object
