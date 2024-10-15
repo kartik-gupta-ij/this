@@ -31,7 +31,7 @@ export default function OAuth() {
       if (data?.message === "User is Deactivated") {
 console.log("IN")
         try {
-          await fetch("/api/auth/signout");
+          await fetch("https://sadhana-h2ch.onrender.com/api/auth/signout");
           dispatch(signOut());
         } catch (error) {
           console.log(error);
