@@ -9,7 +9,7 @@ import Setting from './Settings.svg'
 const menuItems = [
     {
         img: challenge,
-        text: "User",
+        text: "All Users",
         // link:'/form/sadhana'
     },
     {

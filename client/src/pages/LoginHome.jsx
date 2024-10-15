@@ -6,11 +6,23 @@ import hand from "../assets/hand-drawn.png";
 import events1 from "../assets/events1.png";
 import flat from "../assets/flat.png";
 import { useSelector } from "react-redux";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function LoginHome() {
   const { currentUser } = useSelector((state) => state.user);
   return (
     <>
+    <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div>
         <div className="bg-gradient-to-b from-white via-[#FFFFFF] to-[#FFEDCC] rounded-2xl">
           <div className="grid grid-cols-2 mr-4 py-8">
