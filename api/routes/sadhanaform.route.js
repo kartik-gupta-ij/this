@@ -4,6 +4,6 @@ import { verifyToken } from '../utils/verifyUser.js';
 const router = express.Router();
 
 
-router.post("/sadhana", verifyToken, createSadhanaForm);
+router.post("/sadhana",  createSadhanaForm);
 router.get("/getdata/:userId",  getdatainExcel);
 export default router;
