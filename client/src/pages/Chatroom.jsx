@@ -17,7 +17,7 @@ export default function Chatroom() {
   const fetchChatData = async () => {
     if (currentUser) {
       try {
-        const res = await fetch(`https://sadhana-h2ch.onrender.com/api/user/api/chatroom/${currentUser?._id || currentUser?.rest?._id}`);
+        const res = await fetch(`/api/user/api/chatroom/${currentUser?._id || currentUser?.rest?._id}`);
         const data = await res.json();
         setChatData(data.data);
       } catch (error) {
@@ -31,7 +31,7 @@ export default function Chatroom() {
     e.preventDefault(); // Prevent form from reloading the page
 
     try {
-      const res = await fetch(`https://sadhana-h2ch.onrender.com/api/user/api/chatroom/${currentUser?._id || currentUser?.rest?._id}`, {
+      const res = await fetch(`/api/user/api/chatroom/${currentUser?._id || currentUser?.rest?._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function Chatroom() {
 
   async function fetchDataAll() {
     try {
-        const response = await axios.get('https://sadhana-h2ch.onrender.com/api/user/getallchat');
+        const response = await axios.get('/api/user/getallchat');
         // Process the response data here
         setChatData(response.data.data);
     } catch (error) {

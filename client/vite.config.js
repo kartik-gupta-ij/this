@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import { VitePWA } from 'vite-plugin-pwa'; // Import the Vite PWA plugin
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   build: {
@@ -13,7 +13,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: "https://sadhana-h2ch.onrender.com",
+        target: 'http://localhost:3000', // Set the target to your backend
         changeOrigin: true,
         secure: false,
       },
@@ -22,15 +22,15 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',  // Automatically update service worker
+      registerType: 'autoUpdate',
       manifest: {
         name: 'My Vite PWA',
         short_name: 'VitePWA',
         description: 'A Progressive Web App built with Vite and React',
-        theme_color: '#ffffff',   // Customize based on your app's color scheme
-        background_color: '#ffffff', // Customize background color
-        display: 'standalone',    // Ensure it runs standalone (like an app)
-        start_url: '/',           // Define the start URL
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
+        display: 'standalone',
+        start_url: '/',
         icons: [
           {
             src: 'icons/icon-192x192.png',
@@ -45,8 +45,8 @@ export default defineConfig({
         ],
       },
       workbox: {
-        cleanupOutdatedCaches: true, // Automatically clean outdated caches
-        sourcemap: true,             // Helpful for debugging
+        cleanupOutdatedCaches: true,
+        sourcemap: true,
       },
     }),
   ],

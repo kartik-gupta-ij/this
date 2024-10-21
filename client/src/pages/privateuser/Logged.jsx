@@ -17,23 +17,23 @@ export default function Logged() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(() => {
-        console.log({currentComponent})
+        console.log({ currentComponent })
         const signOutUser = async () => {
-          if (currentComponent === 5) {
-            try {
-              await fetch("/api/auth/signout");
-              dispatch(signOut());
-              navigate('/');
-            } catch (error) {
-              console.log(error);
+            if (currentComponent === 5) {
+                try {
+                    await fetch("/api/auth/signout");
+                    dispatch(signOut());
+                    navigate('/');
+                } catch (error) {
+                    console.log(error);
+                }
             }
-          }
 
         };
-      signOutUser();
-        
-      }, [currentComponent, dispatch]);
-      
+        signOutUser();
+
+    }, [currentComponent, dispatch]);
+
     // const downloadExcel = () => {
     //     if (currentUser) {
     //         const worksheetData = [currentUser]; // Wrap currentUser in an array if it's an object
@@ -49,10 +49,10 @@ export default function Logged() {
     return (
         <div className='w-full flex justify-around'>
             <div className="flex flex-col items-center">
-            {currentComponent === 0 && <ShowAllUserData />}
-            {currentComponent === 4 && <LeaderBoard />}
-            {currentComponent === 2 && <Profile />}
-                
+                {currentComponent === 0 && <ShowAllUserData />}
+                {currentComponent === 4 && <LeaderBoard />}
+                {currentComponent === 2 && <Profile />}
+
                 <MasterDetails />
 
             </div>
@@ -73,8 +73,8 @@ export default function Logged() {
                 <div className="w-[320px] h-[384px] bg-[#FFF5E3] p-4 rounded-xl">
                     {menuItems.map((item, index) => (
                         <div to={item.link} key={index} className={`${currentComponent === index ? 'bg-[#008080] text-white rounded-2xl' : 'text-[#6A6A6A]'}`}
->
-                            <div className="w-full h-[64px] flex items-center mb-2  cursor-pointer" onClick={()=>{setCurrentComponent(index)}} >
+                        >
+                            <div className="w-full h-[64px] flex items-center mb-2  cursor-pointer" onClick={() => { setCurrentComponent(index) }} >
                                 <img src={item.img} alt={item.text} className="mx-[20px] w-[17px] h-[17px]" />
                                 <p className=" text-[20px]">{item.text}</p>
                             </div>

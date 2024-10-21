@@ -77,7 +77,7 @@ export default function SadhanaForm() {
     const formData = { chooseOption: selectedOptions, points: totalPoints + (currentUser?.points || 0) };
 
     try {
-      const res = await axios.post("https://sadhana-h2ch.onrender.com/api/sadhana", formData, {
+      const res = await axios.post("/api/sadhana", formData, {
         headers: { Authorization: currentUser?.token },
       });
       console.log(res);

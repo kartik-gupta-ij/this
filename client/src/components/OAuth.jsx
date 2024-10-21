@@ -16,7 +16,7 @@ export default function OAuth() {
 
       const result = await signInWithPopup(auth, provider);
       console.log("result", result)
-      const res = await fetch('https://sadhana-h2ch.onrender.com/api/auth/google', {
+      const res = await fetch('/api/auth/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export default function OAuth() {
       if (data?.message === "User is Deactivated") {
 console.log("IN")
         try {
-          await fetch("https://sadhana-h2ch.onrender.com/api/auth/signout");
+          await fetch("/api/auth/signout");
           dispatch(signOut());
         } catch (error) {
           console.log(error);

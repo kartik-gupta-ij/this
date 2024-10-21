@@ -86,7 +86,7 @@ function App() {
             let options = {};
     console.log(currentUser.role||currentUser.rest.role)
             if ((currentUser.role  || currentUser.rest.role) === 'user') {
-              url = `https://sadhana-h2ch.onrender.com/api/user/getuser`;
+              url = `/api/user/getuser`;
               options = {
                 method: 'GET',
                 headers: {
@@ -94,7 +94,7 @@ function App() {
                 }
               };
             } else if ((currentUser.role  || currentUser.rest.role) === 'master') {
-              url = `https://sadhana-h2ch.onrender.com/api/user/getMasterUser/${currentUser._id}`;
+              url = `/api/user/getMasterUser/${currentUser._id}`;
               options = {
                 method: 'GET',
                 headers: {
@@ -132,7 +132,7 @@ function App() {
       }, [currentUser.role]);
 
     const toggleStatus = (userId) => {
-        axios.post(`https://sadhana-h2ch.onrender.com/api/user/userStatus/${userId}`, {
+        axios.post(`/api/user/userStatus/${userId}`, {
             userId: userId,
             adminId: currentUser.rest._id
         })
@@ -157,7 +157,7 @@ function App() {
     };
 
     const makeMaster = (userId) => {
-        axios.post(`https://sadhana-h2ch.onrender.com/api/user/addmaster/${userId}`, {
+        axios.post(`/api/user/addmaster/${userId}`, {
             adminId: currentUser.rest._id
         })
             .then(response => {
