@@ -77,6 +77,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="mb-[100px]">
+
+      </div>
     </>
   );
 }

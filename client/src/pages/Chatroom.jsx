@@ -78,10 +78,10 @@ export default function Chatroom() {
 }
 
 // Fetch data immediately
-fetchDataAll();
+// fetchDataAll();
 
 // Set up interval to fetch data every 10 seconds
-setInterval(fetchDataAll, 3600000);
+// setInterval(fetchDataAll, 36000000);
 
   return (
     <>

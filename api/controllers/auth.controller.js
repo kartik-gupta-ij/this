@@ -6,9 +6,9 @@ import jwt from 'jsonwebtoken';
 export const signup = async (req, res, next) => {
   console.log("signup controller")
   console.log(req.body)
-  const {gender,name,email,mobile,country,age,password} = req.body;
+  const { gender, name, email, mobile, country, age, password } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
-  const newUser = new User({ username:"binod",gender,name,email,mobile,country,age,password:hashedPassword });
+  const newUser = new User({ username: "binod", gender, name, email, mobile, country, age, password: hashedPassword });
   try {
     await newUser.save();
     res.status(201).json({ message: 'User created successfully' });
@@ -22,8 +22,10 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
+    console.log(validUser)
     if (validUser.isActive === false) {
       return res.status(403).json({
+        success: false,
         message: "User is Deactivated"
       });
     }
@@ -36,7 +38,7 @@ export const signin = async (req, res, next) => {
     res
       .cookie('access_token', token, { httpOnly: true, expires: expiryDate })
       .status(200)
-      .json({rest, token: token});
+      .json({ rest, token: token, message: 'user logged In', success: true });
   } catch (error) {
     next(error);
   }
@@ -47,13 +49,13 @@ export const google = async (req, res, next) => {
   console.log(req.body)
   try {
     const user = await User.findOne({ email: req.body.email });
-    if (user.isActive === false) {
-      return res.status(403).json({
-        message: "User is Deactivated"
-      });
-    }
-  
-    
+    // if (user.isActive === false) {
+    //   return res.status(403).json({
+    //     message: "User is Deactivated"
+    //   });
+    // }
+
+
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { password: hashedPassword, ...rest } = user._doc;
@@ -66,18 +68,18 @@ export const google = async (req, res, next) => {
         .status(200)
         .json(rest);
     } else {
-      const {name,email,photo} = req.body;
+      const { name, email, photo } = req.body;
       const password = "1234"
       const hashedPassword = bcryptjs.hashSync(password, 10);
       const newUser = new User({
         name,
         email,
         password: hashedPassword,
-        profilePicture:photo,
-        age:"12",
-        gender:"male",
-        mobile:"0123456789",
-        country:"India"
+        profilePicture: photo,
+        age: "12",
+        gender: "male",
+        mobile: "0123456789",
+        country: "India"
       });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);

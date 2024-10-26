@@ -145,14 +145,14 @@ function Community() {
                   </p>
                   <div className="flex justify-center items-center pb-4 md:pb-10">
                     <div className="relative mb-2 flex items-center w-full ">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FFA500] pointer-events-none">
+                      {questionInput.length === 0 && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FFA500] pointer-events-none">
                         Type Something...
-                      </span>
+                      </span>}
                       <input
                         type="text"
                         value={questionInput}
                         onChange={(e) => setQuestionInput(e.target.value)}
-                        className="block w-full py-2.5 pl-10 pr-4 text-gray-900 border border-[#FFA500] bg-white text-md rounded-md "
+                        className="block w-full py-2.5 pl-3 pr-4 text-gray-900 border border-[#FFA500] bg-white text-md rounded-md "
                         placeholder=""
                       />
 
@@ -167,7 +167,7 @@ function Community() {
                 </div>
               </div>
               <div className="flex justify-center items-center mt-5  md:pr-10 mb-6">
-                <PollCreator />
+                {/* <PollCreator /> */}
                 <div className="relative flex items-center w-full ml-6 border rounded-lg border-[#FFA500]">
                   <input
                     type="text"

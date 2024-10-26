@@ -10,8 +10,8 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className='relative'>
-      <div className=" md:flex justify-between md:mt-5 mt-3 md:mx-8 mx-2 px-3 py-2 items-center md:border-2 border-[#FFEDCC] rounded-2xl">
+    <div className=' sticky top-0 bg-white z-50'>
+      <div className=" md:flex justify-between md:mt-5 mt-3 md:mx-8 mx-2 px-3 py-2 items-center border-2 border-[#FFEDCC] rounded-2xl">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
             <div className="md:hidden flex items-center">
@@ -19,8 +19,8 @@ function Header() {
               <img src={sadhna} alt="sadhana" loading="lazy" className='w-[74px] h-[22px]' />
             </div>
             <div className="hidden md:flex items-center">
-            {/* <img src={logo} alt="Logo" loading="lazy" className="md:mr-2 mr-1  " /> */}
-            <img src={sadhna} alt="sadhana" loading="lazy" className='' />
+              {/* <img src={logo} alt="Logo" loading="lazy" className="md:mr-2 mr-1  " /> */}
+              <img src={sadhna} alt="sadhana" loading="lazy" className='' />
             </div>
           </Link>
           <div className='flex space-x-1 md:hidden'>
@@ -31,7 +31,7 @@ function Header() {
             {!currentUser && <div className=" rounded-lg px-3 py-1 bg-[#FFA500] text-white font-bold">
               <Link to="/signup">Join Us</Link>
             </div>}
-            
+
           </div>
         </div>
 
@@ -87,7 +87,7 @@ function Header() {
               {!currentUser && <li className=" block rounded-lg px-4 py-2 bg-[#FFA500] text-white font-bold">
                 <Link to="/signin">Login</Link>
               </li>}
-              {currentUser && <Link to='/profiledata'><img src={currentUser?.rest?.profilePicture ||currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
+              {currentUser && <Link to='/profiledata'><img src={currentUser?.rest?.profilePicture || currentUser?.profilePicture} className="rounded-full w-8 h-8  font-bold" alt="profile" /></Link>}
             </ul>
           </nav>
         </div>

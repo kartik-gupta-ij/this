@@ -9,33 +9,33 @@ import Setting from './Settings.svg'
 const menuItems = [
     {
         img: challenge,
-        text: "Challenges",
-        link:'/form/sadhana'
+        text: "All Users",
+        // link:'/form/sadhana'
     },
     {
         img: Setting,
         text: "Privacy settings",
-        link:'/profile'
+        // link:'/profile'
     },
     {
         img: manage,
         text: "Manage your account",
-        link:'/profile'
+        // link:'/profile'
     },
     {
         img: invite,
         text: "Invite your friend",
-        link:'#'
+        // link:'#'
     },
     {
         img: star,
         text: "Leaderboard",
-        link:"/leaderboard"
+        // link:"/leaderboard"
     },
     {
         img: logout,
         text: "Logout",
-        link:"#"
+        // link:"#"
 
     }
 ];

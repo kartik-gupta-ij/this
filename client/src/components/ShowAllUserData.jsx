@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 function App() {
     const [userData, setUserData] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -63,19 +63,19 @@ function App() {
             const jsondata = response.data.data; // Assuming the response data is already JSON
             console.log("jsondata jsondata",jsondata)
 
-            if (jsondata && Array.isArray(jsondata)) {
-                const flattenedData = flattenJSON(jsondata);
-                const worksheet = XLSX.utils.json_to_sheet(flattenedData);
-                const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, "jsondata");
-                XLSX.writeFile(workbook, "jsondata.xlsx");
-            } else {
-                console.error("No jsondata array to export");
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
+    //         if (jsondata && Array.isArray(jsondata)) {
+    //             const flattenedData = flattenJSON(jsondata);
+    //             const worksheet = XLSX.utils.json_to_sheet(flattenedData);
+    //             const workbook = XLSX.utils.book_new();
+    //             XLSX.utils.book_append_sheet(workbook, worksheet, "jsondata");
+    //             XLSX.writeFile(workbook, "jsondata.xlsx");
+    //         } else {
+    //             console.error("No jsondata array to export");
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     }
+    // };
 
 
 
@@ -190,8 +190,6 @@ function App() {
             return updatedUsers;
         });
     };
-console.log("selectedUser",selectedUser)
-console.log("userData",userData)
     return (
         <div className='container mx-auto p-4'>
             <h1 className='text-2xl mb-4'>User Data</h1>
@@ -206,7 +204,7 @@ console.log("userData",userData)
                     {userData.map((user, index) => (
                         <tr key={index} className='border cursor-pointer' onClick={() => selectUser(index)}>
                             <td className='py-2 px-4 border text-[18px] text-[#56565b]'>{user.name}</td>
-                            <td className='py-2 px-7 border'>
+                            <td className='py-3 px-7 border w-[150px]'>
                                 <div
                                     onClick={(e) => {
                                         e.stopPropagation();
