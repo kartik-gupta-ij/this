@@ -77,10 +77,15 @@ export default function SadhanaForm() {
     const formData = { chooseOption: selectedOptions, points: totalPoints + (currentUser?.points || 0) };
 
     try {
-      const res = await axios.post("/api/sadhana", formData, {
-        headers: { Authorization: currentUser?.token },
+      const res = await fetch("http://localhost:3000/api/sadhana", {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${currentUser?.token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+         // Include this if you're using cookies for authentication
       });
-      console.log(res);
     } catch (error) {
       console.error(error);
     }

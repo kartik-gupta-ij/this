@@ -59,7 +59,7 @@ function App() {
 
     const excelDataDownload = async (userId) => {
         try {
-            const response = await axios.get(`https://sadhana-h2ch.onrender.com/api/getdata/${userId}`);
+            const response = await axios.get(`http://localhost:3000/api/getdata/${userId}`);
             const jsondata = response.data.data; // Assuming the response data is already JSON
             console.log("jsondata jsondata",jsondata)
 
@@ -86,7 +86,7 @@ function App() {
             let options = {};
     
             if ((currentUser.role  || currentUser.rest.role) === 'admin') {
-              url = `https://sadhana-h2ch.onrender.com/api/user/getuser`;
+              url = `http://localhost:3000/api/user/getuser`;
               options = {
                 method: 'GET',
                 headers: {
@@ -94,7 +94,7 @@ function App() {
                 }
               };
             } else if ((currentUser.role  || currentUser.rest.role) === 'master') {
-              url = `https://sadhana-h2ch.onrender.com/api/user/getMasterUser/${currentUser._id}`;
+              url = `http://localhost:3000/api/user/getMasterUser/${currentUser._id}`;
               options = {
                 method: 'GET',
                 headers: {
@@ -120,11 +120,14 @@ function App() {
               ...user,
               isSelected: false // Add isSelected property to manage selection
             }));
-            setUserData(usersWithStatus);
+            await setUserData(usersWithStatus);
+
           } catch (error) {
             console.error('There was an error fetching the user data!', error);
+            
           } finally {
             // setLoading(false);
+            console.log(userData);
           }
         };
     
@@ -132,7 +135,7 @@ function App() {
       }, [currentUser.role]);
 
     const toggleStatus = (userId) => {
-        axios.post(`https://sadhana-h2ch.onrender.com/api/user/userStatus/${userId}`, {
+        axios.post(`http://localhost:3000/api/user/userStatus/${userId}`, {
             userId: userId,
             adminId: currentUser.rest._id
         })
@@ -157,7 +160,7 @@ function App() {
     };
 
     const makeMaster = (userId) => {
-        axios.post(`https://sadhana-h2ch.onrender.com/api/user/addmaster/${userId}`, {
+        axios.post(`http://localhost:3000/api/user/addmaster/${userId}`, {
             adminId: currentUser.rest._id
         })
             .then(response => {

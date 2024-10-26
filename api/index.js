@@ -26,7 +26,13 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // Replace with your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add other methods if needed
+  allowedHeaders: ['Content-Type', 'Authorization'], // Ensure 'Authorization' is included
+  // Allow credentials if you're sending cookies or using authorization headers
+}));
+
 // app.use(express.static(path.join(__dirname, '/client/dist')));
 
 // app.get('*', (req, res) => {
