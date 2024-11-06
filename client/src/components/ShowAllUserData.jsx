@@ -110,13 +110,13 @@ export default function App() {
         };
 
         if ((currentUser.role || currentUser.rest?.role) === "admin") {
-          url = `https://sadhana-v5rh.onrender.com/api/user/getuser`;
+          url = `https://sadhnaapi.onrender.com/api/user/getuser`;
         } else if ((currentUser.role || currentUser.rest?.role) === "master") {
           if (!currentUser._id) {
             console.error("currentUser._id is undefined");
             return;
           }
-          url = `https://sadhana-v5rh.onrender.com/api/user/getMasterUser/${currentUser._id}`;
+          url = `https://sadhnaapi.onrender.com/api/user/getMasterUser/${currentUser._id}`;
         } else {
           console.error("Invalid role");
           return;
@@ -143,7 +143,7 @@ export default function App() {
 
   const toggleStatus = (userId) => {
     axios
-      .post(`https://sadhana-v5rh.onrender.com/api/user/userStatus/${userId}`, {
+      .post(`https://sadhnaapi.onrender.com/api/user/userStatus/${userId}`, {
         userId,
         adminId: currentUser.rest?._id || currentUser._id,
       })
@@ -166,7 +166,7 @@ export default function App() {
 
   const makeMaster = (userId) => {
     axios
-      .post(`https://sadhana-v5rh.onrender.com/api/user/addmaster/${userId}`, {
+      .post(`https://sadhnaapi.onrender.com/api/user/addmaster/${userId}`, {
         adminId: currentUser.rest?._id || currentUser._id,
       })
       .then((response) => {

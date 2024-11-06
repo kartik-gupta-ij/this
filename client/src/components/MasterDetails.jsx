@@ -10,7 +10,7 @@ const MasterDetails = () => {
   useEffect(() => {
     const fetchMasterUsers = async () => {
       try {
-        const response = await axios.get('https://sadhana-v5rh.onrender.com/api/user/master/data');
+        const response = await axios.get('https://sadhnaapi.onrender.com/api/user/master/data');
         setMasterUsers(response.data.data);
         console.log("response.data.data", response.data.data);
       } catch (err) {
