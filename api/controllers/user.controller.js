@@ -1,4 +1,5 @@
 import User from '../models/user.model.js';
+import Master from '../models/master.model.js';
 import { errorHandler } from '../utils/error.js';
 import bcryptjs from 'bcryptjs';
 import { error } from 'console';
@@ -319,6 +320,7 @@ export const userToMaster = async (req, res) => {
 
     user.role = "master";
     await user.save();
+    await Master.create({ userId: userId, subusers: [] });
 
     console.log(user.role);
 

@@ -37,8 +37,10 @@ export default function App() {
         }
       );
       console.log("Selected users added to master successfully");
+      alert("Selected users added to master successfully");
     } catch (error) {
       console.error("Error adding users to master:", error);
+      alert("Can not add user to master");
     }
   };
   
@@ -174,12 +176,14 @@ export default function App() {
           )
         );
         console.log("User promoted to master:", response.data);
+        alert("User promoted to master successfully");
       })
       .catch((error) => {
         console.error(
           "There was an error promoting the user to master!",
           error
         );
+        alert("Can not promote user to master");
       });
   };
 

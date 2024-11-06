@@ -167,7 +167,7 @@ function Community() {
                 </div>
               </div>
               <div className="flex justify-center items-center mt-5  md:pr-10 mb-6">
-                {/* <PollCreator /> */}
+               {/* <PollCreator />  */}
                 <div className="relative flex items-center w-full ml-6 border rounded-lg border-[#FFA500]">
                   <input
                     type="text"

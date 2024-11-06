@@ -53,7 +53,7 @@ export default function Logged() {
                 {currentComponent === 4 && <LeaderBoard />}
                 {currentComponent === 2 && <Profile />}
 
-                <MasterDetails />
+               { currentUser?.role == "admin"? <MasterDetails/> : ""}
 
             </div>
             <div className='flex flex-col items-center'>
