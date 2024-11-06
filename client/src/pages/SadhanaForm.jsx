@@ -79,7 +79,7 @@ export default function SadhanaForm() {
     const formData = { chooseOption: selectedOptions, points: totalPoints + (currentUser?.points || 0) };
 
     try {
-      await axios.post("https://sadhana-v5rh.onrender.com/api", formData, {
+      await axios.post("https://sadhnaapi.onrender.com/api", formData, {
         headers: {
           Authorization: `Bearer ${currentUser?.token}`,
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export default function SadhanaForm() {
         withCredentials: true, // for cookies if needed
       });
 
-      await axios.put(`https://sadhana-v5rh.onrender.com/api/user/update/${currentUser?._id}`, 
+      await axios.put(`https://sadhnaapi.onrender.com/api/user/update/${currentUser?._id}`, 
         { points: newTotalPoints }, 
         {
           headers: {

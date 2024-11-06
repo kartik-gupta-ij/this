@@ -33,7 +33,7 @@ function Community() {
 
   const getQuestionsAndComments = async () => {
     try {
-      const res = await axios.get("https://sadhana-v5rh.onrender.com/api/comment/allquestion");
+      const res = await axios.get("https://sadhnaapi.onrender.com/api/comment/allquestion");
       setQuestions(res?.data?.data);
     } catch (error) {
       console.log(error);
