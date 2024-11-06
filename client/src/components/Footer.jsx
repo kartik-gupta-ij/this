@@ -2,7 +2,7 @@ import React from "react";
 import before from "../assets/beforeLogo.png";
 import sadhna from "../assets/Sadhana.png";
 import navbar from "../assets/navbar.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 import { IoLogoFacebook } from "react-icons/io";
 import { FaInstagram } from "react-icons/fa";
 import { IoLogoTwitter } from "react-icons/io5";
@@ -16,7 +16,17 @@ import { SiBookstack } from "react-icons/si";
 import { useSelector } from "react-redux";
 export default function Footer() {
   const location = useLocation();
+ 
   const { currentUser } = useSelector((state) => state.user);
+
+  
+
+
+ 
+  if (!currentUser) {
+    const isNewUser = window.location.pathname === "/signup";
+    return isNewUser ? <Navigate to="/signup" replace /> : <Navigate to="/signin" replace />;
+  }
   console.log(currentUser)
   return (
     <>

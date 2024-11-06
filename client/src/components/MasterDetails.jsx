@@ -10,7 +10,7 @@ const MasterDetails = () => {
   useEffect(() => {
     const fetchMasterUsers = async () => {
       try {
-        const response = await axios.get('/api/user/master/data');
+        const response = await axios.get('http://localhost:3000/api/user/master/data');
         setMasterUsers(response.data.data);
         console.log("response.data.data", response.data.data);
       } catch (err) {
@@ -30,7 +30,7 @@ const MasterDetails = () => {
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Master Users</h2>
       <ul className="space-y-4">
-        {masterUsers
+        {masterUsers?.length > 0 && masterUsers
           .filter(user => user.subusers && user.subusers.length > 0) // Only include users with subusers
           .map(user => (
             <li key={user._id} className="border rounded-md p-4 shadow-md">

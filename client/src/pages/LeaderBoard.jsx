@@ -7,11 +7,8 @@ function LeaderBoard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-<<<<<<< HEAD
                 const response = await fetch('http://localhost:3000/api/user/getuser', {
-=======
-                const response = await fetch('/api/user/getuser', {
->>>>>>> b51ef38608b65f6201a649d3cd860a5f2ff169f2
+
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

@@ -57,6 +57,7 @@ export default function SadhanaForm() {
   const [selectedOptions, setSelectedOptions] = useState({});
   const { currentUser } = useSelector((state) => state.user) || {};
   const [points, setPoints] = useState(0);
+  const [formStatus, setFormStatus] = useState("");
 
   const handleSelection = (category, option) => {
     setSelectedOptions((prev) => ({
@@ -74,20 +75,35 @@ export default function SadhanaForm() {
     });
 
     setPoints(totalPoints);
+    const newTotalPoints = totalPoints + (currentUser?.points || 0);
     const formData = { chooseOption: selectedOptions, points: totalPoints + (currentUser?.points || 0) };
 
     try {
-      const res = await fetch("http://localhost:3000/api/sadhana", {
-        method: 'POST',
+      await axios.post("http://localhost:3000/api", formData, {
         headers: {
           Authorization: `Bearer ${currentUser?.token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
-         // Include this if you're using cookies for authentication
+        withCredentials: true, // for cookies if needed
       });
+
+      await axios.put(`http://localhost:3000/api/user/update/${currentUser?._id}`, 
+        { points: newTotalPoints }, 
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser?.token}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
+
+      alert("Form submitted successfully!");
+      setSelectedOptions({});
+      setPoints(0);
     } catch (error) {
       console.error(error);
+      setFormStatus("Failed to submit the form. Please try again.");
     }
   };
 
@@ -133,6 +149,11 @@ export default function SadhanaForm() {
             Submit
           </button>
         </div>
+        {formStatus && (
+          <p className="text-center mt-4 text-lg font-semibold text-green-500">
+            {formStatus}
+          </p>
+        )}
       </div>
 
       <div className="md:hidden h-[150px]"></div>

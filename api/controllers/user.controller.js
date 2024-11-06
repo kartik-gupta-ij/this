@@ -16,9 +16,11 @@ export const test = (req, res) => {
 export const updateUser = async (req, res, next) => {
   const { id } = req.params;
   const { id: userId } = req.user;
+  console.log("id", id);
+  console.log("userId", userId);
   const {
     name, email, country, age, gender,
-    dateOfBirth, dateOfAnniversary, image, marital
+    dateOfBirth, dateOfAnniversary, image, marital, points
   } = req.body;
 
   if (userId !== id) {
@@ -39,6 +41,7 @@ export const updateUser = async (req, res, next) => {
           dateOfAnniversary,
           image,
           marital,
+          points
         },
       },
       { new: true, runValidators: true }
@@ -317,7 +320,7 @@ export const userToMaster = async (req, res) => {
     user.role = "master";
     await user.save();
 
-    await Master.create({ userId: userId });
+    console.log(user.role);
 
     res.status(200).json({ message: "Successfully converted to Master role" });
 
