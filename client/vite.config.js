@@ -26,7 +26,7 @@ export default defineConfig({
       manifest: {
         name: 'My Vite PWA',
         short_name: 'VitePWA',
-        description: 'A Progressive Web App built with Vite and React',
+        description: 'A Progressive Web App built with Vite and React with PWA',
         theme_color: '#ffffff',
         background_color: '#ffffff',
         display: 'standalone',
