@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -9,12 +10,11 @@ const MasterDetails = () => {
   useEffect(() => {
     const fetchMasterUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/user/master/data');
-        console.log("Fetched data:", response.data); // Log entire response to check structure
+        const response = await axios.get('https://sadhana-v5rh.onrender.com/api/user/master/data');
         setMasterUsers(response.data.data);
+        console.log("response.data.data", response.data.data);
       } catch (err) {
         setError(err.message);
-        console.error("API Error:", err); // Log the error
       } finally {
         setLoading(false);
       }
@@ -25,13 +25,12 @@ const MasterDetails = () => {
 
   if (loading) return <div className="text-center text-lg">Loading...</div>;
   if (error) return <div className="text-red-500 text-lg">Error: {error}</div>;
-  if (masterUsers.length === 0) return <div className="text-center text-lg">No master users available.</div>;
 
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Master Users</h2>
       <ul className="space-y-4">
-        {masterUsers
+        {masterUsers?.length > 0 && masterUsers
           .filter(user => user.subusers && user.subusers.length > 0) // Only include users with subusers
           .map(user => (
             <li key={user._id} className="border rounded-md p-4 shadow-md">

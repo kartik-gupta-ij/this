@@ -7,7 +7,7 @@ function LeaderBoard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/user/getuser', {
+                const response = await fetch('https://sadhana-v5rh.onrender.com/api/user/getuser', {
 
                     method: 'GET',
                     headers: {

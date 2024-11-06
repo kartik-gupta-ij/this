@@ -72,7 +72,7 @@ export default function App() {
   const excelDataDownload = async (userId, userData) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/excel/${userId}`,
+        `https://sadhana-v5rh.onrender.com/api/excel/${userId}`,
 
         {
           headers: {
@@ -110,13 +110,13 @@ export default function App() {
         };
 
         if ((currentUser.role || currentUser.rest?.role) === "admin") {
-          url = `http://localhost:3000/api/user/getuser`;
+          url = `https://sadhana-v5rh.onrender.com/api/user/getuser`;
         } else if ((currentUser.role || currentUser.rest?.role) === "master") {
           if (!currentUser._id) {
             console.error("currentUser._id is undefined");
             return;
           }
-          url = `http://localhost:3000/api/user/getMasterUser/${currentUser._id}`;
+          url = `https://sadhana-v5rh.onrender.com/api/user/getMasterUser/${currentUser._id}`;
         } else {
           console.error("Invalid role");
           return;
@@ -143,7 +143,7 @@ export default function App() {
 
   const toggleStatus = (userId) => {
     axios
-      .post(`http://localhost:3000/api/user/userStatus/${userId}`, {
+      .post(`https://sadhana-v5rh.onrender.com/api/user/userStatus/${userId}`, {
         userId,
         adminId: currentUser.rest?._id || currentUser._id,
       })
@@ -166,7 +166,7 @@ export default function App() {
 
   const makeMaster = (userId) => {
     axios
-      .post(`http://localhost:3000/api/user/addmaster/${userId}`, {
+      .post(`https://sadhana-v5rh.onrender.com/api/user/addmaster/${userId}`, {
         adminId: currentUser.rest?._id || currentUser._id,
       })
       .then((response) => {
