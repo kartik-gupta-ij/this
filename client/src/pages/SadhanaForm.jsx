@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import sadhanaForm from "../assets/sadhanaForm.png";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import firebase from "firebase/app";
-import "firebase/auth";
 
 const options = {
   "Chanting on beads": ["0", "1-4 Rounds", "5-8 Rounds", "9-12 Rounds", "13-16 Rounds", "17-25 Rounds", "26 Rounds Above"],
@@ -55,28 +53,11 @@ const pointsMapping = {
   "Any austerity": { No: 0, Yes: 0 },
 };
 
-
 export default function SadhanaForm() {
   const [selectedOptions, setSelectedOptions] = useState({});
   const { currentUser } = useSelector((state) => state.user) || {};
   const [points, setPoints] = useState(0);
   const [formStatus, setFormStatus] = useState("");
-  const [firebaseToken, setFirebaseToken] = useState("");
-
-  // Fetch Firebase token after login
-  useEffect(() => {
-    const fetchFirebaseToken = async () => {
-      if (currentUser) {
-        try {
-          const token = await firebase.auth().currentUser.getIdToken();
-          setFirebaseToken(token);
-        } catch (error) {
-          console.error("Failed to retrieve Firebase token:", error);
-        }
-      }
-    };
-    fetchFirebaseToken();
-  }, [currentUser]);
 
   const handleSelection = (category, option) => {
     setSelectedOptions((prev) => ({
@@ -87,69 +68,47 @@ export default function SadhanaForm() {
 
   const handleSubmit = async () => {
     let totalPoints = 0;
-  
-    // Calculate total points based on selected options
+
     Object.keys(selectedOptions).forEach((category) => {
       const option = selectedOptions[category];
       totalPoints += pointsMapping[category][option] || 0;
     });
-  
+
     setPoints(totalPoints);
     const newTotalPoints = totalPoints + (currentUser?.points || 0);
-    const formData = { chooseOption: selectedOptions, points: newTotalPoints };
-  
+    const formData = { chooseOption: selectedOptions, points: totalPoints + (currentUser?.points || 0) };
+
     try {
-      // Attempt form submission with firebaseToken
       await axios.post("https://sadhnaapi.onrender.com/api", formData, {
         headers: {
-          Authorization: `Bearer ${firebaseToken}`,
+          Authorization: `Bearer ${currentUser?.token}`,
           'Content-Type': 'application/json',
         },
+        
       });
-    } catch (error) {
-      console.warn("First attempt with Firebase token failed:", error);
-  
-      // Fallback to currentUser token if firebaseToken submission fails
-      try {
-        await axios.post("https://sadhnaapi.onrender.com/api", formData, {
-          headers: {
-            Authorization: `Bearer ${currentUser?.token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-      } catch (fallbackError) {
-        console.error("Both Firebase and currentUser tokens failed:", fallbackError);
-        setFormStatus("Failed to submit the form. Please try again.");
-        return;
-      }
-    }
-  
-    // Update user points if submission was successful
-    try {
+
       await axios.put(`https://sadhnaapi.onrender.com/api/user/update/${currentUser?._id}`, 
         { points: newTotalPoints }, 
         {
           headers: {
-            Authorization: `Bearer ${firebaseToken || currentUser?.token}`,
+            Authorization: `Bearer ${currentUser?.token}`,
             'Content-Type': 'application/json',
           },
           withCredentials: true,
         }
       );
+
       alert("Form submitted successfully!");
       setSelectedOptions({});
       setPoints(0);
-      setFormStatus("Form submitted successfully.");
-    } catch (updateError) {
-      console.error("Failed to update points:", updateError);
-      setFormStatus("Form submission was successful, but updating points failed.");
+    } catch (error) {
+      console.error(error);
+      setFormStatus("Failed to submit the form. Please try again.");
     }
   };
-  
 
   return (
     <div className="overflow-x-hidden">
-      {/* Header Section */}
       <div className="hidden md:grid grid-cols-2 gap-4 mt-4 mx-4">
         <div>
           <img src={sadhanaForm} className="w-full max-w-lg" alt="Home" />
@@ -163,7 +122,6 @@ export default function SadhanaForm() {
         </div>
       </div>
 
-      {/* Form Section */}
       <div className="w-full md:mx-20 mx-4">
         {Object.keys(options).map((category) => (
           <div key={category} className="mb-6">
