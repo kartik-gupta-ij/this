@@ -10,10 +10,10 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 5173,
+    port: "https://sadhana-v5rh.onrender.com",
     proxy: {
       '/api': {
-        target: "https://sadhana-v5rh.onrender.com",
+        target: "https://sadhnaapi.onrender.com",
         changeOrigin: true,
         secure: false,
       },

@@ -72,7 +72,7 @@ export default function App() {
   const excelDataDownload = async (userId, userData) => {
     try {
       const response = await axios.get(
-        `https://sadhana-v5rh.onrender.com/api/excel/${userId}`,
+        `/api/excel/${userId}`,
 
         {
           headers: {
