@@ -27,15 +27,12 @@ export default function App() {
       console.error("currentUser or selectedUser is undefined");
       return;
     }
-  
+
     try {
-      await axios.post(
-        `/api/user/addusertomaster/${currentUser._id}`,
-        {
-          subuserIds: selectedUserIds,
-          selectedIds: selectedUser._id,
-        }
-      );
+      await axios.post(`/api/user/addusertomaster/${currentUser._id}`, {
+        subuserIds: selectedUserIds,
+        selectedIds: selectedUser._id,
+      });
       console.log("Selected users added to master successfully");
       alert("Selected users added to master successfully");
     } catch (error) {
@@ -43,7 +40,7 @@ export default function App() {
       alert("Can not add user to master");
     }
   };
-  
+
   const flattenJSON = (data) => {
     const result = [];
     data.forEach((item) => {
@@ -89,7 +86,10 @@ export default function App() {
         const worksheet = XLSX.utils.json_to_sheet(flattenedData);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "jsondata");
-        XLSX.writeFile(workbook, userData.filter((user) => user._id ===  userId) + ".xlsx");
+        XLSX.writeFile(
+          workbook,
+          userData.filter((user) => user._id === userId) + ".xlsx"
+        );
       } else {
         console.error("No jsondata array to export");
       }
@@ -110,13 +110,13 @@ export default function App() {
         };
 
         if ((currentUser.role || currentUser.rest?.role) === "admin") {
-          url = `https://sadhnaapi.onrender.com/api/user/getuser`;
+          url = `http://localhost:5000//api/user/getuser`;
         } else if ((currentUser.role || currentUser.rest?.role) === "master") {
           if (!currentUser._id) {
             console.error("currentUser._id is undefined");
             return;
           }
-          url = `https://sadhnaapi.onrender.com/api/user/getMasterUser/${currentUser._id}`;
+          url = `http://localhost:5000//api/user/getMasterUser/${currentUser._id}`;
         } else {
           console.error("Invalid role");
           return;
@@ -143,7 +143,7 @@ export default function App() {
 
   const toggleStatus = (userId) => {
     axios
-      .post(`https://sadhnaapi.onrender.com/api/user/userStatus/${userId}`, {
+      .post(`http://localhost:5000//api/user/userStatus/${userId}`, {
         userId,
         adminId: currentUser.rest?._id || currentUser._id,
       })
@@ -166,7 +166,7 @@ export default function App() {
 
   const makeMaster = (userId) => {
     axios
-      .post(`https://sadhnaapi.onrender.com/api/user/addmaster/${userId}`, {
+      .post(`http://localhost:5000//api/user/addmaster/${userId}`, {
         adminId: currentUser.rest?._id || currentUser._id,
       })
       .then((response) => {

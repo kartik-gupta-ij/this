@@ -33,7 +33,9 @@ function Community() {
 
   const getQuestionsAndComments = async () => {
     try {
-      const res = await axios.get("https://sadhnaapi.onrender.com/api/comment/allquestion");
+      const res = await axios.get(
+        "http://localhost:5000//api/comment/allquestion"
+      );
       setQuestions(res?.data?.data);
     } catch (error) {
       console.log(error);
@@ -67,15 +69,21 @@ function Community() {
     e.preventDefault();
     const comment = { text: commentInput };
     try {
-      const res = await axios.post(`/api/comment/comment/${questionId}`, comment, {
-        headers: {
-          Authorization: currentUser?.token,
-        },
-      });
+      const res = await axios.post(
+        `/api/comment/comment/${questionId}`,
+        comment,
+        {
+          headers: {
+            Authorization: currentUser?.token,
+          },
+        }
+      );
 
       setQuestions((prevQuestions) =>
         prevQuestions?.map((q) =>
-          q._id === questionId ? { ...q, comments: [...q.comments, res.data.comment] } : q
+          q._id === questionId
+            ? { ...q, comments: [...q.comments, res.data.comment] }
+            : q
         )
       );
 
@@ -89,7 +97,10 @@ function Community() {
   // Filtered questions based on search input and filter category
   const filteredQuestions = questions?.filter((question) => {
     // Filter based on search input
-    if (searchInput !== "" && !question.title.toLowerCase().includes(searchInput.toLowerCase())) {
+    if (
+      searchInput !== "" &&
+      !question.title.toLowerCase().includes(searchInput.toLowerCase())
+    ) {
       return false; // If search input is set and title does not match, exclude question
     }
 
@@ -101,7 +112,10 @@ function Community() {
     } else if (filterCategory === "unanswered") {
       return question.comments.length === 0; // Replace with your logic to filter unanswered questions
     } else if (filterCategory === "myAnswers") {
-      return question.comments.some(comment => comment.user._id === currentUser._id || currentUser?.rest?._id); // Replace with your logic to match user's answers
+      return question.comments.some(
+        (comment) =>
+          comment.user._id === currentUser._id || currentUser?.rest?._id
+      ); // Replace with your logic to match user's answers
     }
 
     return true; // Default to returning the question
@@ -118,15 +132,21 @@ function Community() {
           <div className="w-full flex justify-center items-center mt-4">
             <div className="md:hidden w-[300px] h-[46px] flex justify-between border-2 border-[#008080] mt-2">
               <div
-                className={`w-1/2 flex justify-center items-center text-center ${activeLink === "chatroom" ? "bg-[#008080] text-white" : "text-[#008080]"
-                  }`}
+                className={`w-1/2 flex justify-center items-center text-center ${
+                  activeLink === "chatroom"
+                    ? "bg-[#008080] text-white"
+                    : "text-[#008080]"
+                }`}
                 onClick={() => handleLinkClick("chatroom")}
               >
                 <Link to="/chatroom">ChatRoom</Link>
               </div>
               <div
-                className={`w-1/2 flex justify-center items-center text-center ${activeLink === "community" ? "bg-[#008080] text-white" : "text-[#008080]"
-                  }`}
+                className={`w-1/2 flex justify-center items-center text-center ${
+                  activeLink === "community"
+                    ? "bg-[#008080] text-white"
+                    : "text-[#008080]"
+                }`}
                 onClick={() => handleLinkClick("community")}
               >
                 <Link to="/community">Q & A</Link>
@@ -145,9 +165,11 @@ function Community() {
                   </p>
                   <div className="flex justify-center items-center pb-4 md:pb-10">
                     <div className="relative mb-2 flex items-center w-full ">
-                      {questionInput.length === 0 && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FFA500] pointer-events-none">
-                        Type Something...
-                      </span>}
+                      {questionInput.length === 0 && (
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#FFA500] pointer-events-none">
+                          Type Something...
+                        </span>
+                      )}
                       <input
                         type="text"
                         value={questionInput}
@@ -167,7 +189,7 @@ function Community() {
                 </div>
               </div>
               <div className="flex justify-center items-center mt-5  md:pr-10 mb-6">
-               {/* <PollCreator />  */}
+                {/* <PollCreator />  */}
                 <div className="relative flex items-center w-full ml-6 border rounded-lg border-[#FFA500]">
                   <input
                     type="text"
@@ -183,29 +205,41 @@ function Community() {
               </div>
               <div className="w-full hidden md:flex flex-row justify-around mt-3 md:text-xl text-sm gap-2">
                 <div
-                  className={`rounded-md py-1 md:px-3 px-1 cursor-pointer ${filterCategory === "all" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
-                    }`}
+                  className={`rounded-md py-1 md:px-3 px-1 cursor-pointer ${
+                    filterCategory === "all"
+                      ? "bg-[#008080] text-white"
+                      : "bg-[#FFEDCC]"
+                  }`}
                   onClick={() => setFilterCategory("all")}
                 >
                   All Questions
                 </div>
                 <div
-                  className={`rounded-md py-1 px-3 cursor-pointer ${filterCategory === "myQuestions" ? "bg-[#008080] text-white" : "bg-[#FFEDCC] "
-                    }`}
+                  className={`rounded-md py-1 px-3 cursor-pointer ${
+                    filterCategory === "myQuestions"
+                      ? "bg-[#008080] text-white"
+                      : "bg-[#FFEDCC] "
+                  }`}
                   onClick={() => setFilterCategory("myQuestions")}
                 >
                   My Questions
                 </div>
                 <div
-                  className={`rounded-md py-1 px-3 cursor-pointer ${filterCategory === "unanswered" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
-                    }`}
+                  className={`rounded-md py-1 px-3 cursor-pointer ${
+                    filterCategory === "unanswered"
+                      ? "bg-[#008080] text-white"
+                      : "bg-[#FFEDCC]"
+                  }`}
                   onClick={() => setFilterCategory("unanswered")}
                 >
                   Unanswered Questions
                 </div>
                 <div
-                  className={`rounded-md py-1 px-3 cursor-pointer ${filterCategory === "myAnswers" ? "bg-[#008080] text-white" : "bg-[#FFEDCC]"
-                    }`}
+                  className={`rounded-md py-1 px-3 cursor-pointer ${
+                    filterCategory === "myAnswers"
+                      ? "bg-[#008080] text-white"
+                      : "bg-[#FFEDCC]"
+                  }`}
                   onClick={() => setFilterCategory("myAnswers")}
                 >
                   My Answers
